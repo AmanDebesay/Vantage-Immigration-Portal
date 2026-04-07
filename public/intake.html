@@ -220,7 +220,18 @@
   <div id="step2" style="display:none">
     <div class="form-card">
       <div class="form-title">Step 2 — Background Questions</div>
-      <div class="form-sub">Please answer honestly. These questions help us assess your case accurately. / እዚ ሕቶታት ብቅንዕና መልሱ — ንጉዳይኩም ንኽግምግም ይሕግዝ።</div>
+      <div class="form-sub">Please answer honestly. These help us assess your case. / ብቅንዕና መልሱ / أجب بصدق / በቅንነት መልስ</div>
+
+      <!-- Language selector -->
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:10px 14px;background:var(--navy-l);border-radius:var(--radius)">
+        <span style="font-size:12px;font-weight:600;color:var(--navy)">Question language:</span>
+        <select id="bgLang" onchange="renderBgQuestions()" style="width:auto;padding:5px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
+          <option value="en">English</option>
+          <option value="ti">ትግርኛ (Tigrinya)</option>
+          <option value="ar">العربية (Arabic)</option>
+          <option value="am">አማርኛ (Amharic)</option>
+        </select>
+      </div>
 
       <div id="bgQuestions"></div>
 
@@ -310,32 +321,85 @@
   if (params.get('type')) document.getElementById('s1_appType').value = params.get('type');
 
   const BG_QUESTIONS = [
-    { id:'q_criminal', en:'Have you ever been convicted of a criminal offence in any country?', ti:'ኣብ ዝኾነ ሃገር ብገበን ተፈሪድካ/ኺ ዶ ትፈልጥ?', warn:'Criminal history must be disclosed. It may affect your eligibility but does not automatically disqualify you.' },
-    { id:'q_removal', en:'Have you ever been removed, deported, or excluded from Canada or any other country?', ti:'ካብ ካናዳ ወይካብ ካልእ ሃገር ተባሪርካ/ኪ ዶ ትፈልጥ?', warn:'Previous removal must be disclosed to assess potential inadmissibility.' },
-    { id:'q_refused', en:'Have you ever been refused a visa or permit to enter Canada?', ti:'ናይ ካናዳ ቪዛ ወይ ፍቓድ ምእታው ተኣቢዩካ/ኪ ዶ?', warn:'' },
-    { id:'q_military', en:'Have you served in the military, police, or intelligence services in any country?', ti:'ኣብ ዝኾነ ሃገር ኣብ ሰራዊት፣ ፖሊስ ወይ ስለያ ኣገልጊልካ/ኪ ዶ?', warn:'' },
-    { id:'q_health', en:'Do you have any serious medical conditions or communicable diseases?', ti:'ዝኾነ ከቢድ ሕማም ወይ ተላባዒ ሕማም ኣለካ/ኪ ዶ?', warn:'' },
-    { id:'q_fraud', en:'Has a representative ever filed an application on your behalf without your knowledge?', ti:'ዝኾነ ወኪል ብዘይ ፍቓድካ/ኺ ናብ ካናዳ ዝቐረበ ሕቶ ኣቕሪቡ ዶ?', warn:'' }
+    {
+      id:'q_criminal',
+      en:'Have you ever been convicted of a criminal offence in any country?',
+      ti:'ኣብ ዝኾነ ሃገር ብገበን ተፈሪድካ/ኺ ዶ ትፈልጥ?',
+      ar:'هل سبق أن صدر بحقك حكم إدانة جنائية في أي دولة؟',
+      am:'በማንኛውም ሃገር የወንጀል ፍርድ ተፈርዶብህ/ሽ ታውቃለህ/ሽ?',
+      warn:'Criminal history must be disclosed. It may affect eligibility but does not automatically disqualify you.'
+    },
+    {
+      id:'q_removal',
+      en:'Have you ever been removed, deported, or excluded from Canada or any other country?',
+      ti:'ካብ ካናዳ ወይ ካብ ካልእ ሃገር ተባሪርካ/ኪ ዶ ትፈልጥ?',
+      ar:'هل سبق أن تم ترحيلك أو إبعادك من كندا أو أي دولة أخرى؟',
+      am:'ከካናዳ ወይም ከሌላ ሃገር ተባሮ/ርና ታውቃለህ/ሽ?',
+      warn:'Previous removal must be disclosed to assess potential inadmissibility.'
+    },
+    {
+      id:'q_refused',
+      en:'Have you ever been refused a visa or permit to enter Canada?',
+      ti:'ናይ ካናዳ ቪዛ ወይ ፍቓድ ምእታው ተኣቢዩካ/ኪ ዶ?',
+      ar:'هل سبق رفض طلب تأشيرتك أو تصريح دخولك إلى كندا؟',
+      am:'ወደ ካናዳ ለመግባት ቪዛ ወይም ፈቃድ ተቀስቶብህ/ሽ ታውቃለህ/ሽ?',
+      warn:''
+    },
+    {
+      id:'q_military',
+      en:'Have you served in the military, police, or intelligence services in any country?',
+      ti:'ኣብ ዝኾነ ሃገር ኣብ ሰራዊት፣ ፖሊስ ወይ ስለያ ኣገልጊልካ/ኪ ዶ?',
+      ar:'هل خدمت في الجيش أو الشرطة أو الاستخبارات في أي دولة؟',
+      am:'በማንኛውም ሃገር በጦር ሃይል፣ ፖሊስ ወይም የስለላ አገልግሎት አገልግለህ/ሽ ታውቃለህ/ሽ?',
+      warn:''
+    },
+    {
+      id:'q_health',
+      en:'Do you have any serious medical conditions or communicable diseases?',
+      ti:'ዝኾነ ከቢድ ሕማም ወይ ተላባዒ ሕማም ኣለካ/ኪ ዶ?',
+      ar:'هل تعاني من أي حالة طبية خطيرة أو أمراض معدية؟',
+      am:'ከባድ የጤና ችግር ወይም ተላላፊ በሽታ አለህ/ሽ?',
+      warn:''
+    },
+    {
+      id:'q_fraud',
+      en:'Has a representative ever filed an application on your behalf without your knowledge?',
+      ti:'ዝኾነ ወኪል ብዘይ ፍቓድካ/ኺ ናብ ካናዳ ዝቐረበ ሕቶ ኣቕሪቡ ዶ?',
+      ar:'هل قدّم ممثل طلبًا نيابةً عنك دون علمك؟',
+      am:'ማንኛውም ወኪል ሳታውቅ/ቂ በአንተ/ቺ ስም ማመልከቻ አቅርቦ ታውቃለህ/ሽ?',
+      warn:''
+    }
   ];
 
   const answers = {};
 
+  const YES_LABELS = { en:'Yes', ti:'እወ', ar:'نعم', am:'አዎ' };
+  const NO_LABELS  = { en:'No',  ti:'ኣይፋልን', ar:'لا', am:'አይደለም' };
+
   function renderBgQuestions() {
+    const lang = document.getElementById('bgLang')?.value || 'en';
+    const isRTL = lang === 'ar';
     const container = document.getElementById('bgQuestions');
-    container.innerHTML = BG_QUESTIONS.map((q,i) => `
-      <div class="bg-question" id="bgq_${q.id}">
-        <div class="bg-q-text">${i+1}. ${q.en}</div>
-        <div class="bg-q-ti">${q.ti}</div>
+    container.innerHTML = BG_QUESTIONS.map((q,i) => {
+      const qText = q[lang] || q.en;
+      const yesLbl = YES_LABELS[lang] || 'Yes';
+      const noLbl  = NO_LABELS[lang]  || 'No';
+      const curAns = answers[q.id];
+      return `
+      <div class="bg-question" id="bgq_${q.id}" ${isRTL ? 'dir="rtl"' : ''}>
+        <div class="bg-q-text">${i+1}. ${qText}</div>
+        ${lang !== 'en' ? `<div class="bg-q-ti" style="font-size:11px;color:var(--gray-400)">${q.en}</div>` : ''}
         <div class="bg-q-opts">
-          <label class="bg-opt" id="opt_yes_${q.id}" onclick="setBgAnswer('${q.id}','yes')">
-            <input type="radio" name="${q.id}" value="yes"> Yes / እወ
+          <label class="bg-opt ${curAns==='yes'?'selected-yes':''}" id="opt_yes_${q.id}" onclick="setBgAnswer('${q.id}','yes')">
+            <input type="radio" name="${q.id}" value="yes" ${curAns==='yes'?'checked':''}> ${yesLbl}
           </label>
-          <label class="bg-opt" id="opt_no_${q.id}" onclick="setBgAnswer('${q.id}','no')">
-            <input type="radio" name="${q.id}" value="no"> No / ኣይፋልን
+          <label class="bg-opt ${curAns==='no'?'selected-no':''}" id="opt_no_${q.id}" onclick="setBgAnswer('${q.id}','no')">
+            <input type="radio" name="${q.id}" value="no" ${curAns==='no'?'checked':''}> ${noLbl}
           </label>
         </div>
-        ${q.warn ? `<div class="bg-warn" id="warn_${q.id}">${q.warn}</div>` : ''}
-      </div>`).join('');
+        ${q.warn ? `<div class="bg-warn" id="warn_${q.id}" style="display:${curAns==='yes'?'block':'none'}">${q.warn}</div>` : ''}
+      </div>`;
+    }).join('');
   }
 
   function setBgAnswer(id, val) {
