@@ -140,6 +140,7 @@
       <button class="client-nav-btn" id="cnav-agreement" onclick="clientPage('agreement')">✍ Agreements</button>
       <button class="client-nav-btn" id="cnav-tasks" onclick="clientPage('tasks')">✅ Tasks</button>
       <button class="client-nav-btn" id="cnav-documents" onclick="clientPage('documents')">📁 Documents</button>
+      <button class="client-nav-btn" id="cnav-checklist" onclick="clientPage('checklist')">☑ Checklist</button>
       <button class="client-nav-btn" id="cnav-messages" onclick="clientPage('messages')">💬 Messages</button>
       <button class="client-nav-btn" onclick="logout()" style="color:rgba(255,255,255,.4);margin-left:4px">Sign Out</button>
     </div>
@@ -227,6 +228,10 @@
 
       <!-- Consultation Agreement card -->
       <div class="card" id="consultAgrCard">
+        <!-- Auto-filled notice (shown when staff data available) -->
+        <div id="consultAutoFillNotice" style="display:none;background:var(--navy-l);border:1px solid var(--navy);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--navy)">
+          ✅ Your agreement has been prepared by your consultant with your information pre-filled. Please review carefully before signing.
+        </div>
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
           <div>
             <div class="card-title">Step 1 — Consultation Agreement</div>
@@ -234,15 +239,22 @@
           </div>
           <span class="badge badge-orange" id="consultStatus">Pending</span>
         </div>
-        <div class="agr-text">
+        <!-- PDF embed (shown when PDF available) -->
+        <div id="consultPdfWrap" style="display:none;margin-bottom:14px">
+          <iframe id="consultPdfFrame" src="" style="width:100%;height:500px;border:1px solid var(--border);border-radius:var(--radius)" title="Consultation Agreement PDF"></iframe>
+          <div style="margin-top:8px;font-size:11px;color:var(--gray-600)">Can't see the PDF? <a id="consultPdfLink" href="#" target="_blank" style="color:var(--navy)">Open in new tab ↗</a></div>
+        </div>
+        <!-- Inline text (fallback) -->
+        <div class="agr-text" id="consultAgrText">
+          <div id="consultFilledFields" style="background:var(--navy-l);border-radius:var(--radius);padding:12px;margin-bottom:12px;font-size:12px;line-height:2;display:none"></div>
           <h4>1. Purpose and Scope</h4>
           <p>This Agreement is for a <strong>one-time initial consultation only</strong>. No application preparation or ongoing representation is included. Any further services require a separate written retainer agreement.</p>
           <h4>2. No Guarantee</h4>
           <p>Opinions are based solely on information provided at time of consultation. The RCIC does <strong>not guarantee</strong> eligibility, approval, processing times, or any particular outcome.</p>
           <h4>3. Consultation Fee</h4>
-          <p>The consultation fee is earned once the consultation has taken place and is <strong>non-refundable</strong>, unless otherwise required by law.</p>
+          <p>The consultation fee is <strong id="consultFeeDisplay"></strong> and is earned once the consultation has taken place. It is <strong>non-refundable</strong>, unless otherwise required by law.</p>
           <h4>4. Confidentiality (CICC Code s.28)</h4>
-          <p>All information relating to the Client acquired during the professional relationship is kept strictly confidential, unless disclosure is authorized by the Client or required by law.</p>
+          <p>All information relating to the Client acquired during the professional relationship is kept strictly confidential.</p>
           <h4>5. Privacy (PIPEDA / PIPA Alberta)</h4>
           <p>The Client consents to collection, use, and storage of personal information for immigration consulting purposes.</p>
           <h4>6. Governing Law</h4>
@@ -274,23 +286,32 @@
           </div>
           <span class="badge badge-gray" id="serviceStatus">Locked</span>
         </div>
-        <div class="agr-text">
+        <!-- PDF embed -->
+        <div id="servicePdfWrap" style="display:none;margin-bottom:14px">
+          <iframe id="servicePdfFrame" src="" style="width:100%;height:500px;border:1px solid var(--border);border-radius:var(--radius)" title="Service Agreement PDF"></iframe>
+          <div style="margin-top:8px;font-size:11px;color:var(--gray-600)">Can't see the PDF? <a id="servicePdfLink" href="#" target="_blank" style="color:var(--navy)">Open in new tab ↗</a></div>
+        </div>
+        <!-- Inline text (always shown, auto-filled from staff data) -->
+        <div class="agr-text" id="serviceAgrText">
+          <div id="serviceFilledFields" style="background:var(--navy-l);border-radius:var(--radius);padding:12px;margin-bottom:12px;font-size:12px;line-height:2;display:none"></div>
           <h4>1. Authorization and Retainer</h4>
-          <p>The Client retains Vantage Immigration Services to provide immigration consulting services for the application noted in the intake form. The RCIC is a member in good standing of the CICC.</p>
-          <h4>2. Scope of Services</h4>
-          <p>Services include: (a) assessment and advice; (b) preparation and submission of the application; (c) communication with IRCC on the Client's behalf; (d) IMM 5476 Use of Representative authorization.</p>
+          <p>The Client retains <strong>Vantage Immigration Services</strong> (<strong id="saRcicDisplay"></strong>) to provide immigration consulting services for: <strong id="saAppTypeDisplay"></strong></p>
+          <h4>2. Professional Fees</h4>
+          <p>Total fee: <strong id="saTotalFeeDisplay"></strong><br>
+          Stage 1 (on signing): <strong id="saStage1Display"></strong><br>
+          Stage 2 (at IRCC submission): <strong id="saStage2Display"></strong></p>
           <h4>3. 48-Hour Cooling-Off Period</h4>
-          <p>The Client may cancel within 48 hours of signing for a full refund of any advance payments. After 48 hours, fees for work performed are non-refundable.</p>
+          <p>The Client may cancel within <strong>48 hours</strong> of signing for a full refund. After 48 hours, fees for work performed are non-refundable.</p>
           <h4>4. Fees and Trust Account</h4>
-          <p>All advance payments are deposited into the Consultant's trust account. Fees are earned upon completion of each stage. Government IRCC fees are separate and non-refundable once paid.</p>
+          <p>All advance payments are deposited into the Consultant's trust account. Government IRCC fees are separate and non-refundable once paid.</p>
           <h4>5. Client Responsibilities</h4>
-          <p>The Client agrees to provide accurate, complete, and honest information at all times. <strong>Misrepresentation Warning:</strong> False information may lead to refusal, loss of status, and future ineligibility.</p>
-          <h4>6. Confidentiality and Privacy</h4>
-          <p>All client information is kept strictly confidential per CICC Code s.28 and shared only with IRCC and necessary authorities.</p>
-          <h4>7. Termination</h4>
-          <p>Either party may terminate in writing. The Consultant may withdraw for non-cooperation, non-payment, or unethical requests.</p>
+          <p>The Client agrees to provide accurate, complete, and honest information. <strong>Misrepresentation Warning:</strong> False or misleading information may lead to refusal, loss of status, and future ineligibility. <em>Client initials: _______</em></p>
+          <h4>6. Scope of Services</h4>
+          <p>Services include: (a) assessment and advice; (b) preparation and submission of the application; (c) IRCC communication; (d) IMM 5476 Use of Representative.</p>
+          <h4>7. Confidentiality (CICC Code s.28 / PIPEDA / PIPA Alberta)</h4>
+          <p>All client information kept strictly confidential. Shared only with IRCC and necessary authorities.</p>
           <h4>8. Dispute Resolution</h4>
-          <p>Complaints may be filed with the CICC — 5500 North Service Road, Suite 1002, Burlington ON L7L 6W6 — 1-877-836-7543 — college-ic.ca</p>
+          <p>Complaints: CICC — 5500 North Service Road, Suite 1002, Burlington ON L7L 6W6 — 1-877-836-7543 — college-ic.ca</p>
         </div>
         <div class="agr-confirm">
           <input type="checkbox" id="serviceChk" style="margin-top:2px">
@@ -336,6 +357,18 @@
         </div>
         <div id="uploadedFiles" style="margin-top:14px"></div>
       </div>
+    </div>
+
+    <!-- PAGE: CHECKLIST -->
+    <div class="client-page" id="cp-checklist">
+      <div class="page-header">
+        <div class="page-title">Document Checklist</div>
+        <div id="checklistIrccBtn"></div>
+      </div>
+      <div id="checklistGate" style="display:none">
+        <div class="alert alert-warn">🔒 Your document checklist will unlock once you sign the Service Agreement. Please go to <strong onclick="clientPage('agreement')" style="cursor:pointer;text-decoration:underline">Agreements</strong> to complete this step.</div>
+      </div>
+      <div id="checklistContent"></div>
     </div>
 
     <!-- PAGE: MESSAGES -->
@@ -385,6 +418,7 @@
   </div>
 </div>
 
+<script src="../../shared/js/agreements.js"></script>
 <script>
 // ── SESSION ──────────────────────────────────────────────────────
 const session = {
@@ -440,12 +474,76 @@ function initPortal() {
   document.getElementById('welcomeName').textContent = 'Welcome back, ' + firstName;
   document.getElementById('welcomeSub').textContent  = appTypeLabel(session.appType) + ' · In Progress';
   document.getElementById('portalFileId').textContent = session.fileId;
+
+  // Load staff-pushed data for this file
+  loadStaffData();
   buildStageTracker();
   buildNextSteps();
   buildClientTasks();
   buildDocChecklist();
   buildMessages();
   applyAgreementState();
+  buildChecklist();
+}
+
+function loadStaffData() {
+  try {
+    const raw = localStorage.getItem('vantage_client_' + session.fileId);
+    if (raw) {
+      const d = JSON.parse(raw);
+      // Sync name and app type from staff data if richer
+      if (d.fullName) session.name = d.fullName;
+      if (d.appType)  session.appType = d.appType;
+      if (d.staffMessages && d.staffMessages.length) {
+        session.staffMessages = d.staffMessages;
+      }
+      session.staffData = d;
+
+      // Show auto-fill notice if staff has prepared agreements
+      if (d.consultReady) {
+        document.getElementById('consultAutoFillNotice').style.display = 'block';
+        const ff = document.getElementById('consultFilledFields');
+        if (ff) {
+          ff.style.display = 'block';
+          ff.innerHTML = `<strong style="color:var(--navy)">Pre-filled by your consultant:</strong><br>
+            Client: <strong>${d.fullName||''}</strong> · DOB: <strong>${d.dob||''}</strong><br>
+            RCIC: <strong>${d.rcic_name||''}</strong> · CICC#: <strong>${d.rcic_cicc||''}</strong><br>
+            Purpose: <strong>${d.purpose||''}</strong> · Fee: <strong>${d.consultFee||''}</strong>`;
+          const feeEl = document.getElementById('consultFeeDisplay');
+          if (feeEl) feeEl.textContent = d.consultFee || '$150 CAD';
+        }
+      }
+      if (d.serviceReady) {
+        const sf = document.getElementById('serviceFilledFields');
+        if (sf) {
+          sf.style.display = 'block';
+          sf.innerHTML = `<strong style="color:var(--navy)">Pre-filled by your consultant:</strong><br>
+            Client: <strong>${d.fullName||''}</strong> · Passport: <strong>${d.passport||''}</strong><br>
+            Application: <strong>${d.appTypeLabel||''}</strong><br>
+            Total Fee: <strong>${d.totalFee||''}</strong>`;
+        }
+        const rcicEl = document.getElementById('saRcicDisplay');
+        const appEl  = document.getElementById('saAppTypeDisplay');
+        const feeEl  = document.getElementById('saTotalFeeDisplay');
+        const s1El   = document.getElementById('saStage1Display');
+        const s2El   = document.getElementById('saStage2Display');
+        if (rcicEl)  rcicEl.textContent  = d.rcic_name || '';
+        if (appEl)   appEl.textContent   = d.appTypeLabel || appTypeLabel(session.appType);
+        if (feeEl)   feeEl.textContent   = d.totalFee || '';
+        if (s1El)    s1El.textContent    = d.stage1Fee || '';
+        if (s2El)    s2El.textContent    = d.stage2Fee || '';
+      }
+      // Sync signed status from staff data too
+      if (d.consultSigned) {
+        PORTAL_STATE.consultationSigned = true;
+        sessionStorage.setItem('vantage_consultSigned','1');
+      }
+      if (d.serviceSigned) {
+        PORTAL_STATE.serviceSigned = true;
+        sessionStorage.setItem('vantage_serviceSigned','1');
+      }
+    }
+  } catch(e) {}
 }
 
 function appTypeLabel(id) {
@@ -564,6 +662,14 @@ function signConsultation() {
   if (!name) { alert('Please type your full legal name to sign.'); return; }
   PORTAL_STATE.consultationSigned = true;
   sessionStorage.setItem('vantage_consultSigned','1');
+  // Write back to staff data bridge
+  try {
+    const d = JSON.parse(localStorage.getItem('vantage_client_' + session.fileId)||'{}');
+    d.consultSigned = true;
+    d.consultSignedBy = name;
+    d.consultSignedAt = new Date().toISOString();
+    localStorage.setItem('vantage_client_' + session.fileId, JSON.stringify(d));
+  } catch(e) {}
   applyAgreementState();
   buildStageTracker();
   buildNextSteps();
@@ -576,11 +682,89 @@ function signService() {
   if (!name) { alert('Please type your full legal name to sign.'); return; }
   PORTAL_STATE.serviceSigned = true;
   sessionStorage.setItem('vantage_serviceSigned','1');
+  // Write back to staff data bridge
+  try {
+    const d = JSON.parse(localStorage.getItem('vantage_client_' + session.fileId)||'{}');
+    d.serviceSigned = true;
+    d.serviceSignedBy = name;
+    d.serviceSignedAt = new Date().toISOString();
+    localStorage.setItem('vantage_client_' + session.fileId, JSON.stringify(d));
+  } catch(e) {}
   applyAgreementState();
   buildStageTracker();
   buildNextSteps();
-  // Auto-navigate to dashboard after signing
-  setTimeout(() => { clientPage('dashboard'); }, 1000);
+  buildChecklist();
+  setTimeout(() => { clientPage('checklist'); }, 1000);
+}
+
+// ── CHECKLIST ──────────────────────────────────────────────────────
+function buildChecklist() {
+  const el = document.getElementById('checklistContent');
+  const gate = document.getElementById('checklistGate');
+  if (!el) return;
+
+  if (!PORTAL_STATE.serviceSigned) {
+    gate.style.display = 'block';
+    el.innerHTML = '';
+    return;
+  }
+  gate.style.display = 'none';
+
+  const appType = session.appType || 'spousal_spouses';
+  const cl = CLIENT_CHECKLISTS[appType];
+  if (!cl) { el.innerHTML = '<p class="text-muted">Checklist not available. Contact your consultant.</p>'; return; }
+
+  // IRCC button
+  const irccBtn = document.getElementById('checklistIrccBtn');
+  if (irccBtn) irccBtn.innerHTML = `<a href="${cl.ircc}" target="_blank" class="btn btn-sm btn-primary">IRCC Page ↗</a>`;
+
+  // Load saved check state
+  let checks = {};
+  try { checks = JSON.parse(localStorage.getItem('vantage_checks_'+session.fileId)||'{}'); } catch(e) {}
+
+  let html = `<div class="alert alert-success" style="margin-bottom:14px">✓ Service agreement signed — your checklist is now active. Check off items as you prepare them and upload in the Documents tab.</div>`;
+
+  cl.sections.forEach(sec => {
+    html += `<div class="card"><div class="card-title">${sec.name}</div>`;
+    sec.items.forEach((item,i) => {
+      const key = sec.name+'_'+i;
+      const done = checks[key] || false;
+      // Get staff review status
+      let staffStatus = '';
+      try {
+        const d = JSON.parse(localStorage.getItem('vantage_client_'+session.fileId)||'{}');
+        const ds = (d.uploadedDocs||{})[key];
+        if (ds === 'accepted') staffStatus = '<span class="badge badge-green" style="margin-left:6px">✓ Accepted</span>';
+        else if (ds === 'reupload') staffStatus = '<span class="badge badge-red" style="margin-left:6px">Re-upload needed</span>';
+        else if (ds === 'received') staffStatus = '<span class="badge badge-blue" style="margin-left:6px">Received</span>';
+      } catch(e) {}
+
+      html += `<div class="checklist-item ${done?'done':''}" onclick="toggleCheck('${key}',this)" id="chk_${key}">
+        <input type="checkbox" ${done?'checked':''} onclick="event.stopPropagation()">
+        <div class="item-info">
+          <div class="item-en">${item.en} ${staffStatus}</div>
+          <div class="item-ti">${item.ti}</div>
+          <div class="${item.required?'req-required':'req-optional'}">${item.required?'✦ Required':'◦ If applicable'}</div>
+        </div>
+        <button class="btn btn-sm" style="flex-shrink:0;font-size:11px" onclick="event.stopPropagation();clientPage('documents')">Upload ↑</button>
+      </div>`;
+    });
+    html += '</div>';
+  });
+
+  el.innerHTML = html;
+}
+
+function toggleCheck(key, el) {
+  el.classList.toggle('done');
+  const chk = el.querySelector('input[type=checkbox]');
+  if (chk) chk.checked = !chk.checked;
+  // Save state
+  try {
+    const checks = JSON.parse(localStorage.getItem('vantage_checks_'+session.fileId)||'{}');
+    checks[key] = chk ? chk.checked : false;
+    localStorage.setItem('vantage_checks_'+session.fileId, JSON.stringify(checks));
+  } catch(e) {}
 }
 
 // ── TASKS ──────────────────────────────────────────────────────────
@@ -629,14 +813,20 @@ function buildDocChecklist() {
 
 // ── MESSAGES ───────────────────────────────────────────────────────
 function buildMessages() {
-  const msgs = [
-    { from:'Vantage Immigration', text:'Welcome to your portal! Please sign the Consultation Agreement to get started. I will be in touch within 24 hours.', time:'Just now', unread:true },
-    { from:'Vantage Immigration', text:'Ensure your passport is valid for at least 6 months before we submit.', time:'1 hour ago', unread:true }
+  const defaultMsgs = [
+    { from:'Vantage Immigration', text:'Welcome to your portal! Please sign the Consultation Agreement to get started. I will be in touch within 24 hours.', time:'Upon account creation', unread:true },
+    { from:'Vantage Immigration', text:'Ensure your passport is valid for at least 6 months before we submit.', time:'Reminder', unread:false }
   ];
-  document.getElementById('messageList').innerHTML = msgs.map(m => `
+  // Merge staff-pushed messages
+  const staffMsgs = (session.staffMessages||[]).map(m => ({
+    from: m.from || 'Vantage Immigration',
+    text: m.text, time: m.time, unread: true
+  }));
+  const all = [...staffMsgs, ...defaultMsgs];
+  document.getElementById('messageList').innerHTML = all.map(m => `
     <div class="message-row ${m.unread ? 'message-unread' : ''}">
       <div class="message-from">${m.from}</div>
-      <div class="message-text">${m.text}</div>
+      <div class="message-text">${m.text.replace(/</g,'&lt;')}</div>
       <div class="message-time">${m.time}</div>
     </div>`).join('');
 }
