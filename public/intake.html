@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Start Your Application — Vantage Immigration</title>
+  <style>
+    :root{--navy:#1B3A5C;--navy-d:#152e4a;--navy-l:#EAF2FB;--gold:#C9A84C;--gold-d:#b8953d;--white:#fff;--gray-50:#f8f9fa;--gray-100:#f2f2f2;--gray-200:#e5e5e5;--gray-600:#666;--gray-800:#333;--green:#1E8449;--green-bg:#EAF3DE;--red:#C0392B;--red-bg:#FCEBEB;--orange:#E67E22;--orange-bg:#FAEEDA;--border:#e0e0e0;--radius:8px;--shadow:0 1px 4px rgba(0,0,0,.09);--font:'Segoe UI',system-ui,Arial,sans-serif}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);background:var(--gray-50);color:var(--gray-800);font-size:14px;min-height:100vh}
+    a{color:var(--navy)}
+
+    /* NAV */
+    nav{background:var(--navy);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+    .nav-mark{width:34px;height:34px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;font-family:Georgia,serif;color:var(--white)}
+    .nav-name{color:var(--white);font-size:14px;font-weight:700}
+    .nav-back{color:rgba(255,255,255,.7);font-size:13px;text-decoration:none}
+    .nav-back:hover{color:var(--white)}
+
+    /* PROGRESS */
+    .progress-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:20px 0}
+    .progress-inner{max-width:700px;margin:0 auto;padding:0 24px}
+    .progress-steps{display:flex;align-items:center;justify-content:center;gap:0}
+    .prog-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
+    .prog-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;z-index:1;border:2px solid var(--border);background:var(--white);color:var(--gray-400);transition:.2s}
+    .prog-step.active .prog-dot{background:var(--navy);color:var(--white);border-color:var(--navy)}
+    .prog-step.done .prog-dot{background:var(--green);color:var(--white);border-color:var(--green)}
+    .prog-label{font-size:11px;margin-top:6px;color:var(--gray-600);font-weight:500;text-align:center}
+    .prog-step.active .prog-label{color:var(--navy);font-weight:700}
+    .prog-step.done .prog-label{color:var(--green)}
+    .prog-line{position:absolute;top:17px;left:50%;width:100%;height:2px;background:var(--border);z-index:0}
+    .prog-step.done .prog-line{background:var(--green)}
+
+    /* FORM */
+    .form-wrap{max-width:700px;margin:32px auto;padding:0 24px 40px}
+    .form-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;box-shadow:var(--shadow)}
+    .form-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .form-sub{font-size:13px;color:var(--gray-600);margin-bottom:24px}
+    .section-head{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);margin:20px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--navy-l)}
+    .row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    .form-group{margin-bottom:0}
+    .form-group label{font-size:11px;color:var(--gray-600);display:block;margin-bottom:3px;margin-top:10px;font-weight:500}
+    .form-group label .req{color:var(--red)}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;color:var(--gray-800);background:var(--white)}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,58,92,.08)}
+    .form-group textarea{resize:vertical;min-height:80px}
+    .bilingual-note{font-size:11px;color:var(--gray-600);font-style:italic;margin-top:2px}
+
+    /* BACKGROUND Q */
+    .bg-question{border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+    .bg-q-text{font-size:13px;font-weight:500;color:var(--gray-800);margin-bottom:2px}
+    .bg-q-ti{font-size:12px;color:var(--gray-600);font-style:italic;margin-bottom:10px}
+    .bg-q-opts{display:flex;gap:12px}
+    .bg-opt{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--gray-700);padding:6px 14px;border:1px solid var(--border);border-radius:var(--radius);transition:.15s}
+    .bg-opt:hover{border-color:var(--navy);background:var(--navy-l)}
+    .bg-opt.selected-yes{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+    .bg-opt.selected-no{border-color:var(--navy);background:var(--navy-l);color:var(--navy)}
+    .bg-opt input[type=radio]{accent-color:var(--navy)}
+    .bg-warn{background:var(--orange-bg);color:var(--orange);border-left:3px solid var(--orange);padding:8px 12px;border-radius:var(--radius);font-size:12px;margin-top:8px;display:none}
+
+    /* ACCOUNT */
+    .file-id-box{background:var(--navy-l);border:2px solid var(--navy);border-radius:var(--radius);padding:16px;text-align:center;margin-bottom:20px}
+    .file-id-label{font-size:11px;color:var(--navy);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+    .file-id-val{font-size:28px;font-weight:800;color:var(--navy);font-family:monospace;letter-spacing:.04em;margin:4px 0}
+    .file-id-note{font-size:11px;color:var(--gray-600)}
+
+    /* BUTTONS */
+    .btn-group{display:flex;gap:10px;margin-top:20px}
+    .btn{display:inline-flex;align-items:center;gap:5px;padding:10px 22px;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);transition:.15s;border:1px solid var(--border);background:var(--white);color:var(--gray-800)}
+    .btn:hover{background:var(--gray-100)}
+    .btn-primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
+    .btn-primary:hover{background:var(--navy-d)}
+    .btn-gold{background:var(--gold);color:var(--white);border-color:var(--gold)}
+    .btn-gold:hover{background:var(--gold-d)}
+    .btn-block{width:100%;justify-content:center}
+
+    /* SUCCESS */
+    #stepSuccess{display:none;text-align:center;padding:40px 20px}
+    .success-icon{font-size:64px;margin-bottom:16px}
+    .success-title{font-size:24px;font-weight:800;color:var(--green);margin-bottom:12px}
+    .success-sub{font-size:15px;color:var(--gray-600);max-width:480px;margin:0 auto 28px;line-height:1.7}
+
+    @media(max-width:640px){.row-2,.row-3{grid-template-columns:1fr}.form-card{padding:20px}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-mark">V</div>
+    <div class="nav-name">Vantage Immigration</div>
+  </a>
+  <a href="index.html" class="nav-back">← Back to website</a>
+</nav>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="progress-inner">
+    <div class="progress-steps" id="progressSteps">
+      <div class="prog-step active" id="ps1">
+        <div class="prog-line"></div>
+        <div class="prog-dot">1</div>
+        <div class="prog-label">Basic Info</div>
+      </div>
+      <div class="prog-step" id="ps2">
+        <div class="prog-line"></div>
+        <div class="prog-dot">2</div>
+        <div class="prog-label">Background</div>
+      </div>
+      <div class="prog-step" id="ps3">
+        <div class="prog-dot">3</div>
+        <div class="prog-label">Account</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORM WRAPPER -->
+<div class="form-wrap">
+
+  <!-- STEP 1: BASIC INFO -->
+  <div id="step1">
+    <div class="form-card">
+      <div class="form-title">Step 1 — Basic Information</div>
+      <div class="form-sub">Tell us about yourself. All fields marked * are required.</div>
+
+      <div class="section-head">Personal Details</div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" id="s1_first" placeholder="Given name">
+        </div>
+        <div class="form-group">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" id="s1_last" placeholder="Family name">
+        </div>
+      </div>
+      <div class="row-3">
+        <div class="form-group">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" id="s1_dob">
+        </div>
+        <div class="form-group">
+          <label>Country of Citizenship <span class="req">*</span></label>
+          <input type="text" id="s1_country" placeholder="e.g. Eritrea, Ethiopia">
+        </div>
+        <div class="form-group">
+          <label>Passport Number</label>
+          <input type="text" id="s1_passport" placeholder="AB123456">
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" id="s1_phone" placeholder="+1 780 000 0000">
+        </div>
+        <div class="form-group">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" id="s1_email" placeholder="your@email.com">
+        </div>
+      </div>
+
+      <div class="section-head">Current Immigration Status</div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Where do you currently live? <span class="req">*</span></label>
+          <select id="s1_location">
+            <option value="">— Select —</option>
+            <option value="in_canada">In Canada</option>
+            <option value="outside_canada">Outside Canada</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Current status in Canada (if applicable)</label>
+          <select id="s1_status">
+            <option value="">— Select —</option>
+            <option>Permanent Resident</option>
+            <option>Canadian Citizen</option>
+            <option>Work Permit Holder</option>
+            <option>Study Permit Holder</option>
+            <option>Visitor / TRV</option>
+            <option>Refugee Claimant</option>
+            <option>No Status</option>
+            <option>Never been to Canada</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="section-head">Application Type</div>
+      <div class="form-group">
+        <label>What service are you applying for? <span class="req">*</span></label>
+        <select id="s1_appType">
+          <option value="">— Select application type —</option>
+          <option value="spousal_spouses">Spousal Sponsorship — Spouses</option>
+          <option value="spousal_commonlaw">Spousal Sponsorship — Common-Law</option>
+          <option value="express_entry">Express Entry PR</option>
+          <option value="work_permit_overseas">Work Permit — Overseas</option>
+          <option value="work_permit_extension">Work Permit Extension</option>
+          <option value="study_permit_overseas">Study Permit — Overseas</option>
+          <option value="study_permit_extension">Study Permit Extension</option>
+          <option value="trv_supervisa">TRV / Super Visa</option>
+          <option value="visitor_extension">Visitor Record Extension</option>
+          <option value="pr_card_renewal">PR Card Renewal</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Brief description of your situation (optional)</label>
+        <textarea id="s1_notes" placeholder="E.g. My spouse is in Eritrea, I am a Canadian PR in Fort McMurray..."></textarea>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="goStep2()">Continue to Background Questions →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: BACKGROUND QUESTIONS -->
+  <div id="step2" style="display:none">
+    <div class="form-card">
+      <div class="form-title">Step 2 — Background Questions</div>
+      <div class="form-sub">Please answer honestly. These questions help us assess your case accurately. / እዚ ሕቶታት ብቅንዕና መልሱ — ንጉዳይኩም ንኽግምግም ይሕግዝ።</div>
+
+      <div id="bgQuestions"></div>
+
+      <div class="btn-group">
+        <button class="btn" onclick="backStep1()">← Back</button>
+        <button class="btn btn-primary" onclick="goStep3()">Continue to Account Creation →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: ACCOUNT CREATION -->
+  <div id="step3" style="display:none">
+    <div class="form-card">
+      <div class="form-title">Step 3 — Create Your Client Account</div>
+      <div class="form-sub">Your file ID has been generated. Create a password to access your client portal.</div>
+
+      <div class="file-id-box">
+        <div class="file-id-label">Your File ID</div>
+        <div class="file-id-val" id="generatedFileId">VIS-2026-AB-XX-000</div>
+        <div class="file-id-note">Save this ID — you will need it to log into your portal</div>
+      </div>
+
+      <div class="section-head">Account Details</div>
+      <div class="form-group">
+        <label>Email (will be your login) <span class="req">*</span></label>
+        <input type="email" id="s3_email" placeholder="your@email.com" readonly>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Create Password <span class="req">*</span></label>
+          <input type="password" id="s3_pass" placeholder="Minimum 8 characters">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password <span class="req">*</span></label>
+          <input type="password" id="s3_pass2" placeholder="Re-enter password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Preferred language / ዝመርጽዎ ቋንቋ</label>
+        <select id="s3_lang">
+          <option value="en">English</option>
+          <option value="ti">Tigrinya / ትግርኛ</option>
+          <option value="both">Both / ክልቲኡ</option>
+        </select>
+      </div>
+
+      <div style="margin-top:16px;padding:12px;background:var(--orange-bg);border-radius:var(--radius);border-left:3px solid var(--orange)">
+        <strong style="font-size:12px;color:var(--orange)">⚠ Before we proceed:</strong>
+        <div style="font-size:12px;color:var(--gray-800);margin-top:4px">A <strong>consultation agreement</strong> must be signed before any work begins. This will be waiting for you when you log in to your portal. The consultation fee is due at or before the consultation.</div>
+      </div>
+
+      <div style="margin-top:14px;display:flex;align-items:flex-start;gap:8px">
+        <input type="checkbox" id="s3_consent" style="margin-top:2px">
+        <label for="s3_consent" style="margin:0;font-size:12px;cursor:pointer;color:var(--gray-800)">I consent to the collection and storage of my personal information in accordance with PIPEDA and Alberta PIPA for the purpose of immigration consulting services.</label>
+      </div>
+      <div style="margin-top:8px;display:flex;align-items:flex-start;gap:8px">
+        <input type="checkbox" id="s3_accurate" style="margin-top:2px">
+        <label for="s3_accurate" style="margin:0;font-size:12px;cursor:pointer;color:var(--gray-800)">I confirm that all information I have provided is true and accurate to the best of my knowledge.</label>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn" onclick="backStep2()">← Back</button>
+        <button class="btn btn-gold" onclick="submitIntake()" style="flex:1;justify-content:center">Create My Account &amp; Enter Portal →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="stepSuccess">
+    <div class="form-card" style="text-align:center;padding:48px 28px">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Application Submitted!</div>
+      <div class="success-sub">Your file has been created. Your consultant will review your intake and contact you within <strong>24 hours</strong> to schedule your consultation.</div>
+      <div class="file-id-box" style="max-width:320px;margin:0 auto 24px">
+        <div class="file-id-label">Your File ID</div>
+        <div class="file-id-val" id="successFileId">VIS-2026-AB-XX-000</div>
+      </div>
+      <a href="portal/dashboard.html" style="display:inline-block;background:var(--navy);color:white;padding:12px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none">Go to My Portal →</a>
+    </div>
+  </div>
+
+</div><!-- /form-wrap -->
+
+<script>
+  // Pre-fill app type from URL param
+  const params = new URLSearchParams(location.search);
+  if (params.get('type')) document.getElementById('s1_appType').value = params.get('type');
+
+  const BG_QUESTIONS = [
+    { id:'q_criminal', en:'Have you ever been convicted of a criminal offence in any country?', ti:'ኣብ ዝኾነ ሃገር ብገበን ተፈሪድካ/ኺ ዶ ትፈልጥ?', warn:'Criminal history must be disclosed. It may affect your eligibility but does not automatically disqualify you.' },
+    { id:'q_removal', en:'Have you ever been removed, deported, or excluded from Canada or any other country?', ti:'ካብ ካናዳ ወይካብ ካልእ ሃገር ተባሪርካ/ኪ ዶ ትፈልጥ?', warn:'Previous removal must be disclosed to assess potential inadmissibility.' },
+    { id:'q_refused', en:'Have you ever been refused a visa or permit to enter Canada?', ti:'ናይ ካናዳ ቪዛ ወይ ፍቓድ ምእታው ተኣቢዩካ/ኪ ዶ?', warn:'' },
+    { id:'q_military', en:'Have you served in the military, police, or intelligence services in any country?', ti:'ኣብ ዝኾነ ሃገር ኣብ ሰራዊት፣ ፖሊስ ወይ ስለያ ኣገልጊልካ/ኪ ዶ?', warn:'' },
+    { id:'q_health', en:'Do you have any serious medical conditions or communicable diseases?', ti:'ዝኾነ ከቢድ ሕማም ወይ ተላባዒ ሕማም ኣለካ/ኪ ዶ?', warn:'' },
+    { id:'q_fraud', en:'Has a representative ever filed an application on your behalf without your knowledge?', ti:'ዝኾነ ወኪል ብዘይ ፍቓድካ/ኺ ናብ ካናዳ ዝቐረበ ሕቶ ኣቕሪቡ ዶ?', warn:'' }
+  ];
+
+  const answers = {};
+
+  function renderBgQuestions() {
+    const container = document.getElementById('bgQuestions');
+    container.innerHTML = BG_QUESTIONS.map((q,i) => `
+      <div class="bg-question" id="bgq_${q.id}">
+        <div class="bg-q-text">${i+1}. ${q.en}</div>
+        <div class="bg-q-ti">${q.ti}</div>
+        <div class="bg-q-opts">
+          <label class="bg-opt" id="opt_yes_${q.id}" onclick="setBgAnswer('${q.id}','yes')">
+            <input type="radio" name="${q.id}" value="yes"> Yes / እወ
+          </label>
+          <label class="bg-opt" id="opt_no_${q.id}" onclick="setBgAnswer('${q.id}','no')">
+            <input type="radio" name="${q.id}" value="no"> No / ኣይፋልን
+          </label>
+        </div>
+        ${q.warn ? `<div class="bg-warn" id="warn_${q.id}">${q.warn}</div>` : ''}
+      </div>`).join('');
+  }
+
+  function setBgAnswer(id, val) {
+    answers[id] = val;
+    const q = BG_QUESTIONS.find(q => q.id === id);
+    document.getElementById('opt_yes_'+id).className = 'bg-opt' + (val==='yes' ? ' selected-yes' : '');
+    document.getElementById('opt_no_'+id).className  = 'bg-opt' + (val==='no'  ? ' selected-no'  : '');
+    if (q && q.warn) {
+      const warn = document.getElementById('warn_'+id);
+      if (warn) warn.style.display = (val === 'yes') ? 'block' : 'none';
+    }
+  }
+
+  function generateFileId(first, last) {
+    const year = new Date().getFullYear();
+    const initials = ((first||'X')[0] + (last||'X')[0]).toUpperCase();
+    const seq = String(Math.floor(Math.random()*900)+100);
+    return `VIS-${year}-AB-${initials}-${seq}`;
+  }
+
+  // ── NAV BETWEEN STEPS ────────────────────────────────────────────
+  function setStep(n) {
+    ['step1','step2','step3','stepSuccess'].forEach(id => document.getElementById(id).style.display='none');
+    const target = n === 'success' ? 'stepSuccess' : 'step'+n;
+    document.getElementById(target).style.display = 'block';
+    [1,2,3].forEach(i => {
+      const el = document.getElementById('ps'+i);
+      if (!el) return;
+      el.className = 'prog-step' + (i < n ? ' done' : i == n ? ' active' : '');
+    });
+    window.scrollTo(0,0);
+  }
+
+  function goStep2() {
+    const first = document.getElementById('s1_first').value.trim();
+    const last  = document.getElementById('s1_last').value.trim();
+    const dob   = document.getElementById('s1_dob').value;
+    const email = document.getElementById('s1_email').value.trim();
+    const phone = document.getElementById('s1_phone').value.trim();
+    const app   = document.getElementById('s1_appType').value;
+    if (!first || !last || !dob || !email || !phone || !app) {
+      alert('Please fill in all required fields (*) before continuing.');
+      return;
+    }
+    renderBgQuestions();
+    setStep(2);
+  }
+
+  function backStep1() { setStep(1); }
+
+  function goStep3() {
+    // Generate file ID from name
+    const first = document.getElementById('s1_first').value.trim();
+    const last  = document.getElementById('s1_last').value.trim();
+    const fileId = generateFileId(first, last);
+    document.getElementById('generatedFileId').textContent = fileId;
+    document.getElementById('s3_email').value = document.getElementById('s1_email').value;
+    setStep(3);
+  }
+
+  function backStep2() { setStep(2); }
+
+  function submitIntake() {
+    const pass  = document.getElementById('s3_pass').value;
+    const pass2 = document.getElementById('s3_pass2').value;
+    if (!pass || pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+    if (pass !== pass2)           { alert('Passwords do not match.'); return; }
+    if (!document.getElementById('s3_consent').checked)  { alert('Please consent to data collection to continue.'); return; }
+    if (!document.getElementById('s3_accurate').checked) { alert('Please confirm the accuracy of your information.'); return; }
+    const fileId = document.getElementById('generatedFileId').textContent;
+    document.getElementById('successFileId').textContent = fileId;
+    // Store basic session data so portal can pick it up
+    sessionStorage.setItem('vantage_fileId', fileId);
+    sessionStorage.setItem('vantage_name', document.getElementById('s1_first').value + ' ' + document.getElementById('s1_last').value);
+    sessionStorage.setItem('vantage_email', document.getElementById('s1_email').value);
+    sessionStorage.setItem('vantage_appType', document.getElementById('s1_appType').value);
+    setStep('success');
+  }
+
+  // Init
+  setStep(1);
+</script>
+</body>
+</html>

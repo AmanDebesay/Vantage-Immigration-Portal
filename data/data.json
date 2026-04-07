@@ -1,0 +1,449 @@
+{
+  "company": {
+    "name": "Vantage Immigration Services",
+    "tagline": "Credible guidance. Community trust.",
+    "location": "Fort McMurray, Alberta",
+    "website": "vantageimmigration.ca",
+    "email": "info@vantageimmigration.ca",
+    "phone": "+1 (780) 000-0000",
+    "cicc": "[YOUR CICC LICENSE #]",
+    "rcic_name": "[YOUR FULL NAME]",
+    "address": "Fort McMurray, AB, Canada"
+  },
+
+  "application_types": [
+    { "id": "spousal_spouses",       "label": "Spousal Sponsorship — Spouses",          "fee": 2350 },
+    { "id": "spousal_commonlaw",     "label": "Spousal Sponsorship — Common-Law",        "fee": 2350 },
+    { "id": "express_entry",         "label": "Express Entry PR",                         "fee": 2800 },
+    { "id": "work_permit_overseas",  "label": "Work Permit — Overseas",                  "fee": 1800 },
+    { "id": "work_permit_extension", "label": "Work Permit Extension",                   "fee": 1200 },
+    { "id": "study_permit_overseas", "label": "Study Permit — Overseas",                 "fee": 1500 },
+    { "id": "study_permit_extension","label": "Study Permit Extension",                  "fee": 900  },
+    { "id": "trv_supervisa",         "label": "TRV or Super Visa Application",           "fee": 1000 },
+    { "id": "visitor_extension",     "label": "Visitor Record Extension",                "fee": 800  },
+    { "id": "pr_card_renewal",       "label": "PR Card Renewal",                         "fee": 700  }
+  ],
+
+  "checklists": {
+    "spousal_spouses": {
+      "title": "Spousal Sponsorship — Spouses",
+      "sections": [
+        {
+          "title": "Principal Applicant (Sponsored Person)",
+          "tigrinya": "ዋና ሕቶ ኣቕራቢ (ስፖንሰር ዝግበሮ ሰብ)",
+          "items": [
+            { "en": "Applicant questionnaire", "ti": "ናይ ሕቶ ኣቕራቢ ሕቶታት ዝርዝር", "required": true },
+            { "en": "Relationship narrative", "ti": "ናይ ዝምድና ታሪክ ጽሑፍ", "required": true },
+            { "en": "Passport & work permit (all pages)", "ti": "ፓስፖርት ምስ ናይ ስራሕ ፍቓድ — ኩሎም ገጻት", "required": true },
+            { "en": "Birth certificate with English translation", "ti": "ናይ ልደት ምስክር ወረቐት ምስ ናይ እንግሊዝኛ ትርጉም", "required": true },
+            { "en": "Divorce certificate / death certificate of previous spouse (with English translation)", "ti": "ናይ ፍትሕ ምስክር ወረቐት ወይ ናይ ሞት ምስክር ወረቐት ናይ ቀደም ሓዳስ — ምስ ትርጉም", "required": false },
+            { "en": "Civil status documents (National ID with translation, Family registry)", "ti": "ናይ ሲቪል ደረጃ ሰነዳት — ናይ ሃገር መለለዪ ካርድ ምስ ትርጉም", "required": true },
+            { "en": "Police certificates (from all countries lived 6+ months)", "ti": "ናይ ፖሊስ ምስክር ወረቓቕቲ — ካብ ዝነበርኩምዋ ሃገራት", "required": true },
+            { "en": "2 passport-size photos", "ti": "2 ናይ ፓስፖርት ዓይነት ስእልታት", "required": true },
+            { "en": "Application fee receipt", "ti": "ናይ ኣቤቱታ ክፍሊት ደረሰኝ", "required": true },
+            { "en": "Accompanying / non-accompanying children's info (height, eye colour, passport, birth certificate, 2 photos each)", "ti": "ናይ ቆልዑ ሓበሬታ — ቁመት፡ ናይ ዓይኒ ሕብሪ፡ ፓስፖርት፡ ናይ ልደት ምስክር ወረቐት", "required": false }
+          ]
+        },
+        {
+          "title": "Sponsor (Person in Canada)",
+          "tigrinya": "ስፖንሰር (ኣብ ካናዳ ዘሎ ሰብ)",
+          "items": [
+            { "en": "Sponsor history questionnaire", "ti": "ናይ ስፖንሰር ታሪክ ሕቶታት", "required": true },
+            { "en": "Most recent Notice of Assessment (NOA)", "ti": "ናይ CRA ዝሓዘ NOA — Line 15000", "required": true },
+            { "en": "Employment reference letter (salary, hours, period)", "ti": "ናይ ስራሕ ደብዳቤ — ደሞዝ፡ ሰዓታት፡ ናይ ስራሕ ግዜ", "required": true },
+            { "en": "Canadian passport or PR card (both sides)", "ti": "ናይ ካናዳ ፓስፖርት ወይ PR ካርድ — ክልቲኡ ሸነኽ", "required": true },
+            { "en": "Divorce certificate if applicable (with English translation)", "ti": "ናይ ፍትሕ ምስክር ወረቐት እንተሃሊዩ — ምስ ትርጉም", "required": false },
+            { "en": "Accompanying or Canadian children's birth certificates", "ti": "ናይ ቆልዑ ናይ ልደት ምስክር ወረቓቕቲ", "required": false },
+            { "en": "Accompanying children's custody documents", "ti": "ናይ ቆልዑ ናይ ሕዝነት ሰነዳት", "required": false }
+          ]
+        },
+        {
+          "title": "Proof of Relationship",
+          "tigrinya": "ናይ ዝምድና ምስክር",
+          "items": [
+            { "en": "Current lease agreement (both names)", "ti": "ናይ ሕጂ ናይ ክራይ ቤት ስምምዕ — ስምታት ክልቲኦም", "required": true },
+            { "en": "Previous lease agreement (if less than 1 year)", "ti": "ቀዳማይ ናይ ክራይ ቤት ስምምዕ — ትሕቲ 1 ዓመት እንተኾይኑ", "required": false },
+            { "en": "Sponsor credit card / bank statements (12 months)", "ti": "ናይ ስፖንሰር ናይ ባንኪ/ክሬዲት ካርድ ቅጺ — 12 ኣዋርሕ", "required": true },
+            { "en": "Applicant credit card / bank statements (12 months)", "ti": "ናይ ሕቶ ኣቕራቢ ናይ ባንኪ ቅጺ — 12 ኣዋርሕ", "required": true },
+            { "en": "Sponsor driver's license", "ti": "ናይ ስፖንሰር ናይ ምርዓው ፍቓድ", "required": true },
+            { "en": "Applicant driver's license or service card", "ti": "ናይ ሕቶ ኣቕራቢ ናይ ምርዓው ፍቓድ ወይ ካርድ", "required": true },
+            { "en": "Joint bank account statement", "ti": "ናይ ሓባር ባንኪ ሕሳብ ቅጺ", "required": false },
+            { "en": "Proof of funds transfers and shared finances", "ti": "ናይ ሓቢርካ ናይ ፋይናንስ ምዝውዋር ምስክር", "required": false },
+            { "en": "Social media posts / chat transcripts", "ti": "ናይ ሶሻል ሚዲያ ጽሑፋት / ናይ ቻት ምልልሳት", "required": false },
+            { "en": "20–30 photos together (different times and places)", "ti": "20–30 ናይ ሓቢርኩም ስእልታት — ዝተፈላለዩ ግዜን ቦታን", "required": true },
+            { "en": "Sponsor visit itineraries / airline tickets", "ti": "ናይ ስፖንሰር ምብጻሕ ትኬት / ናይ ጉዕዞ ሰነዳት", "required": false }
+          ]
+        }
+      ]
+    },
+
+    "spousal_commonlaw": {
+      "title": "Spousal Sponsorship — Common-Law Partners",
+      "sections": [
+        {
+          "title": "Principal Applicant",
+          "tigrinya": "ዋና ሕቶ ኣቕራቢ",
+          "items": [
+            { "en": "Applicant questionnaire", "ti": "ናይ ሕቶ ኣቕራቢ ሕቶታት ዝርዝር", "required": true },
+            { "en": "Relationship narrative", "ti": "ናይ ዝምድና ታሪክ ጽሑፍ", "required": true },
+            { "en": "Passport & work permit", "ti": "ፓስፖርት ምስ ናይ ስራሕ ፍቓድ", "required": true },
+            { "en": "Birth certificate with English translation", "ti": "ናይ ልደት ምስክር ወረቐት ምስ ትርጉም", "required": true },
+            { "en": "Divorce / death certificate of previous spouse (with translation)", "ti": "ናይ ፍትሕ ወይ ናይ ሞት ምስክር ወረቐት — ምስ ትርጉም", "required": false },
+            { "en": "Civil status documents (National ID, Family registry)", "ti": "ናይ ሲቪል ደረጃ ሰነዳት", "required": true },
+            { "en": "Police certificates", "ti": "ናይ ፖሊስ ምስክር ወረቓቕቲ", "required": true },
+            { "en": "2 passport-size photos", "ti": "2 ናይ ፓስፖርት ስእልታት", "required": true },
+            { "en": "Application fee receipt", "ti": "ናይ ኣቤቱታ ክፍሊት ደረሰኝ", "required": true },
+            { "en": "Children's information (if applicable)", "ti": "ናይ ቆልዑ ሓበሬታ (እንተሃሊዩ)", "required": false }
+          ]
+        },
+        {
+          "title": "Sponsor (Person in Canada)",
+          "tigrinya": "ስፖንሰር",
+          "items": [
+            { "en": "Sponsor history questionnaire", "ti": "ናይ ስፖንሰር ታሪክ ሕቶታት", "required": true },
+            { "en": "Most recent Notice of Assessment", "ti": "ናይ CRA NOA", "required": true },
+            { "en": "Employment reference letter", "ti": "ናይ ስራሕ ደብዳቤ", "required": true },
+            { "en": "Canadian passport or PR card (both sides)", "ti": "ናይ ካናዳ ፓስፖርት ወይ PR ካርድ", "required": true },
+            { "en": "Divorce certificate if applicable", "ti": "ናይ ፍትሕ ምስክር ወረቐት (እንተሃሊዩ)", "required": false }
+          ]
+        },
+        {
+          "title": "Proof of Common-Law Relationship (cohabitation 12+ months)",
+          "tigrinya": "ናይ ሓባራዊ ዝምድና ምስክር — 12+ ወርሒ ሓቢርኩም ዝቐመጥኩምሉ",
+          "items": [
+            { "en": "Current lease agreement (both names)", "ti": "ናይ ሕጂ ናይ ክራይ ቤት ስምምዕ — ስምታት ክልቲኦም", "required": true },
+            { "en": "Previous lease agreement if < 1 year", "ti": "ቀዳማይ ናይ ክራይ ቤት ስምምዕ", "required": false },
+            { "en": "Sponsor credit card statements x 12 months", "ti": "ናይ ስፖንሰር ናይ ክሬዲት ካርድ ቅጺ — 12 ኣዋርሕ", "required": true },
+            { "en": "Applicant credit card statements x 12 months", "ti": "ናይ ሕቶ ኣቕራቢ ናይ ክሬዲት ካርድ ቅጺ — 12 ኣዋርሕ", "required": true },
+            { "en": "Sponsor 2nd bill statements x 12 months", "ti": "ናይ ስፖንሰር ካልኣይ ክፍሊት ቅጺ — 12 ኣዋርሕ", "required": true },
+            { "en": "Applicant 2nd bill statements x 12 months", "ti": "ናይ ሕቶ ኣቕራቢ ካልኣይ ክፍሊት ቅጺ", "required": true },
+            { "en": "Sponsor driver's license", "ti": "ናይ ስፖንሰር ናይ ምርዓው ፍቓድ", "required": true },
+            { "en": "Applicant driver's license / service card", "ti": "ናይ ሕቶ ኣቕራቢ ናይ ምርዓው ፍቓድ", "required": true },
+            { "en": "Joint bank account statement", "ti": "ናይ ሓባር ባንኪ ሕሳብ", "required": false },
+            { "en": "Proof of funds transfers", "ti": "ናይ ናይ ገንዘብ ምዝውዋር ምስክር", "required": false },
+            { "en": "Social media posts / chat transcripts", "ti": "ናይ ሶሻል ሚዲያ ጽሑፋት", "required": false },
+            { "en": "20–30 photos together", "ti": "20–30 ናይ ሓቢርኩም ስእልታት", "required": true },
+            { "en": "Declaration of common-law union", "ti": "ናይ ሓባራዊ ሕይወት ምስክር ጽሑፍ", "required": true }
+          ]
+        }
+      ]
+    },
+
+    "express_entry": {
+      "title": "Express Entry PR",
+      "sections": [
+        {
+          "title": "Principal Applicant",
+          "tigrinya": "ዋና ሕቶ ኣቕራቢ",
+          "items": [
+            { "en": "Personal history questionnaire", "ti": "ናይ ውልቃዊ ታሪክ ሕቶታት", "required": true },
+            { "en": "Travel history (all countries visited)", "ti": "ናይ ጕዕዞ ታሪክ — ዝተጓዓዝኩምዎ ሃገራት ኩሎም", "required": true },
+            { "en": "Language test (IELTS/CELPIP/TEF)", "ti": "ናይ ቋንቋ ፈተና ውጽኢት", "required": true },
+            { "en": "Passport & work permit (all pages)", "ti": "ፓስፖርት ምስ ናይ ስራሕ ፍቓድ — ኩሎም ገጻት", "required": true },
+            { "en": "Medical exam receipt", "ti": "ናይ ሕክምና መርምሮ ደረሰኝ", "required": true },
+            { "en": "Application fee receipt", "ti": "ናይ ኣቤቱታ ክፍሊት ደረሰኝ", "required": true },
+            { "en": "University degree & Educational Credential Assessment (ECA)", "ti": "ናይ ዩኒቨርሲቲ ዲግሪ ምስ ናይ ECA ምስክር", "required": true },
+            { "en": "Birth certificate", "ti": "ናይ ልደት ምስክር ወረቐት", "required": true },
+            { "en": "Divorce certificate (if applicable)", "ti": "ናይ ፍትሕ ምስክር ወረቐት (እንተሃሊዩ)", "required": false },
+            { "en": "Reference letters (employment — 3+ years skilled work)", "ti": "ናይ ስራሕ ደብዳቤታት — 3+ ዓመታት ብቑዕ ስራሕ", "required": true },
+            { "en": "LMIA and job offer (if applicable)", "ti": "LMIA ምስ ናይ ስራሕ ሕቶ (እንተሃሊዩ)", "required": false },
+            { "en": "T4 / Notice of Assessment (last 3 years)", "ti": "T4 / NOA — ናይ ዝሓለፈ 3 ዓመታት", "required": true },
+            { "en": "Pay stubs (last 3 months)", "ti": "ናይ ደሞዝ ደረሰኝ — ናይ ዝሓለፈ 3 ኣዋርሕ", "required": true },
+            { "en": "Police certificates (all countries 6+ months since age 18)", "ti": "ናይ ፖሊስ ምስክር ወረቓቕቲ — ካብ ዝነበርኩምዋ ሃገራት", "required": true },
+            { "en": "Digital photo (IRCC spec)", "ti": "ዲጂታላዊ ስእሊ — ናይ IRCC ዝምጥን", "required": true },
+            { "en": "Marriage certificate (if applicable)", "ti": "ናይ ምርዕዋት ምስክር ወረቐት (እንተሃሊዩ)", "required": false },
+            { "en": "Bank letter & statements (proof of funds)", "ti": "ናይ ባንኪ ደብዳቤ ምስ ናይ ፋይናንስ ምስክር", "required": true },
+            { "en": "Submission letter (cover letter)", "ti": "ናይ ምቕራብ ደብዳቤ", "required": true }
+          ]
+        },
+        {
+          "title": "Accompanying Spouse",
+          "tigrinya": "ዝስዓብ ሓዳስ",
+          "items": [
+            { "en": "Personal history questionnaire", "ti": "ናይ ውልቃዊ ታሪክ ሕቶታት", "required": true },
+            { "en": "Travel history", "ti": "ናይ ጕዕዞ ታሪክ", "required": true },
+            { "en": "Language test", "ti": "ናይ ቋንቋ ፈተና", "required": false },
+            { "en": "Passport & work permit", "ti": "ፓስፖርት ምስ ናይ ስራሕ ፍቓድ", "required": true },
+            { "en": "Medical exam receipt", "ti": "ናይ ሕክምና መርምሮ ደረሰኝ", "required": true },
+            { "en": "Application fee", "ti": "ናይ ኣቤቱታ ክፍሊት", "required": true },
+            { "en": "University degree & ECA", "ti": "ናይ ዩኒቨርሲቲ ዲግሪ ምስ ECA", "required": false },
+            { "en": "Birth certificate", "ti": "ናይ ልደት ምስክር ወረቐት", "required": true },
+            { "en": "Police certificates", "ti": "ናይ ፖሊስ ምስክር ወረቓቕቲ", "required": true },
+            { "en": "Digital photo", "ti": "ዲጂታላዊ ስእሊ", "required": true },
+            { "en": "Children's information (height, eye colour, passport, permit, birth certificate, medical, photo)", "ti": "ናይ ቆልዑ ሓበሬታ", "required": false }
+          ]
+        }
+      ]
+    },
+
+    "work_permit_overseas": {
+      "title": "Work Permit Application (Overseas)",
+      "sections": [
+        {
+          "title": "Principal Applicant",
+          "tigrinya": "ዋና ሕቶ ኣቕራቢ",
+          "items": [
+            { "en": "Questionnaire", "ti": "ናይ ሕቶ ዝርዝር", "required": true },
+            { "en": "Digital photo (IRCC spec)", "ti": "ዲጂታላዊ ስእሊ", "required": true },
+            { "en": "Application fee ($155 or $255) + biometrics $85", "ti": "ናይ ኣቤቱታ ክፍሊት ($155 ወይ $255) + ባዮሜትሪክ $85", "required": true },
+            { "en": "Copy of passport with all stamps", "ti": "ቅዳሕ ፓስፖርት — ኩሎም ኣትሞ ዘለዎም ገጻት", "required": true },
+            { "en": "Reference letters (employment history)", "ti": "ናይ ስራሕ ደብዳቤታት", "required": true },
+            { "en": "Language test results", "ti": "ናይ ቋንቋ ፈተና ውጽኢት", "required": false },
+            { "en": "Education credentials", "ti": "ናይ ትምህርቲ ምስክር ወረቓቕቲ", "required": true },
+            { "en": "LMIA (Labour Market Impact Assessment)", "ti": "LMIA — ናይ ናይ ሰራሕተኛ ኣድላይነት ምስክር", "required": false },
+            { "en": "Job offer letter", "ti": "ናይ ስራሕ ሕቶ ደብዳቤ", "required": true },
+            { "en": "Offer of employment confirmation & payment receipt (if applicable)", "ti": "ናይ ስራሕ ሕቶ ምርግጋጽ ምስ ደረሰኝ (እንተሃሊዩ)", "required": false },
+            { "en": "PNP nomination certificate (if applicable)", "ti": "ናይ PNP ምርጫ ምስክር (እንተሃሊዩ)", "required": false },
+            { "en": "Country-specific visa office checklist documents", "ti": "ናይ ሃገር ፍሉይ ቪዛ ቤት ሰነዳት", "required": true },
+            { "en": "Proof of ties to home country", "ti": "ናይ ምትእስሳር ምስ ሃገር ምስክር", "required": true },
+            { "en": "Proof of funds", "ti": "ናይ ፋይናንስ ምስክር", "required": true },
+            { "en": "Marriage certificate (if applicable)", "ti": "ናይ ምርዕዋት ምስክር ወረቐት (እንተሃሊዩ)", "required": false },
+            { "en": "Police certificate", "ti": "ናይ ፖሊስ ምስክር ወረቐት", "required": true },
+            { "en": "Medical exam receipt (if applicable)", "ti": "ናይ ሕክምና መርምሮ ደረሰኝ (እንተሃሊዩ)", "required": false }
+          ]
+        }
+      ]
+    },
+
+    "study_permit_overseas": {
+      "title": "Study Permit Application (Overseas)",
+      "sections": [
+        {
+          "title": "Principal Applicant",
+          "tigrinya": "ዋና ሕቶ ኣቕራቢ",
+          "items": [
+            { "en": "Questionnaire", "ti": "ናይ ሕቶ ዝርዝር", "required": true },
+            { "en": "Digital photo (IRCC spec)", "ti": "ዲጂታላዊ ስእሊ", "required": true },
+            { "en": "Application fee $150 + biometrics $85 (if applicable)", "ti": "ናይ ኣቤቱታ ክፍሊት $150 + ባዮሜትሪክ $85", "required": true },
+            { "en": "Copy of passport with all stamps", "ti": "ቅዳሕ ፓስፖርት — ኩሎም ኣትሞ ዘለዎም ገጻት", "required": true },
+            { "en": "Reference letters", "ti": "ናይ ምርኦ ደብዳቤታት", "required": false },
+            { "en": "Language test results (IELTS 6.0+ for SDS)", "ti": "ናይ ቋንቋ ፈተና ውጽኢት", "required": true },
+            { "en": "Education credentials", "ti": "ናይ ትምህርቲ ምስክር ወረቓቕቲ", "required": true },
+            { "en": "Letter of acceptance from DLI", "ti": "ናይ ቅቡልነት ደብዳቤ ካብ DLI", "required": true },
+            { "en": "Study plan (why this school, why Canada)", "ti": "ናይ ትምህርቲ መደብ ጽሑፍ", "required": true },
+            { "en": "Police certificate", "ti": "ናይ ፖሊስ ምስክር ወረቐት", "required": false },
+            { "en": "Medical exam receipt (if applicable)", "ti": "ናይ ሕክምና መርምሮ ደረሰኝ", "required": false },
+            { "en": "Country-specific visa office checklist documents", "ti": "ናይ ሃገር ፍሉይ ቪዛ ቤት ሰነዳት", "required": true },
+            { "en": "Proof of ties to home country", "ti": "ናይ ምትእስሳር ምስ ሃገር ምስክር", "required": true },
+            { "en": "Proof of funds (tuition + living + return)", "ti": "ናይ ፋይናንስ ምስክር — ናይ ትምህርቲ ክፍሊት + ናብርን + ምምላስን", "required": true },
+            { "en": "Marriage certificate (if applicable)", "ti": "ናይ ምርዕዋት ምስክር ወረቐት", "required": false }
+          ]
+        }
+      ]
+    },
+
+    "trv_supervisa": {
+      "title": "TRV or Super Visa Application",
+      "sections": [
+        {
+          "title": "Principal Applicant",
+          "tigrinya": "ዋና ሕቶ ኣቕራቢ",
+          "items": [
+            { "en": "Questionnaire", "ti": "ናይ ሕቶ ዝርዝር", "required": true },
+            { "en": "Digital photo (IRCC spec)", "ti": "ዲጂታላዊ ስእሊ", "required": true },
+            { "en": "Application fee $100 + biometrics $85 (if applicable)", "ti": "ናይ ኣቤቱታ ክፍሊት $100 + ባዮሜትሪክ $85", "required": true },
+            { "en": "Copy of passport with all stamps", "ti": "ቅዳሕ ፓስፖርት", "required": true },
+            { "en": "Marriage certificate", "ti": "ናይ ምርዕዋት ምስክር ወረቐት", "required": false },
+            { "en": "Proof of relationship to Canadian inviter", "ti": "ምስ ካናዳዊ ዓዳሚ ዝምድና ምስክር", "required": true },
+            { "en": "NOA of Canadian inviter", "ti": "ናይ ካናዳዊ ዓዳሚ NOA", "required": true },
+            { "en": "Travel insurance (Super Visa: $100,000+ for 1 year)", "ti": "ናይ ጕዕዞ ኢንሹራንስ", "required": true },
+            { "en": "Police certificate", "ti": "ናይ ፖሊስ ምስክር ወረቐት", "required": false },
+            { "en": "Medical exam receipt (if applicable)", "ti": "ናይ ሕክምና መርምሮ ደረሰኝ", "required": false },
+            { "en": "Proof of ties to home country", "ti": "ናይ ምትእስሳር ምስ ሃገር ምስክር", "required": true },
+            { "en": "Proof of funds", "ti": "ናይ ፋይናንስ ምስክር", "required": true }
+          ]
+        }
+      ]
+    },
+
+    "pr_card_renewal": {
+      "title": "PR Card Renewal",
+      "sections": [
+        {
+          "title": "Principal Applicant",
+          "tigrinya": "ዋና ሕቶ ኣቕራቢ",
+          "items": [
+            { "en": "Questionnaire", "ti": "ናይ ሕቶ ዝርዝር", "required": true },
+            { "en": "2 passport-size photos", "ti": "2 ናይ ፓስፖርት ዓይነት ስእልታት", "required": true },
+            { "en": "Application fee $50", "ti": "ናይ ኣቤቱታ ክፍሊት $50", "required": true },
+            { "en": "Copies of every page of current passport", "ti": "ቅዳሕ ናይ ሕጂ ፓስፖርት — ኩሎም ገጻት", "required": true },
+            { "en": "Copies of every page of previous passport (if expired < 5 years ago)", "ti": "ቅዳሕ ናይ ቀደም ፓስፖርት (ትሕቲ 5 ዓመት ዝሓለፎ)", "required": false },
+            { "en": "Copies of both sides of PR card", "ti": "ቅዳሕ PR ካርድ — ክልቲኡ ሸነኽ", "required": true },
+            { "en": "Copies of both sides of driver's license", "ti": "ቅዳሕ ናይ ምርዓው ፍቓድ — ክልቲኡ ሸነኽ", "required": true }
+          ]
+        }
+      ]
+    }
+  },
+
+  "inadmissibility": [
+    {
+      "category": "Security",
+      "ref": "IRPA s.34",
+      "severity": "critical",
+      "ministerial_relief": true,
+      "items": [
+        { "id": "s34a", "title": "Espionage", "detail": "Engaging in espionage against Canada or contrary to Canada's interests", "standard": "Reasonable grounds" },
+        { "id": "s34b", "title": "Subversion by force", "detail": "Engaging in or instigating subversion by force of any government", "standard": "Reasonable grounds" },
+        { "id": "s34b1", "title": "Subversion of democratic process", "detail": "Engaging in subversion against a democratic government, institution or process as understood in Canada", "standard": "Reasonable grounds" },
+        { "id": "s34c", "title": "Terrorism", "detail": "Engaging in terrorism — activities directed toward violence for political objectives", "standard": "Reasonable grounds" },
+        { "id": "s34d", "title": "Danger to security of Canada", "detail": "Being a danger to the security of Canada", "standard": "Reasonable grounds" },
+        { "id": "s34e", "title": "Acts of violence endangering persons", "detail": "Engaging in acts of violence that would or might endanger lives or safety of persons in Canada", "standard": "Reasonable grounds" },
+        { "id": "s34f", "title": "Member of security threat organization", "detail": "Being a member of organization that engages/has engaged/will engage in espionage, subversion or terrorism", "standard": "Reasonable grounds" }
+      ]
+    },
+    {
+      "category": "Human & international rights violations",
+      "ref": "IRPA s.35",
+      "severity": "critical",
+      "ministerial_relief": true,
+      "items": [
+        { "id": "s35a", "title": "War crimes / crimes against humanity", "detail": "Committing act outside Canada constituting offence under Crimes Against Humanity and War Crimes Act (ss.4–7) — genocide, crime against humanity, war crime", "standard": "Reasonable grounds" },
+        { "id": "s35b", "title": "Senior official in rights-violating government", "detail": "Being a prescribed senior official in government that engages/has engaged in terrorism, systematic or gross human rights violations, genocide, war crime, or crime against humanity", "standard": "Reasonable grounds" },
+        { "id": "s35c", "title": "Subject to international sanctions", "detail": "Entry/stay restricted by international organization decision imposing sanctions on a country (Canada is member)", "standard": "Reasonable grounds" }
+      ]
+    },
+    {
+      "category": "Serious criminality",
+      "ref": "IRPA s.36(1)",
+      "severity": "critical",
+      "ministerial_relief": false,
+      "items": [
+        { "id": "s36_1a", "title": "Conviction in Canada — serious offence", "detail": "Convicted in Canada of offence punishable by max 10+ years OR sentence of more than 6 months imposed. Exception: record suspension (pardon) granted.", "standard": "Conviction" },
+        { "id": "s36_1b", "title": "Conviction outside Canada — serious equivalent", "detail": "Convicted outside Canada of offence that, if committed in Canada, would be punishable by 10+ year max. Equivalency must be established.", "standard": "Reasonable grounds" },
+        { "id": "s36_1c", "title": "Act committed outside Canada — serious equivalent", "detail": "Committed act outside Canada that is an offence there AND would be 10+ year offence in Canada. Standard: balance of probabilities for PRs.", "standard": "Reasonable grounds / Balance of probabilities (PRs)" }
+      ]
+    },
+    {
+      "category": "Criminality",
+      "ref": "IRPA s.36(2) — Foreign nationals only",
+      "severity": "high",
+      "ministerial_relief": false,
+      "items": [
+        { "id": "s36_2a", "title": "Conviction in Canada — indictable or two offences", "detail": "Convicted in Canada of indictable offence OR two or more summary offences not from same occurrence. Hybrid offences deemed indictable.", "standard": "Conviction" },
+        { "id": "s36_2b", "title": "Conviction outside Canada — indictable equivalent", "detail": "Convicted outside Canada of offence equivalent to Canadian indictable offence, or two offences not from single occurrence", "standard": "Reasonable grounds" },
+        { "id": "s36_2c", "title": "Act outside Canada — indictable equivalent", "detail": "Committed act outside Canada that is an offence there AND would constitute indictable offence in Canada", "standard": "Reasonable grounds" },
+        { "id": "s36_2d", "title": "Offence on entering Canada", "detail": "Committed on entering Canada an offence under prescribed Acts (Criminal Code, IRPA, Firearms Act, Customs Act, Controlled Drugs Act)", "standard": "Reasonable grounds" }
+      ]
+    },
+    {
+      "category": "Organized criminality",
+      "ref": "IRPA s.37",
+      "severity": "critical",
+      "ministerial_relief": true,
+      "items": [
+        { "id": "s37a", "title": "Member of criminal organization", "detail": "Being a member of or engaging in activity that is part of pattern of organized criminal activity (not limited to formal 'membership' — Thanaratnam 2005)", "standard": "Reasonable grounds" },
+        { "id": "s37b", "title": "Transnational crime", "detail": "Engaging in transnational crime — people smuggling, trafficking in persons, money laundering (list not exhaustive)", "standard": "Reasonable grounds" }
+      ]
+    },
+    {
+      "category": "Health grounds",
+      "ref": "IRPA s.38",
+      "severity": "medium",
+      "ministerial_relief": false,
+      "items": [
+        { "id": "s38a", "title": "Danger to public health", "detail": "Health condition likely to be a danger to public health. No exceptions for A38(1)(a).", "standard": "Balance of probabilities" },
+        { "id": "s38b", "title": "Danger to public safety", "detail": "Health condition likely to be a danger to public safety. No exceptions for A38(1)(b).", "standard": "Balance of probabilities" },
+        { "id": "s38c", "title": "Excessive demand on health/social services", "detail": "Condition reasonably expected to cause excessive demand. Exception: spouse/common-law/child of sponsor (Family Class), protected persons.", "standard": "Balance of probabilities" }
+      ]
+    },
+    {
+      "category": "Financial reasons",
+      "ref": "IRPA s.39",
+      "severity": "medium",
+      "ministerial_relief": false,
+      "items": [
+        { "id": "s39", "title": "Unable or unwilling to support self", "detail": "Unable or unwilling to support self and dependents AND has not shown adequate arrangements (other than social assistance) for care and support. Applies to potential/current indigence.", "standard": "Balance of probabilities" }
+      ]
+    },
+    {
+      "category": "Misrepresentation",
+      "ref": "IRPA s.40",
+      "severity": "high",
+      "ministerial_relief": false,
+      "items": [
+        { "id": "s40a", "title": "Misrepresentation of material facts", "detail": "Directly or indirectly misrepresenting or withholding material facts that induces/could induce error in administration of the Act. 5-year bar applies. Subjective knowledge NOT required (Mohammed 1997).", "standard": "Balance of probabilities" },
+        { "id": "s40b", "title": "Sponsored by person inadmissible for misrepresentation", "detail": "Being or having been sponsored by person found inadmissible for misrepresentation. Minister must be satisfied facts justify.", "standard": "Balance of probabilities" },
+        { "id": "s40c", "title": "Refugee protection vacated", "detail": "Final determination to vacate decision allowing refugee protection claim", "standard": "Balance of probabilities" },
+        { "id": "s40d", "title": "Citizenship obtained by misrepresentation", "detail": "Ceasing to be a citizen under Citizenship Act s.10(1)(a) — obtained citizenship through false representation or fraud", "standard": "Balance of probabilities" }
+      ]
+    },
+    {
+      "category": "Non-compliance with the Act",
+      "ref": "IRPA s.41",
+      "severity": "medium",
+      "ministerial_relief": false,
+      "items": [
+        { "id": "s41a", "title": "Non-compliance — foreign national", "detail": "Act or omission directly or indirectly contravening IRPA — includes overstay, unauthorized work/study, failure to appear for examination, failure to hold required visa", "standard": "Balance of probabilities" },
+        { "id": "s41b", "title": "Non-compliance — permanent resident (residency obligation)", "detail": "Failing to comply with residency obligation: must be physically present in Canada 730 days in every 5-year period. H&C considerations may overcome breach.", "standard": "Balance of probabilities" }
+      ]
+    },
+    {
+      "category": "Inadmissible family member",
+      "ref": "IRPA s.42",
+      "severity": "high",
+      "ministerial_relief": false,
+      "items": [
+        { "id": "s42a", "title": "Accompanying family member inadmissible", "detail": "Accompanying family member OR (in prescribed circumstances) non-accompanying family member is inadmissible. Exception: protected persons.", "standard": "Balance of probabilities" },
+        { "id": "s42b", "title": "Accompanying inadmissible person", "detail": "Being an accompanying family member of an inadmissible person. Exception: protected persons.", "standard": "Balance of probabilities" }
+      ]
+    }
+  ],
+
+  "forms_required": {
+    "all": [
+      { "form": "IMM 5476", "title": "Use of Representative", "mandatory": true, "note": "Required for almost all IRCC matters. Authorize RCIC to represent client. Each person 18+ signs own copy." },
+      { "form": "Retainer Agreement", "title": "Service / Retainer Agreement", "mandatory": true, "note": "Required by CICC Code of Professional Conduct before work begins. Includes scope, fees, refund policy, termination." },
+      { "form": "Fee Schedule", "title": "Fee Agreement / Schedule of Fees", "mandatory": true, "note": "Can be part of retainer. Confirms total fees, payment structure, disbursements, trust account use." },
+      { "form": "Privacy Consent", "title": "Consent & Privacy Authorization (PIPEDA/FOIP)", "mandatory": true, "note": "Allows collection/storage of personal data and communication with IRCC, schools, employers." },
+      { "form": "Client Declaration", "title": "Client Information & Declaration Form", "mandatory": true, "note": "Client confirms information is true and complete. Acknowledges consequences of misrepresentation." },
+      { "form": "Translation Ack", "title": "Translation & Interpreter Acknowledgment", "mandatory": false, "note": "Important if using Tigrinya/Amharic translations. Confirms English version controls." },
+      { "form": "Third-Party Auth", "title": "Third-Party Authorization", "mandatory": false, "note": "Used if family member, interpreter, or employer communicates on client's behalf." }
+    ],
+    "irb_only": [
+      { "form": "IRB Notice", "title": "IRB Notice of Representation", "mandatory": true, "note": "Required for RPD/RAD/IAD/ID proceedings. Separate from IMM 5476. Must be filed promptly after retained." }
+    ],
+    "limited_scope": [
+      { "form": "Limited Scope", "title": "Limited Scope Representation Agreement", "mandatory": false, "note": "Used for partial services: document review, strategy consultation, application check, GCMS interpretation only." }
+    ]
+  },
+
+  "intake_channels": [
+    { "code": "WB", "label": "Website" },
+    { "code": "IG", "label": "Instagram" },
+    { "code": "FB", "label": "Facebook" },
+    { "code": "WA", "label": "WhatsApp" },
+    { "code": "PH", "label": "Phone call" },
+    { "code": "WI", "label": "Walk-in" },
+    { "code": "RC", "label": "Referral — client" },
+    { "code": "RP", "label": "Referral — partner RCIC" },
+    { "code": "CM", "label": "Community event" },
+    { "code": "EM", "label": "Email" }
+  ],
+
+  "case_stages": [
+    "Stage 1 — Intake",
+    "Stage 2 — Consultation",
+    "Stage 3 — Case creation",
+    "Stage 4 — Document collection",
+    "Stage 5 — Document review",
+    "Stage 6 — Forms preparation",
+    "Stage 7 — Client review & signing",
+    "Stage 8 — Fee payment to IRCC",
+    "Stage 9 — Quality check",
+    "Stage 10 — Submitted to IRCC",
+    "Stage 11 — Post-submission",
+    "Stage 12 — Decision"
+  ],
+
+  "case_statuses": ["Active","In Progress","Submitted","Approved","Refused","On Hold","Withdrawn","Closed"],
+
+  "opportunity_rules": [
+    { "trigger": "Has child under 18 in Canada", "opportunity": "Canada Child Benefit (CCB) eligibility", "action": "Notify client to apply for CCB" },
+    { "trigger": "Work permit holder — 1+ year Canadian skilled experience", "opportunity": "Express Entry / CEC pathway to PR", "action": "Assess CRS score and advise on Express Entry profile" },
+    { "trigger": "Permit expiring within 90 days", "opportunity": "Permit renewal required", "action": "Send renewal reminder and initiate extension file" },
+    { "trigger": "PR holder — approaching 5-year mark", "opportunity": "Citizenship application eligibility", "action": "Calculate physical presence days and advise on citizenship application" },
+    { "trigger": "Spousal sponsorship approved — spouse now PR", "opportunity": "Citizenship eligibility tracking begins", "action": "Start tracking spouse's physical presence for future citizenship" },
+    { "trigger": "Study permit holder — final year of study", "opportunity": "Post-Graduation Work Permit (PGWP)", "action": "Advise on PGWP eligibility and application timing" }
+  ]
+}

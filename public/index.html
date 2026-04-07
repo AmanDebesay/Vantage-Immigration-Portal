@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vantage Immigration Services — Fort McMurray, AB</title>
+  <style>
+    :root{--navy:#1B3A5C;--navy-d:#152e4a;--gold:#C9A84C;--gold-d:#b8953d;--white:#fff;--gray-50:#f8f9fa;--gray-100:#f2f2f2;--gray-600:#666;--gray-800:#333;--green:#1E8449;--green-bg:#EAF3DE;--red:#C0392B;--border:#e0e0e0;--radius:8px;--shadow:0 1px 4px rgba(0,0,0,.09);--font:'Segoe UI',system-ui,Arial,sans-serif}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);color:var(--gray-800);background:var(--white);font-size:15px;line-height:1.6}
+    a{color:inherit;text-decoration:none}
+
+    /* NAV */
+    nav{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+    .nav-logo{display:flex;align-items:center;gap:12px}
+    .nav-mark{width:40px;height:40px;background:var(--gold);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;font-family:Georgia,serif;color:var(--white)}
+    .nav-name{color:var(--white);font-size:16px;font-weight:700}
+    .nav-sub{color:rgba(255,255,255,.55);font-size:11px}
+    .nav-links{display:flex;align-items:center;gap:24px}
+    .nav-links a{color:rgba(255,255,255,.8);font-size:13px;font-weight:500;transition:.15s}
+    .nav-links a:hover{color:var(--white)}
+    .nav-cta{background:var(--gold);color:var(--white)!important;padding:8px 20px;border-radius:var(--radius);font-weight:600!important;font-size:13px!important}
+    .nav-cta:hover{background:var(--gold-d)!important}
+
+    /* HERO */
+    .hero{background:linear-gradient(135deg,var(--navy) 0%,#243f6a 60%,#1a5276 100%);padding:80px 40px;text-align:center;color:var(--white)}
+    .hero-badge{display:inline-block;background:rgba(201,168,76,.2);color:var(--gold);border:1px solid var(--gold);padding:5px 18px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.04em;margin-bottom:24px}
+    .hero h1{font-size:48px;font-weight:800;line-height:1.15;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto}
+    .hero h1 span{color:var(--gold)}
+    .hero p{font-size:18px;color:rgba(255,255,255,.8);max-width:620px;margin:0 auto 36px;line-height:1.7}
+    .hero-ctas{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+    .btn-hero-primary{background:var(--gold);color:var(--white);padding:14px 36px;border-radius:var(--radius);font-size:16px;font-weight:700;border:none;cursor:pointer;transition:.15s;display:inline-block}
+    .btn-hero-primary:hover{background:var(--gold-d);transform:translateY(-1px)}
+    .btn-hero-outline{background:transparent;color:var(--white);padding:14px 36px;border-radius:var(--radius);font-size:16px;font-weight:600;border:2px solid rgba(255,255,255,.4);cursor:pointer;transition:.15s;display:inline-block}
+    .btn-hero-outline:hover{border-color:var(--white);background:rgba(255,255,255,.05)}
+    .hero-trust{display:flex;gap:32px;justify-content:center;margin-top:48px;flex-wrap:wrap}
+    .hero-trust-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.7);font-size:13px}
+    .hero-trust-item span:first-child{font-size:18px}
+
+    /* SECTIONS */
+    section{padding:72px 40px;max-width:1100px;margin:0 auto}
+    .section-label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+    .section-title{font-size:36px;font-weight:800;color:var(--navy);margin-bottom:16px;line-height:1.2}
+    .section-sub{font-size:16px;color:var(--gray-600);max-width:560px;line-height:1.7}
+
+    /* SERVICES */
+    .services-section{background:var(--gray-50);padding:72px 0}
+    .services-inner{max-width:1100px;margin:0 auto;padding:0 40px}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+    .service-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:24px;transition:.2s;cursor:pointer}
+    .service-card:hover{border-color:var(--navy);box-shadow:0 4px 20px rgba(27,58,92,.12);transform:translateY(-2px)}
+    .service-icon{font-size:32px;margin-bottom:14px}
+    .service-name{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px}
+    .service-desc{font-size:13px;color:var(--gray-600);line-height:1.6;margin-bottom:16px}
+    .service-fee{font-size:12px;font-weight:600;color:var(--gold)}
+    .service-link{display:inline-flex;align-items:center;gap:4px;color:var(--navy);font-size:13px;font-weight:600;margin-top:12px;border-bottom:2px solid transparent;transition:.15s}
+    .service-link:hover{border-color:var(--gold);color:var(--gold)}
+
+    /* HOW IT WORKS */
+    .steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+    .step-card{text-align:center;padding:24px 16px}
+    .step-num{width:52px;height:52px;background:var(--navy);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 16px}
+    .step-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px}
+    .step-desc{font-size:13px;color:var(--gray-600);line-height:1.6}
+    .step-arrow{display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--gold);padding-top:24px}
+
+    /* TRUST SIGNALS */
+    .trust-section{background:var(--navy);padding:64px 0}
+    .trust-inner{max-width:1100px;margin:0 auto;padding:0 40px}
+    .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px}
+    .trust-item{text-align:center;padding:24px}
+    .trust-icon{font-size:40px;margin-bottom:12px}
+    .trust-title{font-size:16px;font-weight:700;color:var(--white);margin-bottom:6px}
+    .trust-desc{font-size:13px;color:rgba(255,255,255,.65);line-height:1.6}
+
+    /* CTA BANNER */
+    .cta-banner{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-d) 100%);padding:64px 40px;text-align:center}
+    .cta-banner h2{font-size:36px;font-weight:800;color:var(--white);margin-bottom:16px}
+    .cta-banner p{font-size:17px;color:rgba(255,255,255,.85);max-width:560px;margin:0 auto 32px;line-height:1.7}
+
+    /* CONTACT */
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:40px}
+    .contact-info h3{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:20px}
+    .contact-detail{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
+    .contact-detail-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+    .contact-detail-text strong{display:block;font-size:13px;color:var(--navy);font-weight:600}
+    .contact-detail-text span{font-size:13px;color:var(--gray-600)}
+    .contact-form{background:var(--gray-50);border-radius:12px;padding:28px}
+    .contact-form h3{font-size:18px;font-weight:700;color:var(--navy);margin-bottom:20px}
+    .form-group{margin-bottom:14px}
+    .form-group label{font-size:11px;color:var(--gray-600);display:block;margin-bottom:4px;font-weight:500}
+    .form-group input,.form-group select,.form-group textarea{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;color:var(--gray-800);background:var(--white)}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--navy)}
+    .form-group textarea{min-height:100px;resize:vertical}
+
+    /* FOOTER */
+    footer{background:var(--navy-d,#152e4a);padding:40px;color:rgba(255,255,255,.6);font-size:12px}
+    .footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+    .footer-logo{display:flex;align-items:center;gap:10px}
+    .footer-mark{width:32px;height:32px;background:var(--gold);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;font-family:Georgia,serif;color:var(--white)}
+    .footer-name{color:var(--white);font-size:13px;font-weight:700}
+    .footer-links{display:flex;gap:20px;flex-wrap:wrap}
+    .footer-links a{color:rgba(255,255,255,.5);font-size:12px;transition:.15s}
+    .footer-links a:hover{color:var(--white)}
+
+    @media(max-width:900px){
+      .services-grid{grid-template-columns:1fr 1fr}
+      .steps-grid{grid-template-columns:1fr 1fr}
+      .trust-grid{grid-template-columns:1fr 1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .hero h1{font-size:36px}
+    }
+    @media(max-width:640px){
+      nav{padding:0 20px}
+      .nav-links{display:none}
+      .hero{padding:60px 20px}
+      .hero h1{font-size:28px}
+      section{padding:48px 20px}
+      .services-section,.trust-section,.cta-banner{padding:48px 0}
+      .services-inner,.trust-inner{padding:0 20px}
+      .services-grid,.steps-grid,.trust-grid{grid-template-columns:1fr}
+      .cta-banner{padding:48px 20px}
+      footer{padding:24px 20px}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-logo">
+    <div class="nav-mark">V</div>
+    <div>
+      <div class="nav-name">Vantage Immigration</div>
+      <div class="nav-sub">Fort McMurray, Alberta</div>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#how-it-works">How It Works</a>
+    <a href="#contact">Contact</a>
+    <a href="portal/dashboard.html">Client Login</a>
+    <a href="intake.html" class="nav-cta">Start Application →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">CICC-Regulated RCIC · Fort McMurray, AB</div>
+  <h1>Your Canadian Immigration<br>Journey Starts <span>Here</span></h1>
+  <p>Expert guidance for work permits, spousal sponsorship, Express Entry, study permits, and permanent residency — with full bilingual support in English and Tigrinya.</p>
+  <div class="hero-ctas">
+    <a href="intake.html" class="btn-hero-primary">Start Your Free Assessment →</a>
+    <a href="#services" class="btn-hero-outline">View Services</a>
+  </div>
+  <div class="hero-trust">
+    <div class="hero-trust-item"><span>✓</span> CICC-Regulated RCIC</div>
+    <div class="hero-trust-item"><span>✓</span> Bilingual English / Tigrinya</div>
+    <div class="hero-trust-item"><span>✓</span> Fort McMurray Based</div>
+    <div class="hero-trust-item"><span>✓</span> PIPEDA / PIPA Compliant</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<div class="services-section" id="services">
+  <div class="services-inner">
+    <div class="section-label">What We Do</div>
+    <div class="section-title">Immigration Services</div>
+    <div class="section-sub">From initial assessment to final approval — we handle every step of your immigration journey.</div>
+    <div class="services-grid">
+      <div class="service-card" onclick="location.href='intake.html?type=spousal_spouses'">
+        <div class="service-icon">💑</div>
+        <div class="service-name">Spousal Sponsorship</div>
+        <div class="service-desc">Bring your spouse or common-law partner to Canada. We guide both the sponsor and the applicant through every form and requirement.</div>
+        <div class="service-fee">Starting at $2,350 CAD</div>
+        <div class="service-link">Start application →</div>
+      </div>
+      <div class="service-card" onclick="location.href='intake.html?type=express_entry'">
+        <div class="service-icon">⭐</div>
+        <div class="service-name">Express Entry PR</div>
+        <div class="service-desc">Maximize your CRS score and get your Express Entry profile submission right. Federal Skilled Worker, CEC, and FSTP streams.</div>
+        <div class="service-fee">Starting at $2,800 CAD</div>
+        <div class="service-link">Start application →</div>
+      </div>
+      <div class="service-card" onclick="location.href='intake.html?type=work_permit_overseas'">
+        <div class="service-icon">💼</div>
+        <div class="service-name">Work Permits</div>
+        <div class="service-desc">LMIA-based and LMIA-exempt work permits for overseas applicants and in-Canada extensions. Oil sands and trades experience.</div>
+        <div class="service-fee">Starting at $1,200 CAD</div>
+        <div class="service-link">Start application →</div>
+      </div>
+      <div class="service-card" onclick="location.href='intake.html?type=study_permit_overseas'">
+        <div class="service-icon">🎓</div>
+        <div class="service-name">Study Permits</div>
+        <div class="service-desc">Study permit applications for overseas applicants and in-Canada extensions. Post-graduation work permit guidance included.</div>
+        <div class="service-fee">Starting at $900 CAD</div>
+        <div class="service-link">Start application →</div>
+      </div>
+      <div class="service-card" onclick="location.href='intake.html?type=trv_supervisa'">
+        <div class="service-icon">✈️</div>
+        <div class="service-name">Visitor Visa / Super Visa</div>
+        <div class="service-desc">Tourist visas, Super Visas for parents and grandparents, and visitor record extensions for those already in Canada.</div>
+        <div class="service-fee">Starting at $800 CAD</div>
+        <div class="service-link">Start application →</div>
+      </div>
+      <div class="service-card" onclick="location.href='intake.html?type=pr_card_renewal'">
+        <div class="service-icon">🍁</div>
+        <div class="service-name">PR Card Renewal</div>
+        <div class="service-desc">PR card renewal, travel document applications, and residency obligation assessments for permanent residents.</div>
+        <div class="service-fee">Starting at $700 CAD</div>
+        <div class="service-link">Start application →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-label">The Process</div>
+  <div class="section-title">How It Works</div>
+  <div class="section-sub">A clear, guided process from first contact to approval.</div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Free Online Assessment</div>
+      <div class="step-desc">Fill out our intake form. Takes 5 minutes. We generate your file ID instantly and review your eligibility.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Consultation &amp; Agreement</div>
+      <div class="step-desc">We meet (in person or video), review your situation, sign the consultation agreement, and outline next steps.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Document Collection</div>
+      <div class="step-desc">Your personalized checklist appears in the client portal. Upload documents securely. We track progress together.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-title">Submission &amp; Follow-up</div>
+      <div class="step-desc">We prepare, review, and submit your application to IRCC. You get real-time updates through your portal.</div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:40px">
+    <a href="intake.html" class="btn-hero-primary" style="display:inline-block;background:var(--navy);padding:14px 36px;border-radius:8px;color:white;font-size:16px;font-weight:700">Begin Your Assessment →</a>
+  </div>
+</section>
+
+<!-- TRUST SIGNALS -->
+<div class="trust-section">
+  <div class="trust-inner">
+    <div style="text-align:center;color:var(--white)">
+      <div class="section-label" style="color:var(--gold)">Why Choose Us</div>
+      <div class="section-title" style="color:var(--white);margin:0 auto">Built for Fort McMurray's Community</div>
+    </div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">🏛️</div>
+        <div class="trust-title">CICC-Regulated</div>
+        <div class="trust-desc">Licensed RCIC in good standing with the College of Immigration and Citizenship Consultants.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🗣️</div>
+        <div class="trust-title">Bilingual Support</div>
+        <div class="trust-desc">Full service in English and Tigrinya. All checklists, forms, and communications available in both languages.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🔒</div>
+        <div class="trust-title">Your Data is Safe</div>
+        <div class="trust-desc">PIPEDA and Alberta PIPA compliant. Your information is never shared without your written consent.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">📱</div>
+        <div class="trust-title">Transparent Portal</div>
+        <div class="trust-desc">Your personal client portal shows your case status, documents, and messages — 24/7 access.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Ready to Start Your Application?</h2>
+  <p>Complete our free online intake form. Takes 5 minutes. We'll review your case and contact you within 24 hours.</p>
+  <a href="intake.html" class="btn-hero-primary" style="display:inline-block;background:var(--navy);color:white;padding:14px 36px;border-radius:8px;font-size:16px;font-weight:700">Start Free Assessment →</a>
+</div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <div class="section-title">Contact Us</div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <h3>Vantage Immigration Services</h3>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📍</div>
+        <div class="contact-detail-text">
+          <strong>Location</strong>
+          <span>Fort McMurray, Alberta, Canada</span>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">📞</div>
+        <div class="contact-detail-text">
+          <strong>Phone</strong>
+          <span>+1 (780) 000-0000</span>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">✉️</div>
+        <div class="contact-detail-text">
+          <strong>Email</strong>
+          <span>info@vantageimmigration.ca</span>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-detail-icon">🏛️</div>
+        <div class="contact-detail-text">
+          <strong>CICC Membership</strong>
+          <span>Regulated Canadian Immigration Consultant</span>
+        </div>
+      </div>
+      <div style="margin-top:24px;padding:16px;background:var(--gray-50);border-radius:8px;border-left:4px solid var(--gold)">
+        <strong style="font-size:13px;color:var(--navy)">Office Hours</strong>
+        <div style="font-size:13px;color:var(--gray-600);margin-top:4px">Monday – Friday: 9:00 AM – 5:00 PM<br>Evenings and weekends by appointment</div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3>Send a Message</h3>
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" placeholder="Your full name">
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="your@email.com">
+      </div>
+      <div class="form-group">
+        <label>Service you're interested in</label>
+        <select>
+          <option value="">— Select service —</option>
+          <option>Spousal Sponsorship</option>
+          <option>Express Entry</option>
+          <option>Work Permit</option>
+          <option>Study Permit</option>
+          <option>Visitor Visa / Super Visa</option>
+          <option>PR Card Renewal</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Briefly describe your situation..."></textarea>
+      </div>
+      <button onclick="alert('Thank you! We will contact you within 24 hours.\n\nFor a full assessment, use the Start Application button.')" style="width:100%;background:var(--navy);color:white;padding:11px;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer">Send Message</button>
+      <div style="text-align:center;margin-top:12px">
+        <a href="intake.html" style="color:var(--gold);font-size:13px;font-weight:600">Or start your full application online →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="footer-mark">V</div>
+      <div>
+        <div class="footer-name">Vantage Immigration Services</div>
+        <div>Fort McMurray, Alberta · CICC-Regulated RCIC</div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="intake.html">Start Application</a>
+      <a href="portal/dashboard.html">Client Portal</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div>© 2026 Vantage Immigration Services. All rights reserved.<br>Regulated by the College of Immigration and Citizenship Consultants (CICC).</div>
+  </div>
+</footer>
+
+</body>
+</html>

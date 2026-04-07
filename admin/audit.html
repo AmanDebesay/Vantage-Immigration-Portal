@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audit Dashboard — Vantage Immigration Admin</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%237d3c98' rx='6'/><text y='24' x='5' font-size='20' fill='%23fff' font-family='Georgia'>A</text></svg>">
+  <style>
+    /* Audit-specific styles */
+    .audit-topbar{background:#2c0e37;padding:0 28px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+    .audit-title{color:#fff;font-size:16px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .audit-badge{display:inline-block;background:#7d3c98;color:#fff;font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.04em}
+    .audit-nav{display:flex;align-items:center;gap:6px}
+    .audit-nav a{color:rgba(255,255,255,.7);font-size:13px;text-decoration:none;padding:6px 14px;border-radius:var(--radius);transition:.15s}
+    .audit-nav a:hover{background:rgba(255,255,255,.12);color:#fff}
+    .audit-content{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Score */
+    .audit-score-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:24px;margin-bottom:16px;box-shadow:var(--shadow)}
+    .score-grid{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:center}
+    .score-circle{width:160px;height:160px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;border:8px solid var(--green);margin:0 auto}
+    .score-circle.medium{border-color:var(--orange)}
+    .score-circle.high{border-color:var(--red)}
+    .score-num{font-size:52px;font-weight:800;line-height:1;color:var(--gray-800)}
+    .score-of{font-size:12px;color:var(--gray-400)}
+
+    /* Case selector */
+    .case-selector{background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow)}
+    .case-selector select{flex:1;max-width:400px}
+
+    /* Flag grid */
+    .flags-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .audit-flag{padding:10px 14px;border-radius:var(--radius);display:flex;align-items:flex-start;gap:10px}
+    .audit-flag-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+    .audit-flag-body strong{font-size:13px;display:block}
+    .audit-flag-body span{font-size:11px;opacity:.85}
+    .af-red{background:var(--red-bg);color:var(--red)}
+    .af-orange{background:var(--orange-bg);color:var(--orange)}
+    .af-green{background:var(--green-bg);color:var(--green)}
+
+    /* Pre-submission checklist */
+    .pre-sub-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px}
+    .pre-sub-row:last-child{border-bottom:none;font-weight:700}
+    .pre-sub-status{min-width:80px;text-align:right}
+
+    /* Inadmissibility quick ref */
+    .irpa-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+    .irpa-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:12px;font-size:12px}
+    .irpa-card-head{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+    .irpa-item{display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid var(--border)}
+    .irpa-item:last-child{border-bottom:none}
+    .irpa-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .irpa-dot.clear{background:var(--green)}
+    .irpa-dot.explain{background:var(--orange)}
+    .irpa-dot.inadmiss{background:var(--red)}
+    .irpa-dot.unset{background:var(--gray-200)}
+
+    /* Alert banner */
+    .audit-alert{background:var(--red-bg);border:1px solid var(--red);border-radius:var(--radius-lg);padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+    .audit-alert-icon{font-size:24px;flex-shrink:0}
+    .audit-alert-body strong{color:var(--red);font-size:14px;display:block}
+    .audit-alert-body span{font-size:12px;color:var(--gray-800)}
+    .audit-alert.safe{background:var(--green-bg);border-color:var(--green)}
+    .audit-alert.safe strong{color:var(--green)}
+
+    @media(max-width:900px){.score-grid{grid-template-columns:1fr}.flags-grid{grid-template-columns:1fr}.irpa-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body style="display:flex;flex-direction:column;min-height:100vh;background:var(--gray-50)">
+
+<!-- AUDIT TOPBAR -->
+<div class="audit-topbar">
+  <div class="audit-title">
+    <span>🔍</span>
+    <span>Audit Dashboard <span class="audit-badge">INTERNAL ONLY</span></span>
+  </div>
+  <div class="audit-nav">
+    <a href="index.html">← Admin Panel</a>
+    <a href="#" onclick="window.print()">🖨 Print Report</a>
+    <a href="#" onclick="exportAuditCSV()">⬇ Export CSV</a>
+  </div>
+</div>
+
+<div class="audit-content">
+
+  <!-- CASE SELECTOR -->
+  <div class="case-selector">
+    <div style="font-size:13px;font-weight:600;color:var(--navy);white-space:nowrap">Auditing case:</div>
+    <select id="auditCaseSelect" onchange="loadAuditCase()">
+      <option value="">— Select a case to audit —</option>
+    </select>
+    <div id="auditCaseInfo" style="font-size:12px;color:var(--gray-600)"></div>
+  </div>
+
+  <!-- ALERT BANNER -->
+  <div id="auditAlertBanner" class="audit-alert" style="display:none">
+    <div class="audit-alert-icon" id="auditAlertIcon">⚠️</div>
+    <div class="audit-alert-body">
+      <strong id="auditAlertTitle">Attention required</strong>
+      <span id="auditAlertDesc">Complete the inadmissibility assessment to proceed.</span>
+    </div>
+  </div>
+
+  <!-- SCORE + FLAGS -->
+  <div class="dash-grid-2">
+    <!-- Score -->
+    <div class="audit-score-card">
+      <div class="card-title">Case Audit Score</div>
+      <div class="card-sub">0 = highest risk · 100 = submission-ready</div>
+      <div class="score-grid">
+        <div>
+          <div class="score-circle" id="scoreCircle">
+            <div class="score-num" id="auditScore">—</div>
+            <div class="score-of">/ 100</div>
+          </div>
+        </div>
+        <div>
+          <div class="score-bar-wrap">
+            <div class="score-bar-lg"><div class="score-fill score-low" id="auditScoreFill" style="width:0%"></div></div>
+          </div>
+          <div id="auditScoreLbl" style="font-size:13px;color:var(--gray-600);margin-top:8px">Select a case to generate the audit score.</div>
+          <div id="preSubChecklist" style="margin-top:16px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Flags -->
+    <div class="audit-score-card">
+      <div class="card-title">Audit Flags</div>
+      <div class="card-sub">Items requiring attention before submission</div>
+      <div id="auditFlagsWrap"><p class="text-muted">No case selected.</p></div>
+    </div>
+  </div>
+
+  <!-- INADMISSIBILITY QUICK REFERENCE GRID -->
+  <div class="card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div>
+        <div class="card-title">IRPA Inadmissibility Quick Reference Grid</div>
+        <div class="card-sub">IRPA ss.34–42 · Based on IRCC ENF 1 Manual · Not visible to clients</div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:50%;background:var(--green);display:inline-block"></span> Clear</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:50%;background:var(--orange);display:inline-block"></span> Explain</span>
+        <span style="display:flex;align-items:center;gap:4px;font-size:11px"><span style="width:10px;height:10px;border-radius:50%;background:var(--red);display:inline-block"></span> Inadmissible</span>
+      </div>
+    </div>
+    <div id="inadmissGrid"></div>
+  </div>
+
+  <!-- PER-CASE PRE-SUBMISSION CHECKLIST -->
+  <div class="card">
+    <div class="card-title">Pre-Submission Checklist</div>
+    <div class="card-sub">All items must be green before submitting to IRCC</div>
+    <div id="fullPreSubChecklist"></div>
+  </div>
+
+</div><!-- /audit-content -->
+
+<script src="../js/data.js"></script>
+<script>
+// ── AUDIT STATE ──────────────────────────────────────────────────
+const AUDIT = {
+  currentCase: null,
+  inadmissAnswers: {},
+  consultationSigned: false,
+  serviceSigned: false
+};
+
+const IRPA_SECTIONS = [
+  { ref:'s.34', label:'Security', color:'red', items:['Espionage','Subversion','Terrorism','Danger to security','Acts of violence','Member of threat org'] },
+  { ref:'s.35', label:'Human Rights Violations', color:'red', items:['War crimes / CAH','Senior official / rights violations','International sanctions'] },
+  { ref:'s.36(1)', label:'Serious Criminality', color:'red', items:['Conviction in Canada (10yr+)','Conviction outside Canada','Act outside Canada'] },
+  { ref:'s.36(2)', label:'Criminality', color:'orange', items:['Indictable conviction','Two summary convictions','Act outside Canada (2yr+)'] },
+  { ref:'s.37', label:'Organized Crime', color:'red', items:['Member of criminal org','Trafficking / money laundering'] },
+  { ref:'s.38', label:'Health Grounds', color:'orange', items:['Danger to public health','Excessive demand on health services'] },
+  { ref:'s.39', label:'Financial Reasons', color:'orange', items:['Unable to support self/family','Public charge risk'] },
+  { ref:'s.40', label:'Misrepresentation', color:'red', items:['Misrepresentation (material)','Non-disclosure of material facts'] },
+  { ref:'s.41', label:'Non-Compliance', color:'orange', items:['Failure to comply with IRPA','Unauthorized work/study'] },
+  { ref:'s.42', label:'Inadmissible Family Member', color:'orange', items:['Accompanying inadmissible family member'] }
+];
+
+const PRE_SUB_ITEMS = [
+  { id:'psi_intake',     label:'Intake form completed',            desc:'Client basic info on file' },
+  { id:'psi_consult',    label:'Consultation agreement signed',    desc:'Step 1 of 2 agreements' },
+  { id:'psi_service',    label:'Service agreement signed',         desc:'Step 2 of 2 — retainer active' },
+  { id:'psi_inadmiss',   label:'Inadmissibility assessment done',  desc:'All IRPA grounds assessed' },
+  { id:'psi_no_red',     label:'No inadmissibility red flags',     desc:'No grounds marked "Inadmissible"' },
+  { id:'psi_docs',       label:'Required documents collected',     desc:'Checklist items marked complete' },
+  { id:'psi_score',      label:'Audit score 60 or above',          desc:'Minimum threshold for submission' }
+];
+
+// ── INIT ────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  populateCaseSelector();
+  renderInadmissGrid();
+  renderFullPreSub();
+});
+
+function populateCaseSelector() {
+  const sel = document.getElementById('auditCaseSelect');
+  if (!DATA.cases) return;
+  DATA.cases.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c.id;
+    opt.textContent = `${c.id} — ${c.client} (${c.type})`;
+    sel.appendChild(opt);
+  });
+}
+
+// ── LOAD AUDIT CASE ─────────────────────────────────────────────
+function loadAuditCase() {
+  const id = document.getElementById('auditCaseSelect').value;
+  if (!id) { AUDIT.currentCase = null; resetAuditDisplay(); return; }
+  AUDIT.currentCase = (DATA.cases || []).find(c => c.id === id);
+  if (!AUDIT.currentCase) return;
+
+  // Show case info
+  const c = AUDIT.currentCase;
+  document.getElementById('auditCaseInfo').textContent =
+    `${c.client} · ${c.type} · Status: ${c.status} · Stage: ${c.stage}`;
+
+  // Reset inadmissibility answers for this case
+  AUDIT.inadmissAnswers = {};
+  AUDIT.consultationSigned = false;
+  AUDIT.serviceSigned = false;
+
+  renderInadmissGrid();
+  computeScore();
+  renderFullPreSub();
+}
+
+function resetAuditDisplay() {
+  document.getElementById('auditScore').textContent = '—';
+  document.getElementById('auditScoreFill').style.width = '0%';
+  document.getElementById('auditScoreLbl').textContent = 'Select a case to generate the audit score.';
+  document.getElementById('auditFlagsWrap').innerHTML = '<p class="text-muted">No case selected.</p>';
+  document.getElementById('auditAlertBanner').style.display = 'none';
+  renderFullPreSub();
+}
+
+// ── INADMISSIBILITY GRID ─────────────────────────────────────────
+function renderInadmissGrid() {
+  const el = document.getElementById('inadmissGrid');
+  el.innerHTML = `<div class="irpa-grid">${IRPA_SECTIONS.map(sec => `
+    <div class="irpa-card">
+      <div class="irpa-card-head">
+        <span>${sec.label}</span>
+        <span style="font-size:10px;color:var(--gray-400)">${sec.ref}</span>
+      </div>
+      ${sec.items.map((item,i) => {
+        const key = `${sec.ref}_${i}`;
+        const val = AUDIT.inadmissAnswers[key] || '';
+        return `<div class="irpa-item">
+          <span class="irpa-dot ${val || 'unset'}"></span>
+          <span style="flex:1">${item}</span>
+          <select style="font-size:10px;padding:2px 4px;width:90px;height:22px" onchange="setInadmissAnswer('${key}',this.value)">
+            <option value="" ${!val?'selected':''}>—</option>
+            <option value="clear" ${val==='clear'?'selected':''}>Clear</option>
+            <option value="explain" ${val==='explain'?'selected':''}>Explain</option>
+            <option value="inadmiss" ${val==='inadmiss'?'selected':''}>Inadmiss.</option>
+          </select>
+        </div>`;
+      }).join('')}
+    </div>`).join('')}</div>`;
+}
+
+function setInadmissAnswer(key, val) {
+  AUDIT.inadmissAnswers[key] = val;
+  renderInadmissGrid(); // re-render to update dots
+  computeScore();
+  renderFullPreSub();
+}
+
+// ── SCORE COMPUTATION ────────────────────────────────────────────
+function computeScore() {
+  if (!AUDIT.currentCase) return;
+
+  const answers = Object.values(AUDIT.inadmissAnswers).filter(v => v);
+  const total   = IRPA_SECTIONS.reduce((a,s) => a + s.items.length, 0);
+  const cleared  = answers.filter(v => v === 'clear').length;
+  const explains = answers.filter(v => v === 'explain').length;
+  const reds     = answers.filter(v => v === 'inadmiss').length;
+
+  // Score formula: base 40 + assessment bonus + agreement bonus
+  let score = 0;
+  const assessedRatio = answers.length / total;
+  score += Math.round(assessedRatio * 40);               // up to 40 for completing assessment
+  score += Math.round((cleared / Math.max(answers.length,1)) * 30); // up to 30 for all clear
+  score -= explains * 4;                                  // -4 per explanation needed
+  score -= reds * 15;                                     // -15 per red flag
+  if (AUDIT.consultationSigned) score += 10;
+  if (AUDIT.serviceSigned) score += 10;
+  score = Math.max(0, Math.min(100, score));
+
+  // Display score
+  const el = document.getElementById('auditScore');
+  const fill = document.getElementById('auditScoreFill');
+  const lbl = document.getElementById('auditScoreLbl');
+  const circle = document.getElementById('scoreCircle');
+  el.textContent = score;
+  fill.style.width = score + '%';
+  fill.className = 'score-fill ' + (score >= 70 ? 'score-low' : score >= 50 ? 'score-med' : 'score-high');
+  circle.className = 'score-circle ' + (score >= 70 ? '' : score >= 50 ? 'medium' : 'high');
+  circle.style.borderColor = score >= 70 ? 'var(--green)' : score >= 50 ? 'var(--orange)' : 'var(--red)';
+  lbl.textContent = score >= 70 ? '✓ Case appears ready for submission review.' :
+                    score >= 50 ? '⚠ Review flagged items before submitting.' :
+                    '✗ Do not submit — critical issues require resolution.';
+
+  // Alert banner
+  const banner = document.getElementById('auditAlertBanner');
+  banner.style.display = 'flex';
+  if (reds > 0) {
+    banner.className = 'audit-alert';
+    document.getElementById('auditAlertIcon').textContent = '🚨';
+    document.getElementById('auditAlertTitle').textContent = `${reds} inadmissibility flag${reds>1?'s':''} — Do Not Submit`;
+    document.getElementById('auditAlertDesc').textContent = 'One or more IRPA inadmissibility grounds are flagged. Resolve before any submission.';
+  } else if (score < 60) {
+    banner.className = 'audit-alert';
+    document.getElementById('auditAlertIcon').textContent = '⚠️';
+    document.getElementById('auditAlertTitle').textContent = 'Audit score below threshold (60)';
+    document.getElementById('auditAlertDesc').textContent = 'Complete assessment and ensure all agreements are signed.';
+  } else {
+    banner.className = 'audit-alert safe';
+    document.getElementById('auditAlertIcon').textContent = '✅';
+    document.getElementById('auditAlertTitle').textContent = 'Case is submission-ready';
+    document.getElementById('auditAlertDesc').textContent = 'All checks passed. Proceed to IRCC submission.';
+  }
+
+  // Flags
+  buildAuditFlags(reds, explains, score);
+  renderFullPreSub(score, reds, explains, answers.length >= total * 0.8);
+}
+
+function buildAuditFlags(reds, explains, score) {
+  const flags = [];
+  const answers = AUDIT.inadmissAnswers;
+
+  IRPA_SECTIONS.forEach(sec => {
+    sec.items.forEach((item, i) => {
+      const val = answers[`${sec.ref}_${i}`];
+      if (val === 'inadmiss') flags.push({ level:'red', icon:'🚨', title:`Inadmissible — ${item}`, desc:`${sec.ref}: ${sec.label}` });
+      else if (val === 'explain') flags.push({ level:'orange', icon:'⚠️', title:`Explanation needed — ${item}`, desc:`${sec.ref}: Written explanation required with submission` });
+    });
+  });
+
+  if (!AUDIT.consultationSigned) flags.push({ level:'orange', icon:'📋', title:'Consultation agreement not signed', desc:'Required before any work begins' });
+  if (!AUDIT.serviceSigned)      flags.push({ level:'orange', icon:'✍', title:'Service agreement not signed', desc:'Required before IRCC submission' });
+  if (score < 60)                flags.push({ level:'orange', icon:'📊', title:'Audit score below 60', desc:'Minimum score for submission clearance not met' });
+  if (!flags.length)             flags.push({ level:'green', icon:'✓', title:'No flags — case looks clean', desc:'All assessed items are clear' });
+
+  const el = document.getElementById('auditFlagsWrap');
+  el.innerHTML = `<div class="flags-grid">${flags.map(f => `
+    <div class="audit-flag af-${f.level}">
+      <div class="audit-flag-icon">${f.icon}</div>
+      <div class="audit-flag-body"><strong>${f.title}</strong><span>${f.desc}</span></div>
+    </div>`).join('')}</div>`;
+}
+
+// ── PRE-SUBMISSION CHECKLIST ─────────────────────────────────────
+function renderFullPreSub(score, reds, explains, assessed) {
+  const el = document.getElementById('fullPreSubChecklist');
+  if (!AUDIT.currentCase) {
+    el.innerHTML = '<p class="text-muted">Select a case to see its pre-submission checklist.</p>';
+    return;
+  }
+
+  const c = AUDIT.currentCase;
+  const checks = [
+    { label:'Intake form completed',           ok: true,                          desc:'Basic client data on file' },
+    { label:'Consultation agreement signed',   ok: AUDIT.consultationSigned,      desc:'Step 1 — required before all work' },
+    { label:'Service agreement signed',        ok: AUDIT.serviceSigned,           desc:'Step 2 — retainer active' },
+    { label:'Inadmissibility assessment done', ok: !!assessed,                    desc:'All IRPA grounds reviewed' },
+    { label:'No inadmissibility red flags',    ok: !reds,                         desc:`${reds||0} red flags found` },
+    { label:'Required documents collected',    ok: c.stage === 'Docs collected' || c.stage === 'Submitted', desc:'Checklist complete' },
+    { label:'Audit score 60 or above',         ok: (score||0) >= 60,             desc:`Current score: ${score||'—'}` }
+  ];
+
+  const all = checks.every(c => c.ok);
+  el.innerHTML = checks.map(c => `
+    <div class="pre-sub-row">
+      <div>
+        <span style="font-size:14px">${c.ok ? '✅' : '❌'}</span>
+        <span style="margin-left:8px">${c.label}</span>
+        <span style="font-size:11px;color:var(--gray-600);margin-left:8px">${c.desc}</span>
+      </div>
+      <div class="pre-sub-status"><span class="badge ${c.ok ? 'badge-green' : 'badge-red'}">${c.ok ? 'Pass' : 'Fail'}</span></div>
+    </div>`).join('') + `
+    <div class="pre-sub-row">
+      <div><strong>Overall Submission Status</strong></div>
+      <div class="pre-sub-status"><span class="badge ${all ? 'badge-green' : 'badge-red'}" style="font-size:11px">${all ? '✓ Cleared for Submission' : '✗ Not Ready'}</span></div>
+    </div>`;
+
+  // Toggle mock agreement buttons for demo
+  document.getElementById('preSubChecklist').innerHTML = `
+    <div style="font-size:11px;color:var(--gray-600);margin-bottom:6px">Agreements (for demo):</div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="btn btn-sm ${AUDIT.consultationSigned ? 'btn-gold' : ''}" onclick="AUDIT.consultationSigned=!AUDIT.consultationSigned;computeScore()">${AUDIT.consultationSigned ? '✓' : '○'} Consultation Signed</button>
+      <button class="btn btn-sm ${AUDIT.serviceSigned ? 'btn-gold' : ''}" onclick="AUDIT.serviceSigned=!AUDIT.serviceSigned;computeScore()">${AUDIT.serviceSigned ? '✓' : '○'} Service Signed</button>
+    </div>`;
+}
+
+// ── EXPORT ───────────────────────────────────────────────────────
+function exportAuditCSV() {
+  if (!AUDIT.currentCase) { alert('Select a case first.'); return; }
+  const c = AUDIT.currentCase;
+  let csv = 'File ID,Client,Application Type,Status,Audit Score\n';
+  csv += `${c.id},${c.client},${c.type},${c.status},${document.getElementById('auditScore').textContent}\n\n`;
+  csv += 'Category,Item,Assessment\n';
+  IRPA_SECTIONS.forEach(sec => {
+    sec.items.forEach((item, i) => {
+      const val = AUDIT.inadmissAnswers[`${sec.ref}_${i}`] || 'Not assessed';
+      csv += `"${sec.label} (${sec.ref})","${item}","${val}"\n`;
+    });
+  });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([csv], { type:'text/csv' }));
+  a.download = `audit-${c.id}.csv`;
+  a.click();
+}
+</script>
+</body>
+</html>
