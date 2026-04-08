@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Start Your Application — Vantage Immigration</title>
   <style>
-    :root{--navy:#1B3A5C;--navy-d:#152e4a;--navy-l:#EAF2FB;--gold:#C9A84C;--gold-d:#b8953d;--white:#fff;--gray-50:#f8f9fa;--gray-100:#f2f2f2;--gray-200:#e5e5e5;--gray-600:#666;--gray-800:#333;--green:#1E8449;--green-bg:#EAF3DE;--red:#C0392B;--red-bg:#FCEBEB;--orange:#E67E22;--orange-bg:#FAEEDA;--border:#e0e0e0;--radius:8px;--shadow:0 1px 4px rgba(0,0,0,.09);--font:'Segoe UI',system-ui,Arial,sans-serif}
+    :root{--navy:#1B3A5C;--navy-d:#152e4a;--navy-l:#EAF2FB;--gold:#C9A84C;--gold-d:#b8953d;--white:#fff;--gray-50:#f8f9fa;--gray-100:#f2f2f2;--gray-200:#e5e5e5;--gray-400:#999;--gray-600:#666;--gray-800:#333;--green:#1E8449;--green-bg:#EAF3DE;--red:#C0392B;--red-bg:#FCEBEB;--orange:#E67E22;--orange-bg:#FAEEDA;--border:#e0e0e0;--radius:8px;--shadow:0 1px 4px rgba(0,0,0,.09);--font:'Segoe UI',system-ui,Arial,sans-serif}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:var(--font);background:var(--gray-50);color:var(--gray-800);font-size:14px;min-height:100vh}
     a{color:var(--navy)}
 
-    /* NAV */
     nav{background:var(--navy);padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
     .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .nav-mark{width:34px;height:34px;background:var(--gold);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;font-family:Georgia,serif;color:var(--white)}
@@ -18,71 +17,120 @@
     .nav-back{color:rgba(255,255,255,.7);font-size:13px;text-decoration:none}
     .nav-back:hover{color:var(--white)}
 
-    /* PROGRESS */
-    .progress-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:20px 0}
-    .progress-inner{max-width:700px;margin:0 auto;padding:0 24px}
-    .progress-steps{display:flex;align-items:center;justify-content:center;gap:0}
+    .progress-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:18px 0}
+    .progress-inner{max-width:720px;margin:0 auto;padding:0 24px}
+    .progress-steps{display:flex;align-items:center;justify-content:center}
     .prog-step{display:flex;flex-direction:column;align-items:center;flex:1;position:relative}
-    .prog-dot{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;z-index:1;border:2px solid var(--border);background:var(--white);color:var(--gray-400);transition:.2s}
+    .prog-dot{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;z-index:1;border:2px solid var(--border);background:var(--white);color:var(--gray-400);transition:.2s}
     .prog-step.active .prog-dot{background:var(--navy);color:var(--white);border-color:var(--navy)}
     .prog-step.done .prog-dot{background:var(--green);color:var(--white);border-color:var(--green)}
-    .prog-label{font-size:11px;margin-top:6px;color:var(--gray-600);font-weight:500;text-align:center}
+    .prog-label{font-size:10px;margin-top:5px;color:var(--gray-600);font-weight:500;text-align:center;white-space:nowrap}
     .prog-step.active .prog-label{color:var(--navy);font-weight:700}
     .prog-step.done .prog-label{color:var(--green)}
     .prog-line{position:absolute;top:17px;left:50%;width:100%;height:2px;background:var(--border);z-index:0}
     .prog-step.done .prog-line{background:var(--green)}
 
-    /* FORM */
-    .form-wrap{max-width:700px;margin:32px auto;padding:0 24px 40px}
-    .form-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;box-shadow:var(--shadow)}
+    .form-wrap{max-width:720px;margin:28px auto;padding:0 24px 60px}
+    .form-card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px;box-shadow:var(--shadow);margin-bottom:16px}
     .form-title{font-size:20px;font-weight:700;color:var(--navy);margin-bottom:4px}
-    .form-sub{font-size:13px;color:var(--gray-600);margin-bottom:24px}
-    .section-head{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);margin:20px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--navy-l)}
+    .form-sub{font-size:13px;color:var(--gray-600);margin-bottom:24px;line-height:1.5}
+    .section-head{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--navy);margin:20px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--navy-l)}
+    .section-head:first-child{margin-top:0}
     .row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
     .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+    .row-4{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:12px}
     .form-group{margin-bottom:0}
-    .form-group label{font-size:11px;color:var(--gray-600);display:block;margin-bottom:3px;margin-top:10px;font-weight:500}
-    .form-group label .req{color:var(--red)}
+    .form-group label{font-size:11px;color:var(--gray-600);display:block;margin-bottom:3px;margin-top:10px;font-weight:500;display:flex;align-items:center;gap:4px}
+    .req{color:var(--red)}
     .form-group input,.form-group select,.form-group textarea{width:100%;padding:8px 11px;border:1px solid var(--border);border-radius:var(--radius);font-family:var(--font);font-size:13px;color:var(--gray-800);background:var(--white)}
     .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 2px rgba(27,58,92,.08)}
-    .form-group textarea{resize:vertical;min-height:80px}
-    .bilingual-note{font-size:11px;color:var(--gray-600);font-style:italic;margin-top:2px}
+    input.valid{border-color:var(--green)!important}
+    input.invalid{border-color:var(--red)!important}
+    .field-ok{font-size:11px;color:var(--green);margin-top:3px}
+    .field-error{font-size:11px;color:var(--red);margin-top:3px}
+    .field-hint{font-size:11px;color:var(--gray-400);margin-top:3px}
 
-    /* BACKGROUND Q */
+    /* Type cards */
+    .type-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px}
+    .type-card{border:2px solid var(--border);border-radius:12px;padding:22px 18px;cursor:pointer;transition:.15s;text-align:center;user-select:none}
+    .type-card:hover{border-color:var(--navy);background:var(--navy-l)}
+    .type-card.selected{border-color:var(--navy);background:var(--navy-l);box-shadow:0 0 0 2px var(--navy)}
+    .type-card-icon{font-size:40px;margin-bottom:8px}
+    .type-card-name{font-size:15px;font-weight:700;color:var(--navy)}
+    .type-card-desc{font-size:12px;color:var(--gray-600);margin-top:5px;line-height:1.5}
+
+    /* Address */
+    .addr-wrap{position:relative}
+    .addr-suggest{position:absolute;top:100%;left:0;right:0;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);z-index:50;box-shadow:0 4px 16px rgba(0,0,0,.12);max-height:200px;overflow-y:auto;display:none}
+    .addr-suggest-item{padding:10px 14px;cursor:pointer;font-size:12px;border-bottom:1px solid var(--border);line-height:1.4}
+    .addr-suggest-item:last-child{border-bottom:none}
+    .addr-suggest-item:hover{background:var(--navy-l);color:var(--navy)}
+    .addr-suggest-header{padding:7px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--gray-400);background:var(--gray-50)}
+
+    /* Tooltip */
+    .tip{position:relative;display:inline-flex;align-items:center}
+    .tip-btn{width:16px;height:16px;border-radius:50%;background:var(--gray-200);color:var(--gray-600);border:none;cursor:pointer;font-size:10px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0}
+    .tip-text{display:none;position:absolute;bottom:calc(100% + 4px);left:-8px;background:#333;color:#fff;padding:8px 12px;border-radius:var(--radius);font-size:11px;width:220px;z-index:100;line-height:1.5;font-weight:400}
+    .tip-text::after{content:'';position:absolute;top:100%;left:14px;border:5px solid transparent;border-top-color:#333}
+    .tip:hover .tip-text{display:block}
+
+    /* Family member card */
+    .member-card{border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:10px;background:var(--gray-50);position:relative}
+    .member-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .member-card-title{font-size:13px;font-weight:700;color:var(--navy)}
+    .member-remove{background:none;border:none;color:var(--red);cursor:pointer;font-size:20px;line-height:1;padding:0 4px}
+    .add-member-btn{display:flex;align-items:center;gap:8px;padding:10px 16px;border:2px dashed var(--border);border-radius:var(--radius);background:none;cursor:pointer;color:var(--navy);font-size:13px;font-weight:600;width:100%;justify-content:center;margin-top:8px;transition:.15s}
+    .add-member-btn:hover{border-color:var(--navy);background:var(--navy-l)}
+
+    /* BG questions */
     .bg-question{border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
     .bg-q-text{font-size:13px;font-weight:500;color:var(--gray-800);margin-bottom:2px}
-    .bg-q-ti{font-size:12px;color:var(--gray-600);font-style:italic;margin-bottom:10px}
-    .bg-q-opts{display:flex;gap:12px}
-    .bg-opt{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;color:var(--gray-700);padding:6px 14px;border:1px solid var(--border);border-radius:var(--radius);transition:.15s}
+    .bg-q-en{font-size:11px;color:var(--gray-400);font-style:italic;margin-bottom:10px}
+    .bg-q-opts{display:flex;gap:12px;flex-wrap:wrap}
+    .bg-opt{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:13px;padding:7px 16px;border:1px solid var(--border);border-radius:var(--radius);transition:.15s;user-select:none}
     .bg-opt:hover{border-color:var(--navy);background:var(--navy-l)}
-    .bg-opt.selected-yes{border-color:var(--green);background:var(--green-bg);color:var(--green)}
+    .bg-opt.selected-yes{border-color:var(--red);background:var(--red-bg);color:var(--red)}
     .bg-opt.selected-no{border-color:var(--navy);background:var(--navy-l);color:var(--navy)}
-    .bg-opt input[type=radio]{accent-color:var(--navy)}
-    .bg-warn{background:var(--orange-bg);color:var(--orange);border-left:3px solid var(--orange);padding:8px 12px;border-radius:var(--radius);font-size:12px;margin-top:8px;display:none}
+    .bg-warn{background:var(--orange-bg);border-left:3px solid var(--orange);padding:9px 12px;border-radius:var(--radius);font-size:12px;margin-top:8px;color:var(--orange);display:none}
 
-    /* ACCOUNT */
+    /* Account */
     .file-id-box{background:var(--navy-l);border:2px solid var(--navy);border-radius:var(--radius);padding:16px;text-align:center;margin-bottom:20px}
     .file-id-label{font-size:11px;color:var(--navy);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
-    .file-id-val{font-size:28px;font-weight:800;color:var(--navy);font-family:monospace;letter-spacing:.04em;margin:4px 0}
+    .file-id-val{font-size:26px;font-weight:800;color:var(--navy);font-family:monospace;letter-spacing:.04em;margin:4px 0}
     .file-id-note{font-size:11px;color:var(--gray-600)}
 
-    /* BUTTONS */
-    .btn-group{display:flex;gap:10px;margin-top:20px}
+    /* Buttons */
+    .btn-group{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
     .btn{display:inline-flex;align-items:center;gap:5px;padding:10px 22px;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;font-family:var(--font);transition:.15s;border:1px solid var(--border);background:var(--white);color:var(--gray-800)}
     .btn:hover{background:var(--gray-100)}
     .btn-primary{background:var(--navy);color:var(--white);border-color:var(--navy)}
     .btn-primary:hover{background:var(--navy-d)}
     .btn-gold{background:var(--gold);color:var(--white);border-color:var(--gold)}
     .btn-gold:hover{background:var(--gold-d)}
-    .btn-block{width:100%;justify-content:center}
+    .btn-sm{padding:5px 13px;font-size:12px}
 
-    /* SUCCESS */
-    #stepSuccess{display:none;text-align:center;padding:40px 20px}
-    .success-icon{font-size:64px;margin-bottom:16px}
-    .success-title{font-size:24px;font-weight:800;color:var(--green);margin-bottom:12px}
-    .success-sub{font-size:15px;color:var(--gray-600);max-width:480px;margin:0 auto 28px;line-height:1.7}
+    /* Auto-save bar */
+    .autosave-bar{position:fixed;bottom:20px;right:20px;background:var(--navy);color:#fff;padding:8px 18px;border-radius:20px;font-size:12px;font-weight:600;opacity:0;pointer-events:none;transition:.3s;z-index:200}
+    .autosave-bar.show{opacity:1}
 
-    @media(max-width:640px){.row-2,.row-3{grid-template-columns:1fr}.form-card{padding:20px}}
+    /* Draft notice */
+    .draft-notice{background:#fffde7;border:1px solid var(--gold);border-radius:var(--radius);padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .draft-notice span{font-size:13px;color:var(--gray-800)}
+
+    /* Summary card */
+    .summary-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+    .summary-row:last-child{border-bottom:none}
+    .summary-key{color:var(--gray-600);font-size:12px}
+
+    /* Score */
+    .score-ring{display:inline-flex;flex-direction:column;align-items:center;gap:2px}
+    .score-num{font-size:32px;font-weight:800;line-height:1}
+    .score-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+
+    #stepSuccess{display:none}
+    .success-icon{font-size:64px;margin-bottom:16px;text-align:center}
+
+    @media(max-width:640px){.row-2,.row-3,.row-4{grid-template-columns:1fr}.type-cards{grid-template-columns:1fr}.form-card{padding:18px}.tip-text{width:180px}}
   </style>
 </head>
 <body>
@@ -95,22 +143,27 @@
   <a href="index.html" class="nav-back">← Back to website</a>
 </nav>
 
-<!-- PROGRESS -->
+<!-- PROGRESS BAR -->
 <div class="progress-wrap">
   <div class="progress-inner">
     <div class="progress-steps" id="progressSteps">
       <div class="prog-step active" id="ps1">
         <div class="prog-line"></div>
         <div class="prog-dot">1</div>
-        <div class="prog-label">Basic Info</div>
+        <div class="prog-label">Application</div>
       </div>
       <div class="prog-step" id="ps2">
         <div class="prog-line"></div>
         <div class="prog-dot">2</div>
-        <div class="prog-label">Background</div>
+        <div class="prog-label">Your Info</div>
       </div>
       <div class="prog-step" id="ps3">
+        <div class="prog-line"></div>
         <div class="prog-dot">3</div>
+        <div class="prog-label">Background</div>
+      </div>
+      <div class="prog-step" id="ps4">
+        <div class="prog-dot">4</div>
         <div class="prog-label">Account</div>
       </div>
     </div>
@@ -120,61 +173,171 @@
 <!-- FORM WRAPPER -->
 <div class="form-wrap">
 
-  <!-- STEP 1: BASIC INFO -->
+  <!-- ═══ STEP 1: APPLICATION TYPE ═══ -->
   <div id="step1">
     <div class="form-card">
-      <div class="form-title">Step 1 — Basic Information</div>
-      <div class="form-sub">Tell us about yourself. All fields marked * are required.</div>
+      <div class="form-title">Step 1 — Your Application</div>
+      <div class="form-sub">Let's start with the basics. Takes about 5 minutes. Your progress is saved automatically.</div>
 
-      <div class="section-head">Personal Details</div>
+      <!-- Draft restore -->
+      <div class="draft-notice" id="draftNotice" style="display:none">
+        <span>📂 You have a saved draft from a previous session. Continue where you left off?</span>
+        <div style="display:flex;gap:8px">
+          <button onclick="loadDraft()" class="btn btn-sm btn-primary">Restore Draft</button>
+          <button onclick="clearDraft()" class="btn btn-sm">Start Fresh</button>
+        </div>
+      </div>
+
+      <!-- Individual vs Family -->
+      <div class="section-head" style="margin-top:0">Is this application for yourself only, or for your family?</div>
+      <div class="type-cards">
+        <div class="type-card" id="typeIndividual" onclick="selectApplicantType('individual')">
+          <div class="type-card-icon">👤</div>
+          <div class="type-card-name">Individual</div>
+          <div class="type-card-desc">Just me — no spouse, children, or dependents included in this application</div>
+        </div>
+        <div class="type-card" id="typeFamily" onclick="selectApplicantType('family')">
+          <div class="type-card-icon">👨‍👩‍👧‍👦</div>
+          <div class="type-card-name">Family / Multiple Applicants</div>
+          <div class="type-card-desc">I'm applying with a spouse, children, or other dependents who need to be included</div>
+        </div>
+      </div>
+      <div id="typeError" class="field-error" style="display:none;margin-top:6px">⚠ Please select Individual or Family to continue.</div>
+
+      <!-- Application type -->
+      <div class="section-head">What service are you applying for?</div>
+      <div class="form-group">
+        <label>Application Type <span class="req">*</span>
+          <span class="tip"><button class="tip-btn">?</button><span class="tip-text">Not sure which applies to you? Pick the closest option — your consultant will confirm the exact pathway at your consultation.</span></span>
+        </label>
+        <select id="s1_appType" onchange="autoSave()">
+          <option value="">— Select application type —</option>
+          <option value="spousal_spouses">Spousal Sponsorship — Spouses</option>
+          <option value="spousal_commonlaw">Spousal Sponsorship — Common-Law Partner</option>
+          <option value="express_entry">Express Entry — Permanent Residence</option>
+          <option value="work_permit_overseas">Work Permit — From Outside Canada</option>
+          <option value="work_permit_extension">Work Permit Extension (inside Canada)</option>
+          <option value="study_permit_overseas">Study Permit — From Outside Canada</option>
+          <option value="study_permit_extension">Study Permit Extension (inside Canada)</option>
+          <option value="trv_supervisa">Visitor Visa (TRV) / Super Visa</option>
+          <option value="visitor_extension">Visitor Record Extension</option>
+          <option value="pr_card_renewal">PR Card Renewal</option>
+          <option value="refugee">Refugee Protection Claim</option>
+          <option value="other">Other / Not sure</option>
+        </select>
+        <div class="field-hint" id="appTypeHint"></div>
+      </div>
+
+      <!-- Consultation option -->
+      <div style="margin-top:16px;background:var(--navy-l);border-radius:var(--radius);border-left:3px solid var(--navy);padding:12px 16px">
+        <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:4px">💡 Not sure about your situation?</div>
+        <div style="font-size:12px;color:var(--gray-800)">You can book a <strong>30-minute consultation</strong> first ($150 CAD) to discuss your options before committing to a full application. Select your type above and continue — you can mention this in your notes.</div>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="goStep2()">Continue → Your Information</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ STEP 2: PERSONAL INFORMATION ═══ -->
+  <div id="step2" style="display:none">
+    <div class="form-card">
+      <div class="form-title">Step 2 — Your Information</div>
+      <div class="form-sub">Tell us about the primary applicant. Fields marked * are required.</div>
+
+      <div class="section-head">Primary Applicant — Personal Details</div>
       <div class="row-2">
         <div class="form-group">
           <label>First Name <span class="req">*</span></label>
-          <input type="text" id="s1_first" placeholder="Given name">
+          <input type="text" id="s2_first" placeholder="Given name" oninput="autoSave()">
         </div>
         <div class="form-group">
           <label>Last Name <span class="req">*</span></label>
-          <input type="text" id="s1_last" placeholder="Family name">
+          <input type="text" id="s2_last" placeholder="Family / surname" oninput="autoSave()">
         </div>
       </div>
       <div class="row-3">
         <div class="form-group">
-          <label>Date of Birth <span class="req">*</span></label>
-          <input type="date" id="s1_dob">
+          <label>Date of Birth <span class="req">*</span>
+            <span class="tip"><button class="tip-btn">?</button><span class="tip-text">Must match your passport exactly.</span></span>
+          </label>
+          <input type="date" id="s2_dob" onchange="autoSave()">
         </div>
         <div class="form-group">
           <label>Country of Citizenship <span class="req">*</span></label>
-          <input type="text" id="s1_country" placeholder="e.g. Eritrea, Ethiopia">
+          <input type="text" id="s2_country" placeholder="e.g. Eritrea, Ethiopia, Canada" oninput="autoSave()">
         </div>
         <div class="form-group">
-          <label>Passport Number</label>
-          <input type="text" id="s1_passport" placeholder="AB123456">
+          <label>Passport Number
+            <span class="tip"><button class="tip-btn">?</button><span class="tip-text">Leave blank if you don't have one yet.</span></span>
+          </label>
+          <input type="text" id="s2_passport" placeholder="AB123456" oninput="autoSave()">
         </div>
       </div>
       <div class="row-2">
         <div class="form-group">
           <label>Phone Number <span class="req">*</span></label>
-          <input type="tel" id="s1_phone" placeholder="+1 780 000 0000">
+          <input type="tel" id="s2_phone" placeholder="+1 780 000 0000" oninput="autoSave()">
         </div>
         <div class="form-group">
           <label>Email Address <span class="req">*</span></label>
-          <input type="email" id="s1_email" placeholder="your@email.com">
+          <input type="email" id="s2_email" placeholder="your@email.com" oninput="autoSave()">
+          <div id="emailFeedback" class="field-hint"></div>
         </div>
       </div>
 
-      <div class="section-head">Current Immigration Status</div>
-      <div class="row-2">
+      <!-- ADDRESS -->
+      <div class="section-head">Current Address</div>
+      <div class="form-group addr-wrap">
+        <label>Street Address <span class="req">*</span>
+          <span class="tip"><button class="tip-btn">?</button><span class="tip-text">Start typing your street address and we'll suggest verified Canadian addresses automatically.</span></span>
+        </label>
+        <input type="text" id="s2_street" placeholder="123 Main Street" oninput="onStreetInput()" autocomplete="off">
+        <div class="addr-suggest" id="addrSuggest"></div>
+      </div>
+      <div class="row-3">
         <div class="form-group">
-          <label>Where do you currently live? <span class="req">*</span></label>
-          <select id="s1_location">
-            <option value="">— Select —</option>
-            <option value="in_canada">In Canada</option>
-            <option value="outside_canada">Outside Canada</option>
-          </select>
+          <label>City / Town <span class="req">*</span></label>
+          <input type="text" id="s2_city" placeholder="Fort McMurray" oninput="onStreetInput();autoSave()">
         </div>
         <div class="form-group">
-          <label>Current status in Canada (if applicable)</label>
-          <select id="s1_status">
+          <label>Postal Code <span class="req">*</span>
+            <span class="tip"><button class="tip-btn">?</button><span class="tip-text">Canadian format: A1A 1A1. We'll auto-detect your province from the first letter.</span></span>
+          </label>
+          <input type="text" id="s2_postal" placeholder="T9H 1S3" oninput="onPostalInput(this.value)" maxlength="7">
+          <div id="postalFeedback" class="field-hint"></div>
+        </div>
+        <div class="form-group">
+          <label>Province / Territory <span class="req">*</span></label>
+          <select id="s2_province" onchange="autoSave()">
+            <option value="">— Select —</option>
+            <option value="AB">Alberta (AB)</option>
+            <option value="BC">British Columbia (BC)</option>
+            <option value="MB">Manitoba (MB)</option>
+            <option value="NB">New Brunswick (NB)</option>
+            <option value="NL">Newfoundland and Labrador (NL)</option>
+            <option value="NS">Nova Scotia (NS)</option>
+            <option value="NT">Northwest Territories (NT)</option>
+            <option value="NU">Nunavut (NU)</option>
+            <option value="ON">Ontario (ON)</option>
+            <option value="PE">Prince Edward Island (PE)</option>
+            <option value="QC">Quebec (QC)</option>
+            <option value="SK">Saskatchewan (SK)</option>
+            <option value="YT">Yukon (YT)</option>
+          </select>
+        </div>
+      </div>
+      <div class="row-2">
+        <div class="form-group">
+          <label>Country</label>
+          <input type="text" id="s2_country2" value="Canada" placeholder="Canada" oninput="autoSave()">
+        </div>
+        <div class="form-group">
+          <label>Current immigration status in Canada
+            <span class="tip"><button class="tip-btn">?</button><span class="tip-text">Select "Never been to Canada" if you are applying from outside Canada.</span></span>
+          </label>
+          <select id="s2_status" onchange="autoSave()">
             <option value="">— Select —</option>
             <option>Permanent Resident</option>
             <option>Canadian Citizen</option>
@@ -188,299 +351,821 @@
         </div>
       </div>
 
-      <div class="section-head">Application Type</div>
-      <div class="form-group">
-        <label>What service are you applying for? <span class="req">*</span></label>
-        <select id="s1_appType">
-          <option value="">— Select application type —</option>
-          <option value="spousal_spouses">Spousal Sponsorship — Spouses</option>
-          <option value="spousal_commonlaw">Spousal Sponsorship — Common-Law</option>
-          <option value="express_entry">Express Entry PR</option>
-          <option value="work_permit_overseas">Work Permit — Overseas</option>
-          <option value="work_permit_extension">Work Permit Extension</option>
-          <option value="study_permit_overseas">Study Permit — Overseas</option>
-          <option value="study_permit_extension">Study Permit Extension</option>
-          <option value="trv_supervisa">TRV / Super Visa</option>
-          <option value="visitor_extension">Visitor Record Extension</option>
-          <option value="pr_card_renewal">PR Card Renewal</option>
-        </select>
+      <!-- FAMILY MEMBERS (shown only if "family" selected) -->
+      <div id="familySection" style="display:none">
+        <div class="section-head">Family Members Included in This Application</div>
+        <div style="background:var(--navy-l);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--navy)">
+          ℹ Add each family member who will be included in your application. Each person will have their own document section on your checklist.
+        </div>
+        <div id="familyMembersWrap"></div>
+        <button class="add-member-btn" onclick="addFamilyMember()">+ Add Family Member</button>
       </div>
+
+      <!-- Notes -->
+      <div class="section-head">Additional Notes</div>
       <div class="form-group">
-        <label>Brief description of your situation (optional)</label>
-        <textarea id="s1_notes" placeholder="E.g. My spouse is in Eritrea, I am a Canadian PR in Fort McMurray..."></textarea>
+        <label>Brief description of your situation (optional)
+          <span class="tip"><button class="tip-btn">?</button><span class="tip-text">For example: "My spouse is in Eritrea, I am a Canadian PR in Fort McMurray. We married in 2023."</span></span>
+        </label>
+        <textarea id="s2_notes" placeholder="Describe your situation in a few sentences..." style="min-height:80px;resize:vertical" oninput="autoSave()"></textarea>
       </div>
 
       <div class="btn-group">
-        <button class="btn btn-primary" onclick="goStep2()">Continue to Background Questions →</button>
+        <button class="btn" onclick="goStep(1)">← Back</button>
+        <button class="btn btn-primary" onclick="goStep3()">Continue → Background Questions</button>
       </div>
     </div>
   </div>
 
-  <!-- STEP 2: BACKGROUND QUESTIONS -->
-  <div id="step2" style="display:none">
+  <!-- ═══ STEP 3: BACKGROUND QUESTIONS ═══ -->
+  <div id="step3" style="display:none">
     <div class="form-card">
-      <div class="form-title">Step 2 — Background Questions</div>
-      <div class="form-sub">Please answer honestly. These help us assess your case. / ብቅንዕና መልሱ / أجب بصدق / በቅንነት መልስ</div>
+      <div class="form-title">Step 3 — Background Questions</div>
+      <div class="form-sub">Please answer all questions honestly. These help your consultant assess your eligibility accurately. All information is kept strictly confidential (PIPEDA / PIPA Alberta).</div>
 
-      <!-- Language selector -->
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:10px 14px;background:var(--navy-l);border-radius:var(--radius)">
-        <span style="font-size:12px;font-weight:600;color:var(--navy)">Question language:</span>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;padding:10px 14px;background:var(--navy-l);border-radius:var(--radius);flex-wrap:wrap">
+        <span style="font-size:12px;font-weight:600;color:var(--navy)">Question language / ቋንቋ / اللغة / ቋንቋ:</span>
         <select id="bgLang" onchange="renderBgQuestions()" style="width:auto;padding:5px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px">
           <option value="en">English</option>
           <option value="ti">ትግርኛ (Tigrinya)</option>
           <option value="ar">العربية (Arabic)</option>
           <option value="am">አማርኛ (Amharic)</option>
         </select>
+        <span style="font-size:11px;color:var(--gray-600)">Questions will update instantly.</span>
       </div>
 
       <div id="bgQuestions"></div>
 
+      <div style="margin-top:14px;padding:10px 14px;background:var(--orange-bg);border-radius:var(--radius);border-left:3px solid var(--orange);font-size:12px;color:var(--gray-800)">
+        ⚠ <strong>Important:</strong> Answering "Yes" to any question does not automatically disqualify you. Your consultant will assess each situation individually. Hiding information, however, can result in serious consequences including future inadmissibility.
+      </div>
+
       <div class="btn-group">
-        <button class="btn" onclick="backStep1()">← Back</button>
-        <button class="btn btn-primary" onclick="goStep3()">Continue to Account Creation →</button>
+        <button class="btn" onclick="goStep(2)">← Back</button>
+        <button class="btn btn-primary" onclick="goStep4()">Continue → Create Account</button>
       </div>
     </div>
   </div>
 
-  <!-- STEP 3: ACCOUNT CREATION -->
-  <div id="step3" style="display:none">
+  <!-- ═══ STEP 4: ACCOUNT CREATION ═══ -->
+  <div id="step4" style="display:none">
     <div class="form-card">
-      <div class="form-title">Step 3 — Create Your Client Account</div>
-      <div class="form-sub">Your file ID has been generated. Create a password to access your client portal.</div>
+      <div class="form-title">Step 4 — Create Your Client Account</div>
+      <div class="form-sub">Your file ID has been generated. Create a password to access your client portal anytime.</div>
 
       <div class="file-id-box">
         <div class="file-id-label">Your File ID</div>
         <div class="file-id-val" id="generatedFileId">VIS-2026-AB-XX-000</div>
-        <div class="file-id-note">Save this ID — you will need it to log into your portal</div>
+        <div class="file-id-note">📌 Save this ID — you will need it to log in to your portal</div>
       </div>
+
+      <!-- Application summary -->
+      <div class="section-head">Application Summary</div>
+      <div id="summaryBlock" style="margin-bottom:16px"></div>
 
       <div class="section-head">Account Details</div>
       <div class="form-group">
-        <label>Email (will be your login) <span class="req">*</span></label>
-        <input type="email" id="s3_email" placeholder="your@email.com" readonly>
+        <label>Email (your login) <span class="req">*</span></label>
+        <input type="email" id="s4_email" placeholder="your@email.com" readonly style="background:var(--gray-50)">
       </div>
       <div class="row-2">
         <div class="form-group">
-          <label>Create Password <span class="req">*</span></label>
-          <input type="password" id="s3_pass" placeholder="Minimum 8 characters">
+          <label>Create Password <span class="req">*</span>
+            <span class="tip"><button class="tip-btn">?</button><span class="tip-text">Minimum 8 characters. Use a mix of letters and numbers for security.</span></span>
+          </label>
+          <input type="password" id="s4_pass" placeholder="Minimum 8 characters" oninput="checkPassStrength()">
+          <div id="passStrength" class="field-hint"></div>
         </div>
         <div class="form-group">
           <label>Confirm Password <span class="req">*</span></label>
-          <input type="password" id="s3_pass2" placeholder="Re-enter password">
+          <input type="password" id="s4_pass2" placeholder="Re-enter password" oninput="checkPassMatch()">
+          <div id="passMatch" class="field-hint"></div>
         </div>
       </div>
       <div class="form-group">
-        <label>Preferred language / ዝመርጽዎ ቋንቋ</label>
-        <select id="s3_lang">
+        <label>Preferred language for communication</label>
+        <select id="s4_lang" onchange="autoSave()">
           <option value="en">English</option>
           <option value="ti">Tigrinya / ትግርኛ</option>
-          <option value="both">Both / ክልቲኡ</option>
+          <option value="ar">Arabic / العربية</option>
+          <option value="am">Amharic / አማርኛ</option>
         </select>
       </div>
 
-      <div style="margin-top:16px;padding:12px;background:var(--orange-bg);border-radius:var(--radius);border-left:3px solid var(--orange)">
-        <strong style="font-size:12px;color:var(--orange)">⚠ Before we proceed:</strong>
-        <div style="font-size:12px;color:var(--gray-800);margin-top:4px">A <strong>consultation agreement</strong> must be signed before any work begins. This will be waiting for you when you log in to your portal. The consultation fee is due at or before the consultation.</div>
+      <div style="margin-top:14px;padding:12px 14px;background:var(--orange-bg);border-radius:var(--radius);border-left:3px solid var(--orange);font-size:12px;color:var(--gray-800)">
+        <strong style="color:var(--orange)">⚠ Before proceeding:</strong> A <strong>Consultation Agreement</strong> must be signed before any work begins. It will be waiting for you in your portal. The consultation fee ($150 CAD) is due at or before your consultation.
       </div>
 
       <div style="margin-top:14px;display:flex;align-items:flex-start;gap:8px">
-        <input type="checkbox" id="s3_consent" style="margin-top:2px">
-        <label for="s3_consent" style="margin:0;font-size:12px;cursor:pointer;color:var(--gray-800)">I consent to the collection and storage of my personal information in accordance with PIPEDA and Alberta PIPA for the purpose of immigration consulting services.</label>
+        <input type="checkbox" id="s4_consent" style="margin-top:2px;flex-shrink:0">
+        <label for="s4_consent" style="margin:0;font-size:12px;cursor:pointer;color:var(--gray-800)">I consent to the collection and storage of my personal information in accordance with PIPEDA and Alberta PIPA for the purpose of immigration consulting services.</label>
       </div>
       <div style="margin-top:8px;display:flex;align-items:flex-start;gap:8px">
-        <input type="checkbox" id="s3_accurate" style="margin-top:2px">
-        <label for="s3_accurate" style="margin:0;font-size:12px;cursor:pointer;color:var(--gray-800)">I confirm that all information I have provided is true and accurate to the best of my knowledge.</label>
+        <input type="checkbox" id="s4_accurate" style="margin-top:2px;flex-shrink:0">
+        <label for="s4_accurate" style="margin:0;font-size:12px;cursor:pointer;color:var(--gray-800)">I confirm that all information I have provided is true and accurate to the best of my knowledge. I understand that providing false or misleading information may result in refusal and future inadmissibility.</label>
       </div>
 
       <div class="btn-group">
-        <button class="btn" onclick="backStep2()">← Back</button>
-        <button class="btn btn-gold" onclick="submitIntake()" style="flex:1;justify-content:center">Create My Account &amp; Enter Portal →</button>
+        <button class="btn" onclick="goStep(3)">← Back</button>
+        <button class="btn btn-gold" onclick="submitIntake()" style="flex:1;justify-content:center;font-size:15px">Create My Account &amp; Enter Portal →</button>
       </div>
     </div>
   </div>
 
-  <!-- SUCCESS -->
+  <!-- ═══ SUCCESS ═══ -->
   <div id="stepSuccess">
     <div class="form-card" style="text-align:center;padding:48px 28px">
       <div class="success-icon">✅</div>
-      <div class="success-title">Application Submitted!</div>
-      <div class="success-sub">Your file has been created. Your consultant will review your intake and contact you within <strong>24 hours</strong> to schedule your consultation.</div>
+      <div style="font-size:24px;font-weight:800;color:var(--green);margin-bottom:12px">Application Submitted!</div>
+      <div style="font-size:14px;color:var(--gray-600);max-width:480px;margin:0 auto 24px;line-height:1.7">
+        Your file has been created. Your consultant will review your intake and contact you within <strong>24 hours</strong> to schedule your consultation.
+      </div>
       <div class="file-id-box" style="max-width:320px;margin:0 auto 24px">
         <div class="file-id-label">Your File ID</div>
         <div class="file-id-val" id="successFileId">VIS-2026-AB-XX-000</div>
+        <div class="file-id-note">Save this — needed to log in</div>
       </div>
-      <a href="portal/dashboard.html" style="display:inline-block;background:var(--navy);color:white;padding:12px 32px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none">Go to My Portal →</a>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="portal/dashboard.html" style="display:inline-block;background:var(--navy);color:white;padding:12px 28px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none">Go to My Portal →</a>
+        <a href="index.html" style="display:inline-block;background:var(--white);color:var(--navy);padding:12px 28px;border-radius:8px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid var(--border)">Back to Website</a>
+      </div>
+      <div style="margin-top:20px;font-size:12px;color:var(--gray-400)">
+        📧 Can't access the portal? Email us at <strong>info@vantageimmigration.ca</strong> with your File ID and we'll help you log in.
+      </div>
     </div>
   </div>
 
 </div><!-- /form-wrap -->
 
+<!-- Auto-save indicator -->
+<div class="autosave-bar" id="autosaveBar">✓ Progress saved</div>
+
 <script>
-  // Pre-fill app type from URL param
-  const params = new URLSearchParams(location.search);
-  if (params.get('type')) document.getElementById('s1_appType').value = params.get('type');
+// ── CONSTANTS ────────────────────────────────────────────────────
+const DRAFT_KEY = 'vantage_intake_draft_v2';
 
-  const BG_QUESTIONS = [
-    {
-      id:'q_criminal',
-      en:'Have you ever been convicted of a criminal offence in any country?',
-      ti:'ኣብ ዝኾነ ሃገር ብገበን ተፈሪድካ/ኺ ዶ ትፈልጥ?',
-      ar:'هل سبق أن صدر بحقك حكم إدانة جنائية في أي دولة؟',
-      am:'በማንኛውም ሃገር የወንጀል ፍርድ ተፈርዶብህ/ሽ ታውቃለህ/ሽ?',
-      warn:'Criminal history must be disclosed. It may affect eligibility but does not automatically disqualify you.'
-    },
-    {
-      id:'q_removal',
-      en:'Have you ever been removed, deported, or excluded from Canada or any other country?',
-      ti:'ካብ ካናዳ ወይ ካብ ካልእ ሃገር ተባሪርካ/ኪ ዶ ትፈልጥ?',
-      ar:'هل سبق أن تم ترحيلك أو إبعادك من كندا أو أي دولة أخرى؟',
-      am:'ከካናዳ ወይም ከሌላ ሃገር ተባሮ/ርና ታውቃለህ/ሽ?',
-      warn:'Previous removal must be disclosed to assess potential inadmissibility.'
-    },
-    {
-      id:'q_refused',
-      en:'Have you ever been refused a visa or permit to enter Canada?',
-      ti:'ናይ ካናዳ ቪዛ ወይ ፍቓድ ምእታው ተኣቢዩካ/ኪ ዶ?',
-      ar:'هل سبق رفض طلب تأشيرتك أو تصريح دخولك إلى كندا؟',
-      am:'ወደ ካናዳ ለመግባት ቪዛ ወይም ፈቃድ ተቀስቶብህ/ሽ ታውቃለህ/ሽ?',
-      warn:''
-    },
-    {
-      id:'q_military',
-      en:'Have you served in the military, police, or intelligence services in any country?',
-      ti:'ኣብ ዝኾነ ሃገር ኣብ ሰራዊት፣ ፖሊስ ወይ ስለያ ኣገልጊልካ/ኪ ዶ?',
-      ar:'هل خدمت في الجيش أو الشرطة أو الاستخبارات في أي دولة؟',
-      am:'በማንኛውም ሃገር በጦር ሃይል፣ ፖሊስ ወይም የስለላ አገልግሎት አገልግለህ/ሽ ታውቃለህ/ሽ?',
-      warn:''
-    },
-    {
-      id:'q_health',
-      en:'Do you have any serious medical conditions or communicable diseases?',
-      ti:'ዝኾነ ከቢድ ሕማም ወይ ተላባዒ ሕማም ኣለካ/ኪ ዶ?',
-      ar:'هل تعاني من أي حالة طبية خطيرة أو أمراض معدية؟',
-      am:'ከባድ የጤና ችግር ወይም ተላላፊ በሽታ አለህ/ሽ?',
-      warn:''
-    },
-    {
-      id:'q_fraud',
-      en:'Has a representative ever filed an application on your behalf without your knowledge?',
-      ti:'ዝኾነ ወኪል ብዘይ ፍቓድካ/ኺ ናብ ካናዳ ዝቐረበ ሕቶ ኣቕሪቡ ዶ?',
-      ar:'هل قدّم ممثل طلبًا نيابةً عنك دون علمك؟',
-      am:'ማንኛውም ወኪል ሳታውቅ/ቂ በአንተ/ቺ ስም ማመልከቻ አቅርቦ ታውቃለህ/ሽ?',
-      warn:''
-    }
-  ];
+const APP_TYPE_HINTS = {
+  spousal_spouses: 'You or your spouse is a Canadian citizen or PR sponsoring the other.',
+  spousal_commonlaw: 'Common-law partner must have cohabited for at least 12 continuous months.',
+  express_entry: 'For skilled workers applying for permanent residence through the federal pool.',
+  work_permit_overseas: 'You are outside Canada and have a job offer or LMIA.',
+  work_permit_extension: 'Your work permit expires within 90 days and you are already in Canada.',
+  study_permit_overseas: 'You have a letter of acceptance from a Canadian DLI.',
+  study_permit_extension: 'Extending study permit while already enrolled in Canada.',
+  trv_supervisa: 'Super Visa allows parents/grandparents of Canadian citizens/PRs to visit for up to 5 years.',
+  visitor_extension: 'Your visitor status expires within 90 days.',
+  pr_card_renewal: 'Your PR card is expiring or has expired.',
+  refugee: 'You are in Canada and claiming refugee protection.',
+  other: 'Your consultant will assess the correct pathway at your consultation.'
+};
 
-  const answers = {};
+const POSTAL_PROVINCE = {
+  A:{name:'Newfoundland and Labrador',code:'NL'}, B:{name:'Nova Scotia',code:'NS'},
+  C:{name:'Prince Edward Island',code:'PE'}, E:{name:'New Brunswick',code:'NB'},
+  G:{name:'Quebec',code:'QC'}, H:{name:'Quebec',code:'QC'}, J:{name:'Quebec',code:'QC'},
+  K:{name:'Ontario',code:'ON'}, L:{name:'Ontario',code:'ON'}, M:{name:'Ontario',code:'ON'},
+  N:{name:'Ontario',code:'ON'}, P:{name:'Ontario',code:'ON'}, R:{name:'Manitoba',code:'MB'},
+  S:{name:'Saskatchewan',code:'SK'}, T:{name:'Alberta',code:'AB'},
+  V:{name:'British Columbia',code:'BC'}, X:{name:'NWT / Nunavut',code:'NT'},
+  Y:{name:'Yukon',code:'YT'}
+};
 
-  const YES_LABELS = { en:'Yes', ti:'እወ', ar:'نعم', am:'አዎ' };
-  const NO_LABELS  = { en:'No',  ti:'ኣይፋልን', ar:'لا', am:'አይደለም' };
+const BG_QUESTIONS = [
+  { id:'q_criminal',
+    en:'Have you ever been convicted of a criminal offence in any country?',
+    ti:'ኣብ ዝኾነ ሃገር ብገበን ተፈሪድካ/ኺ ዶ ትፈልጥ?',
+    ar:'هل سبق أن صدر بحقك حكم إدانة جنائية في أي دولة؟',
+    am:'በማንኛውም ሃገር የወንጀል ፍርድ ተፈርዶብህ/ሽ ታውቃለህ/ሽ?',
+    warn:'Criminal history must be disclosed. Depending on the offence, your consultant may need to apply for Criminal Rehabilitation. This does not automatically disqualify you.' },
+  { id:'q_removal',
+    en:'Have you ever been removed, deported, or excluded from Canada or any other country?',
+    ti:'ካብ ካናዳ ወይ ካብ ካልእ ሃገር ተባሪርካ/ኪ ዶ ትፈልጥ?',
+    ar:'هل سبق أن تم ترحيلك أو إبعادك من كندا أو أي دولة أخرى؟',
+    am:'ከካናዳ ወይም ከሌላ ሃገር ተባሮ/ርና ታውቃለህ/ሽ?',
+    warn:'Previous removal or deportation must be disclosed. A Return Authorization or ARC may be required before you can re-enter Canada.' },
+  { id:'q_refused',
+    en:'Have you ever been refused a visa or permit to enter Canada?',
+    ti:'ናይ ካናዳ ቪዛ ወይ ፍቓድ ምእታው ተኣቢዩካ/ኪ ዶ?',
+    ar:'هل سبق رفض طلب تأشيرتك أو تصريح دخولك إلى كندا؟',
+    am:'ወደ ካናዳ ለመግባት ቪዛ ወይም ፈቃድ ተቀስቶብህ/ሽ ታውቃለህ/ሽ?',
+    warn:'Prior refusals must be addressed in your application. Your consultant will review the refusal reasons and how to overcome them.' },
+  { id:'q_military',
+    en:'Have you served in the military, police, or intelligence services in any country?',
+    ti:'ኣብ ዝኾነ ሃገር ኣብ ሰራዊት፣ ፖሊስ ወይ ስለያ ኣገልጊልካ/ኪ ዶ?',
+    ar:'هل خدمت في الجيش أو الشرطة أو الاستخبارات في أي دولة؟',
+    am:'በማንኛውም ሃገር በጦር ሃይል፣ ፖሊስ ወይም የስለላ አገልግሎት አገልግለህ/ሽ ታውቃለህ/ሽ?',
+    warn:'Military or intelligence service must be disclosed. Your consultant will assess whether this affects inadmissibility under IRPA s.35.' },
+  { id:'q_health',
+    en:'Do you have any serious medical conditions or communicable diseases?',
+    ti:'ዝኾነ ከቢድ ሕማም ወይ ተላባዒ ሕማም ኣለካ/ኪ ዶ?',
+    ar:'هل تعاني من أي حالة طبية خطيرة أو أمراض معدية؟',
+    am:'ከባድ የጤና ችግር ወይም ተላላፊ በሽታ አለህ/ሽ?',
+    warn:'Medical conditions are assessed by IRCC-designated physicians. Your consultant will guide you through the medical exam process.' },
+  { id:'q_fraud',
+    en:'Has a representative ever filed an application on your behalf without your knowledge or consent?',
+    ti:'ዝኾነ ወኪል ብዘይ ፍቓድካ/ኺ ናብ ካናዳ ዝቐረበ ሕቶ ኣቕሪቡ ዶ?',
+    ar:'هل قدّم ممثل طلبًا نيابةً عنك دون علمك أو موافقتك؟',
+    am:'ማንኛውም ወኪል ሳታውቅ/ቂ ወይም ሳትፈቅድ/ዪ በስምህ/ሽ ማመልከቻ አቅርቦ ታውቃለህ/ሽ?',
+    warn:'Unauthorized applications filed on your behalf can cause serious complications. Your consultant will help document and address this history.' }
+];
 
-  function renderBgQuestions() {
-    const lang = document.getElementById('bgLang')?.value || 'en';
-    const isRTL = lang === 'ar';
-    const container = document.getElementById('bgQuestions');
-    container.innerHTML = BG_QUESTIONS.map((q,i) => {
-      const qText = q[lang] || q.en;
-      const yesLbl = YES_LABELS[lang] || 'Yes';
-      const noLbl  = NO_LABELS[lang]  || 'No';
-      const curAns = answers[q.id];
-      return `
-      <div class="bg-question" id="bgq_${q.id}" ${isRTL ? 'dir="rtl"' : ''}>
-        <div class="bg-q-text">${i+1}. ${qText}</div>
-        ${lang !== 'en' ? `<div class="bg-q-ti" style="font-size:11px;color:var(--gray-400)">${q.en}</div>` : ''}
-        <div class="bg-q-opts">
-          <label class="bg-opt ${curAns==='yes'?'selected-yes':''}" id="opt_yes_${q.id}" onclick="setBgAnswer('${q.id}','yes')">
-            <input type="radio" name="${q.id}" value="yes" ${curAns==='yes'?'checked':''}> ${yesLbl}
-          </label>
-          <label class="bg-opt ${curAns==='no'?'selected-no':''}" id="opt_no_${q.id}" onclick="setBgAnswer('${q.id}','no')">
-            <input type="radio" name="${q.id}" value="no" ${curAns==='no'?'checked':''}> ${noLbl}
-          </label>
-        </div>
-        ${q.warn ? `<div class="bg-warn" id="warn_${q.id}" style="display:${curAns==='yes'?'block':'none'}">${q.warn}</div>` : ''}
-      </div>`;
+const YES_LABELS = { en:'Yes', ti:'እወ', ar:'نعم', am:'አዎ' };
+const NO_LABELS  = { en:'No',  ti:'ኣይፋልን', ar:'لا', am:'አይደለም' };
+
+// ── STATE ────────────────────────────────────────────────────────
+let applicantType = null; // 'individual' | 'family'
+let familyMembers = [];
+const bgAnswers = {};
+let currentStep = 1;
+let addrTimeout = null;
+let addrResults = [];
+
+// ── STEP NAVIGATION ──────────────────────────────────────────────
+function goStep(n) {
+  ['step1','step2','step3','step4','stepSuccess'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = 'none';
+  });
+  const target = n === 'success' ? 'stepSuccess' : 'step'+n;
+  const el = document.getElementById(target);
+  if (el) el.style.display = 'block';
+  currentStep = n;
+  [1,2,3,4].forEach(i => {
+    const ps = document.getElementById('ps'+i);
+    if (!ps) return;
+    ps.className = 'prog-step' + (i < n ? ' done' : i == n ? ' active' : '');
+  });
+  window.scrollTo(0,0);
+}
+
+function goStep2() {
+  if (!applicantType) {
+    document.getElementById('typeError').style.display = 'block';
+    return;
+  }
+  const appType = document.getElementById('s1_appType').value;
+  if (!appType) { alert('Please select an application type.'); return; }
+  document.getElementById('typeError').style.display = 'none';
+  goStep(2);
+}
+
+function goStep3() {
+  const first  = document.getElementById('s2_first').value.trim();
+  const last   = document.getElementById('s2_last').value.trim();
+  const dob    = document.getElementById('s2_dob').value;
+  const email  = document.getElementById('s2_email').value.trim();
+  const phone  = document.getElementById('s2_phone').value.trim();
+  const street = document.getElementById('s2_street').value.trim();
+  const city   = document.getElementById('s2_city').value.trim();
+  const postal = document.getElementById('s2_postal').value.trim();
+  const prov   = document.getElementById('s2_province').value;
+  const country = document.getElementById('s2_country').value.trim();
+
+  if (!first || !last || !dob || !email || !phone || !street || !city || !postal || !prov || !country) {
+    alert('Please fill in all required fields (*) before continuing.');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  renderBgQuestions();
+  goStep(3);
+}
+
+function goStep4() {
+  // Check all BG questions answered
+  const unanswered = BG_QUESTIONS.filter(q => !bgAnswers[q.id]);
+  if (unanswered.length) {
+    alert('Please answer all ' + BG_QUESTIONS.length + ' background questions before continuing.');
+    return;
+  }
+  const first = document.getElementById('s2_first').value.trim();
+  const last  = document.getElementById('s2_last').value.trim();
+  const fileId = generateFileId(first, last);
+  document.getElementById('generatedFileId').textContent = fileId;
+  document.getElementById('s4_email').value = document.getElementById('s2_email').value;
+  buildSummary(fileId);
+  goStep(4);
+}
+
+// ── APPLICANT TYPE ───────────────────────────────────────────────
+function selectApplicantType(type) {
+  applicantType = type;
+  document.getElementById('typeIndividual').classList.toggle('selected', type === 'individual');
+  document.getElementById('typeFamily').classList.toggle('selected', type === 'family');
+  document.getElementById('typeError').style.display = 'none';
+  autoSave();
+}
+
+// ── APP TYPE HINT ─────────────────────────────────────────────────
+document.getElementById('s1_appType').addEventListener('change', function() {
+  const hint = APP_TYPE_HINTS[this.value] || '';
+  document.getElementById('appTypeHint').textContent = hint;
+  autoSave();
+});
+
+// Pre-fill from URL param
+const params = new URLSearchParams(location.search);
+if (params.get('type')) {
+  const sel = document.getElementById('s1_appType');
+  sel.value = params.get('type');
+  const hint = APP_TYPE_HINTS[sel.value] || '';
+  document.getElementById('appTypeHint').textContent = hint;
+}
+
+// ── ADDRESS AUTOCOMPLETE ─────────────────────────────────────────
+function onStreetInput() {
+  clearTimeout(addrTimeout);
+  autoSave();
+  const street = document.getElementById('s2_street').value.trim();
+  const city   = document.getElementById('s2_city').value.trim();
+  if (street.length < 5) { document.getElementById('addrSuggest').style.display = 'none'; return; }
+  addrTimeout = setTimeout(() => fetchAddressSuggestions(street, city), 900);
+}
+
+async function fetchAddressSuggestions(street, city) {
+  const q = encodeURIComponent([street, city, 'Canada'].filter(Boolean).join(', '));
+  try {
+    const resp = await fetch(
+      `https://nominatim.openstreetmap.org/search?format=json&countrycodes=ca&limit=5&addressdetails=1&q=${q}`,
+      { headers: { 'Accept-Language': 'en' } }
+    );
+    if (!resp.ok) return;
+    const data = await resp.json();
+    showAddressSuggestions(data);
+  } catch(e) { /* silently fail */ }
+}
+
+function showAddressSuggestions(results) {
+  const el = document.getElementById('addrSuggest');
+  if (!results || !results.length) { el.style.display = 'none'; return; }
+  addrResults = results;
+  el.innerHTML = '<div class="addr-suggest-header">Suggested addresses (click to fill)</div>' +
+    results.slice(0,5).map((r, i) => {
+      const a = r.address || {};
+      const short = [
+        a.house_number ? a.house_number + ' ' + (a.road||'') : (a.road||''),
+        a.city || a.town || a.village || a.municipality || '',
+        a.state || ''
+      ].filter(Boolean).join(', ');
+      return `<div class="addr-suggest-item" onclick="selectAddress(${i})">${short || r.display_name}</div>`;
     }).join('');
-  }
+  el.style.display = 'block';
+}
 
-  function setBgAnswer(id, val) {
-    answers[id] = val;
-    const q = BG_QUESTIONS.find(q => q.id === id);
-    document.getElementById('opt_yes_'+id).className = 'bg-opt' + (val==='yes' ? ' selected-yes' : '');
-    document.getElementById('opt_no_'+id).className  = 'bg-opt' + (val==='no'  ? ' selected-no'  : '');
-    if (q && q.warn) {
-      const warn = document.getElementById('warn_'+id);
-      if (warn) warn.style.display = (val === 'yes') ? 'block' : 'none';
+function selectAddress(i) {
+  const r = addrResults[i];
+  if (!r) return;
+  const a = r.address || {};
+  const streetNum  = a.house_number || '';
+  const streetName = a.road || '';
+  if (streetNum || streetName) {
+    document.getElementById('s2_street').value = (streetNum + ' ' + streetName).trim();
+  }
+  const city = a.city || a.town || a.village || a.municipality || a.suburb || '';
+  if (city) document.getElementById('s2_city').value = city;
+  if (a.postcode) {
+    document.getElementById('s2_postal').value = a.postcode;
+    onPostalInput(a.postcode);
+  }
+  document.getElementById('addrSuggest').style.display = 'none';
+  autoSave();
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', e => {
+  if (!e.target.closest('.addr-wrap')) {
+    document.getElementById('addrSuggest').style.display = 'none';
+  }
+});
+
+// ── POSTAL CODE VALIDATION ────────────────────────────────────────
+function onPostalInput(raw) {
+  const clean = raw.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  let fmt = clean.length > 3 ? clean.slice(0,3) + ' ' + clean.slice(3,6) : clean;
+  const inp = document.getElementById('s2_postal');
+  inp.value = fmt;
+  const fb = document.getElementById('postalFeedback');
+  if (clean.length === 0) { fb.textContent = ''; fb.className = 'field-hint'; inp.classList.remove('valid','invalid'); return; }
+  const prov = POSTAL_PROVINCE[clean[0]];
+  if (prov) {
+    document.getElementById('s2_province').value = prov.code;
+    const isValid = /^[A-Z]\d[A-Z]\s?\d[A-Z]\d$/.test(fmt);
+    if (isValid) {
+      fb.textContent = '✓ Valid — ' + prov.name;
+      fb.className = 'field-ok';
+      inp.classList.add('valid'); inp.classList.remove('invalid');
+    } else {
+      fb.textContent = 'Province detected: ' + prov.name + ' — format should be A1A 1A1';
+      fb.className = 'field-error';
+      inp.classList.remove('valid'); if (clean.length >= 3) inp.classList.add('invalid');
     }
+  } else if (clean.length >= 1) {
+    fb.textContent = '⚠ Unrecognized postal code prefix — verify manually';
+    fb.className = 'field-error';
+    inp.classList.remove('valid'); inp.classList.add('invalid');
   }
+  autoSave();
+}
 
-  function generateFileId(first, last) {
-    const year = new Date().getFullYear();
-    const initials = ((first||'X')[0] + (last||'X')[0]).toUpperCase();
-    const seq = String(Math.floor(Math.random()*900)+100);
-    return `VIS-${year}-AB-${initials}-${seq}`;
+// ── FAMILY MEMBERS ────────────────────────────────────────────────
+function selectApplicantTypeAndShowFamily(type) {
+  selectApplicantType(type);
+  const sec = document.getElementById('familySection');
+  if (sec) sec.style.display = type === 'family' ? 'block' : 'none';
+  if (type === 'family' && familyMembers.length === 0) addFamilyMember();
+}
+
+// Intercept the original selectApplicantType
+const _origSelectType = window.selectApplicantType;
+window.selectApplicantType = function(type) {
+  applicantType = type;
+  document.getElementById('typeIndividual').classList.toggle('selected', type === 'individual');
+  document.getElementById('typeFamily').classList.toggle('selected', type === 'family');
+  document.getElementById('typeError').style.display = 'none';
+  autoSave();
+};
+
+// Override goStep2 to show family section
+const _origGoStep2 = window.goStep2;
+window.goStep2 = function() {
+  if (!applicantType) { document.getElementById('typeError').style.display = 'block'; return; }
+  const appType = document.getElementById('s1_appType').value;
+  if (!appType) { alert('Please select an application type.'); return; }
+  document.getElementById('typeError').style.display = 'none';
+  const sec = document.getElementById('familySection');
+  if (sec) sec.style.display = applicantType === 'family' ? 'block' : 'none';
+  if (applicantType === 'family' && familyMembers.length === 0) addFamilyMember();
+  goStep(2);
+};
+
+function addFamilyMember() {
+  familyMembers.push({ first:'', last:'', dob:'', relationship:'', passport:'', country:'', status:'' });
+  renderFamilyMembers();
+  autoSave();
+}
+
+function removeFamilyMember(i) {
+  familyMembers.splice(i, 1);
+  renderFamilyMembers();
+  autoSave();
+}
+
+function updateMember(i, key, val) {
+  if (familyMembers[i]) familyMembers[i][key] = val;
+  autoSave();
+}
+
+function renderFamilyMembers() {
+  const wrap = document.getElementById('familyMembersWrap');
+  if (!wrap) return;
+  if (!familyMembers.length) { wrap.innerHTML = ''; return; }
+  wrap.innerHTML = familyMembers.map((m, i) => `
+    <div class="member-card">
+      <div class="member-card-head">
+        <div class="member-card-title">Family Member ${i+1}</div>
+        <button class="member-remove" onclick="removeFamilyMember(${i})" title="Remove">×</button>
+      </div>
+      <div class="row-3">
+        <div class="form-group">
+          <label>First Name *</label>
+          <input value="${esc(m.first)}" oninput="updateMember(${i},'first',this.value)" placeholder="Given name">
+        </div>
+        <div class="form-group">
+          <label>Last Name *</label>
+          <input value="${esc(m.last)}" oninput="updateMember(${i},'last',this.value)" placeholder="Family name">
+        </div>
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" value="${esc(m.dob)}" onchange="updateMember(${i},'dob',this.value)">
+        </div>
+      </div>
+      <div class="row-3">
+        <div class="form-group">
+          <label>Relationship to You *</label>
+          <select onchange="updateMember(${i},'relationship',this.value)">
+            <option value="">— Select —</option>
+            <option value="spouse" ${m.relationship==='spouse'?'selected':''}>Spouse / Partner</option>
+            <option value="child" ${m.relationship==='child'?'selected':''}>Child / Dependent</option>
+            <option value="parent" ${m.relationship==='parent'?'selected':''}>Parent</option>
+            <option value="sibling" ${m.relationship==='sibling'?'selected':''}>Sibling</option>
+            <option value="other" ${m.relationship==='other'?'selected':''}>Other Dependent</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Country of Citizenship</label>
+          <input value="${esc(m.country)}" oninput="updateMember(${i},'country',this.value)" placeholder="e.g. Eritrea">
+        </div>
+        <div class="form-group">
+          <label>Passport Number</label>
+          <input value="${esc(m.passport)}" oninput="updateMember(${i},'passport',this.value)" placeholder="Optional">
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function esc(v) { return String(v||'').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+// ── BACKGROUND QUESTIONS ─────────────────────────────────────────
+function renderBgQuestions() {
+  const lang = document.getElementById('bgLang')?.value || 'en';
+  const isRTL = lang === 'ar';
+  const container = document.getElementById('bgQuestions');
+  container.innerHTML = BG_QUESTIONS.map((q, i) => {
+    const qText = q[lang] || q.en;
+    const yesLbl = YES_LABELS[lang];
+    const noLbl  = NO_LABELS[lang];
+    const cur = bgAnswers[q.id];
+    return `
+    <div class="bg-question" id="bgq_${q.id}" ${isRTL?'dir="rtl"':''}>
+      <div class="bg-q-text">${i+1}. ${qText}</div>
+      ${lang!=='en' ? `<div class="bg-q-en">${q.en}</div>` : ''}
+      <div class="bg-q-opts">
+        <label class="bg-opt ${cur==='yes'?'selected-yes':''}" onclick="setBgAnswer('${q.id}','yes')">
+          <input type="radio" name="${q.id}" value="yes" ${cur==='yes'?'checked':''}> ${yesLbl}
+        </label>
+        <label class="bg-opt ${cur==='no'?'selected-no':''}" onclick="setBgAnswer('${q.id}','no')">
+          <input type="radio" name="${q.id}" value="no" ${cur==='no'?'checked':''}> ${noLbl}
+        </label>
+      </div>
+      ${q.warn ? `<div class="bg-warn" id="warn_${q.id}" style="display:${cur==='yes'?'block':'none'}">${q.warn}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function setBgAnswer(id, val) {
+  bgAnswers[id] = val;
+  const q = BG_QUESTIONS.find(q => q.id === id);
+  const yEl = document.getElementById('bgq_'+id)?.querySelector(`[onclick="setBgAnswer('${id}','yes')"]`);
+  const nEl = document.getElementById('bgq_'+id)?.querySelector(`[onclick="setBgAnswer('${id}','no')"]`);
+  if (yEl) yEl.className = 'bg-opt' + (val==='yes' ? ' selected-yes' : '');
+  if (nEl) nEl.className = 'bg-opt' + (val==='no'  ? ' selected-no'  : '');
+  if (q?.warn) {
+    const w = document.getElementById('warn_'+id);
+    if (w) w.style.display = val==='yes' ? 'block' : 'none';
   }
+  autoSave();
+}
 
-  // ── NAV BETWEEN STEPS ────────────────────────────────────────────
-  function setStep(n) {
-    ['step1','step2','step3','stepSuccess'].forEach(id => document.getElementById(id).style.display='none');
-    const target = n === 'success' ? 'stepSuccess' : 'step'+n;
-    document.getElementById(target).style.display = 'block';
-    [1,2,3].forEach(i => {
-      const el = document.getElementById('ps'+i);
-      if (!el) return;
-      el.className = 'prog-step' + (i < n ? ' done' : i == n ? ' active' : '');
-    });
-    window.scrollTo(0,0);
+// ── LEAD SCORE ────────────────────────────────────────────────────
+function calcLeadScore() {
+  let score = 70;
+  const flags = [];
+  if (bgAnswers.q_criminal === 'yes') { score -= 25; flags.push('Criminal history'); }
+  if (bgAnswers.q_removal  === 'yes') { score -= 20; flags.push('Prior removal/deportation'); }
+  if (bgAnswers.q_refused  === 'yes') { score -= 10; flags.push('Prior refusal'); }
+  if (bgAnswers.q_health   === 'yes') { score -= 10; flags.push('Medical condition'); }
+  if (bgAnswers.q_fraud    === 'yes') { score -= 15; flags.push('Unauthorized application'); }
+  const appType = document.getElementById('s1_appType')?.value || '';
+  if (appType === 'express_entry')       score += 15;
+  else if (appType.startsWith('spousal')) score += 10;
+  else if (appType === 'pr_card_renewal') score += 18;
+  else if (appType === 'work_permit_extension' || appType === 'study_permit_extension') score += 8;
+  else score += 5;
+  if (applicantType === 'family') score += 5;
+  return { score: Math.max(10, Math.min(100, score)), flags };
+}
+
+// ── SUMMARY (Step 4) ─────────────────────────────────────────────
+function buildSummary(fileId) {
+  const APP_LABELS = {
+    spousal_spouses:'Spousal Sponsorship — Spouses', spousal_commonlaw:'Spousal Sponsorship — Common-Law',
+    express_entry:'Express Entry PR', work_permit_overseas:'Work Permit — Overseas',
+    work_permit_extension:'Work Permit Extension', study_permit_overseas:'Study Permit — Overseas',
+    study_permit_extension:'Study Permit Extension', trv_supervisa:'TRV / Super Visa',
+    visitor_extension:'Visitor Record Extension', pr_card_renewal:'PR Card Renewal',
+    refugee:'Refugee Protection', other:'Other / To be determined'
+  };
+  const first  = document.getElementById('s2_first').value.trim();
+  const last   = document.getElementById('s2_last').value.trim();
+  const email  = document.getElementById('s2_email').value.trim();
+  const appType = document.getElementById('s1_appType').value;
+  const city   = document.getElementById('s2_city').value.trim();
+  const prov   = document.getElementById('s2_province').value;
+  const rows = [
+    { key:'Name', val: first + ' ' + last },
+    { key:'Email', val: email },
+    { key:'Application', val: APP_LABELS[appType] || appType },
+    { key:'Application type', val: applicantType === 'family' ? `Family (${1 + familyMembers.length} applicant${familyMembers.length?'s':''})` : 'Individual' },
+    { key:'Location', val: city + (prov ? ', ' + prov : '') },
+  ];
+  if (familyMembers.length) {
+    rows.push({ key:'Family members', val: familyMembers.map(m => (m.first||'?') + ' ' + (m.last||'') + ' (' + (m.relationship||'?') + ')').join('; ') });
   }
+  const yesFlags = BG_QUESTIONS.filter(q => bgAnswers[q.id]==='yes').map(q => q.en.split('?')[0].replace('Have you ever','').trim());
+  if (yesFlags.length) rows.push({ key:'⚠ Disclosed', val: yesFlags.join('; ') });
+  document.getElementById('summaryBlock').innerHTML = rows.map(r => `
+    <div class="summary-row">
+      <span class="summary-key">${r.key}</span>
+      <span style="font-size:13px;font-weight:500;text-align:right;max-width:60%">${r.val}</span>
+    </div>`).join('');
+}
 
-  function goStep2() {
-    const first = document.getElementById('s1_first').value.trim();
-    const last  = document.getElementById('s1_last').value.trim();
-    const dob   = document.getElementById('s1_dob').value;
-    const email = document.getElementById('s1_email').value.trim();
-    const phone = document.getElementById('s1_phone').value.trim();
-    const app   = document.getElementById('s1_appType').value;
-    if (!first || !last || !dob || !email || !phone || !app) {
-      alert('Please fill in all required fields (*) before continuing.');
-      return;
+// ── PASSWORD STRENGTH ─────────────────────────────────────────────
+function checkPassStrength() {
+  const p = document.getElementById('s4_pass').value;
+  const el = document.getElementById('passStrength');
+  if (!p) { el.textContent=''; return; }
+  if (p.length < 6) { el.textContent='Too short'; el.className='field-error'; return; }
+  if (p.length < 8) { el.textContent='Weak — add more characters'; el.className='field-error'; return; }
+  if (/[A-Z]/.test(p) && /\d/.test(p)) { el.textContent='✓ Strong password'; el.className='field-ok'; }
+  else { el.textContent='Fair — add numbers or uppercase for stronger security'; el.className='field-hint'; }
+}
+
+function checkPassMatch() {
+  const p1 = document.getElementById('s4_pass').value;
+  const p2 = document.getElementById('s4_pass2').value;
+  const el = document.getElementById('passMatch');
+  if (!p2) { el.textContent=''; return; }
+  if (p1 === p2) { el.textContent='✓ Passwords match'; el.className='field-ok'; }
+  else { el.textContent='✗ Passwords do not match'; el.className='field-error'; }
+}
+
+// ── FILE ID ───────────────────────────────────────────────────────
+function generateFileId(first, last) {
+  const year = new Date().getFullYear();
+  const initials = ((first||'X')[0] + (last||'X')[0]).toUpperCase();
+  const seq = String(Math.floor(Math.random()*900)+100);
+  return `VIS-${year}-AB-${initials}-${seq}`;
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────
+function submitIntake() {
+  const pass  = document.getElementById('s4_pass').value;
+  const pass2 = document.getElementById('s4_pass2').value;
+  if (!pass || pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
+  if (pass !== pass2) { alert('Passwords do not match.'); return; }
+  if (!document.getElementById('s4_consent').checked)  { alert('Please check the consent box to continue.'); return; }
+  if (!document.getElementById('s4_accurate').checked) { alert('Please confirm the accuracy of your information.'); return; }
+
+  const fileId = document.getElementById('generatedFileId').textContent;
+  const first  = document.getElementById('s2_first').value.trim();
+  const last   = document.getElementById('s2_last').value.trim();
+  const email  = document.getElementById('s2_email').value.trim();
+  const appType = document.getElementById('s1_appType').value;
+  const { score, flags } = calcLeadScore();
+
+  // Build address string
+  const street = document.getElementById('s2_street').value.trim();
+  const city   = document.getElementById('s2_city').value.trim();
+  const postal = document.getElementById('s2_postal').value.trim();
+  const prov   = document.getElementById('s2_province').value;
+  const country2 = document.getElementById('s2_country2').value.trim();
+  const fullAddress = [street, city, prov, postal, country2].filter(Boolean).join(', ');
+
+  // Store session
+  sessionStorage.setItem('vantage_loggedIn', '1');
+  sessionStorage.setItem('vantage_fileId', fileId);
+  sessionStorage.setItem('vantage_name', first + ' ' + last);
+  sessionStorage.setItem('vantage_email', email);
+  sessionStorage.setItem('vantage_appType', appType);
+
+  // Save to staff-client bridge (localStorage)
+  const APP_LABELS2 = {
+    spousal_spouses:'Spousal Sponsorship — Spouses', spousal_commonlaw:'Spousal Sponsorship — Common-Law',
+    express_entry:'Express Entry PR', work_permit_overseas:'Work Permit — Overseas',
+    work_permit_extension:'Work Permit Extension', study_permit_overseas:'Study Permit — Overseas',
+    study_permit_extension:'Study Permit Extension', trv_supervisa:'TRV / Super Visa',
+    visitor_extension:'Visitor Record Extension', pr_card_renewal:'PR Card Renewal',
+    refugee:'Refugee Protection', other:'Other'
+  };
+  const clientData = {
+    fileId, fullName: first+' '+last,
+    first, last,
+    email,
+    phone:    document.getElementById('s2_phone').value.trim(),
+    dob:      document.getElementById('s2_dob').value,
+    country:  document.getElementById('s2_country').value.trim(),
+    passport: document.getElementById('s2_passport').value.trim(),
+    street, city, postalCode: postal,
+    province: prov, country2,
+    address: fullAddress,
+    status:   document.getElementById('s2_status').value,
+    appType, appTypeLabel: APP_LABELS2[appType] || appType,
+    applicantType,
+    familyMembers,
+    notes:    document.getElementById('s2_notes').value.trim(),
+    bgAnswers: { ...bgAnswers },
+    leadScore: score,
+    leadFlags: flags,
+    caseStatus: 'New',
+    consultReady: false, serviceReady: false,
+    consultSigned: false, serviceSigned: false,
+    date: new Date().toLocaleDateString('en-CA'),
+    staffNotes: '', staffMessages: [],
+    activityLog: [
+      { action: 'Intake submitted via online form', by: first+' '+last, at: new Date().toISOString() }
+    ]
+  };
+  try { localStorage.setItem('vantage_client_' + fileId, JSON.stringify(clientData)); } catch(e) {}
+
+  // Clear draft
+  try { localStorage.removeItem(DRAFT_KEY); } catch(e) {}
+
+  document.getElementById('successFileId').textContent = fileId;
+  goStep('success');
+}
+
+// ── AUTO-SAVE ─────────────────────────────────────────────────────
+let _saveTimer = null;
+function autoSave() {
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(_doSave, 600);
+}
+
+function _doSave() {
+  try {
+    const draft = {
+      applicantType,
+      familyMembers,
+      bgAnswers: { ...bgAnswers },
+      step: currentStep,
+      savedAt: new Date().toISOString(),
+      fields: {
+        s1_appType:   document.getElementById('s1_appType')?.value,
+        s2_first:     document.getElementById('s2_first')?.value,
+        s2_last:      document.getElementById('s2_last')?.value,
+        s2_dob:       document.getElementById('s2_dob')?.value,
+        s2_country:   document.getElementById('s2_country')?.value,
+        s2_passport:  document.getElementById('s2_passport')?.value,
+        s2_phone:     document.getElementById('s2_phone')?.value,
+        s2_email:     document.getElementById('s2_email')?.value,
+        s2_street:    document.getElementById('s2_street')?.value,
+        s2_city:      document.getElementById('s2_city')?.value,
+        s2_postal:    document.getElementById('s2_postal')?.value,
+        s2_province:  document.getElementById('s2_province')?.value,
+        s2_country2:  document.getElementById('s2_country2')?.value,
+        s2_status:    document.getElementById('s2_status')?.value,
+        s2_notes:     document.getElementById('s2_notes')?.value,
+        bgLang:       document.getElementById('bgLang')?.value
+      }
+    };
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+    const bar = document.getElementById('autosaveBar');
+    bar.classList.add('show');
+    clearTimeout(window._asBarTimer);
+    window._asBarTimer = setTimeout(() => bar.classList.remove('show'), 2200);
+  } catch(e) {}
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    const d = JSON.parse(raw);
+    // Restore type cards
+    if (d.applicantType) {
+      applicantType = d.applicantType;
+      document.getElementById('typeIndividual').classList.toggle('selected', d.applicantType==='individual');
+      document.getElementById('typeFamily').classList.toggle('selected', d.applicantType==='family');
     }
-    renderBgQuestions();
-    setStep(2);
-  }
+    // Restore family
+    if (d.familyMembers) { familyMembers = d.familyMembers; renderFamilyMembers(); }
+    if (d.applicantType === 'family') {
+      const sec = document.getElementById('familySection');
+      if (sec) sec.style.display = 'block';
+    }
+    // Restore BG answers
+    if (d.bgAnswers) Object.assign(bgAnswers, d.bgAnswers);
+    // Restore fields
+    if (d.fields) {
+      Object.entries(d.fields).forEach(([id, val]) => {
+        const el = document.getElementById(id);
+        if (el && val !== undefined && val !== null) el.value = val;
+      });
+    }
+    // Re-run postal detection
+    const postal = document.getElementById('s2_postal')?.value;
+    if (postal) onPostalInput(postal);
+    document.getElementById('draftNotice').style.display = 'none';
+    // Go to saved step
+    goStep(d.step > 1 ? d.step : 2);
+  } catch(e) { console.error('Draft restore failed', e); }
+}
 
-  function backStep1() { setStep(1); }
+function clearDraft() {
+  try { localStorage.removeItem(DRAFT_KEY); } catch(e) {}
+  document.getElementById('draftNotice').style.display = 'none';
+}
 
-  function goStep3() {
-    // Generate file ID from name
-    const first = document.getElementById('s1_first').value.trim();
-    const last  = document.getElementById('s1_last').value.trim();
-    const fileId = generateFileId(first, last);
-    document.getElementById('generatedFileId').textContent = fileId;
-    document.getElementById('s3_email').value = document.getElementById('s1_email').value;
-    setStep(3);
-  }
+// Check for draft on load
+window.addEventListener('load', () => {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    const { savedAt } = JSON.parse(raw);
+    const age = Date.now() - new Date(savedAt).getTime();
+    if (age < 7 * 24 * 60 * 60 * 1000) { // within 7 days
+      document.getElementById('draftNotice').style.display = 'flex';
+    } else {
+      localStorage.removeItem(DRAFT_KEY);
+    }
+  } catch(e) {}
+});
 
-  function backStep2() { setStep(2); }
-
-  function submitIntake() {
-    const pass  = document.getElementById('s3_pass').value;
-    const pass2 = document.getElementById('s3_pass2').value;
-    if (!pass || pass.length < 8) { alert('Password must be at least 8 characters.'); return; }
-    if (pass !== pass2)           { alert('Passwords do not match.'); return; }
-    if (!document.getElementById('s3_consent').checked)  { alert('Please consent to data collection to continue.'); return; }
-    if (!document.getElementById('s3_accurate').checked) { alert('Please confirm the accuracy of your information.'); return; }
-    const fileId = document.getElementById('generatedFileId').textContent;
-    document.getElementById('successFileId').textContent = fileId;
-    // Store basic session data so portal can pick it up
-    sessionStorage.setItem('vantage_fileId', fileId);
-    sessionStorage.setItem('vantage_name', document.getElementById('s1_first').value + ' ' + document.getElementById('s1_last').value);
-    sessionStorage.setItem('vantage_email', document.getElementById('s1_email').value);
-    sessionStorage.setItem('vantage_appType', document.getElementById('s1_appType').value);
-    setStep('success');
-  }
-
-  // Init
-  setStep(1);
+// ── INIT ─────────────────────────────────────────────────────────
+goStep(1);
 </script>
 </body>
 </html>

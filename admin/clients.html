@@ -60,6 +60,34 @@
     .send-banner-text p{font-size:12px;color:rgba(255,255,255,.75);margin-top:3px}
 
     .new-client-form{padding:20px}
+
+    /* Case status */
+    .status-pill{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700}
+    .status-new{background:#e3f2fd;color:#1565c0}
+    .status-waiting{background:var(--orange-bg);color:var(--orange)}
+    .status-inprogress{background:var(--navy-l);color:var(--navy)}
+    .status-submitted{background:#e8f5e9;color:var(--green)}
+    .status-approved{background:var(--green-bg);color:var(--green)}
+    .status-closed{background:var(--gray-100);color:var(--gray-600)}
+    .status-inactive{background:var(--red-bg);color:var(--red)}
+
+    /* Lead score */
+    .score-badge{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;font-size:12px;font-weight:800;color:#fff;flex-shrink:0}
+    .score-high{background:var(--green)}
+    .score-med{background:var(--orange)}
+    .score-low{background:var(--red)}
+
+    /* Activity log */
+    .activity-row{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+    .activity-row:last-child{border-bottom:none}
+    .activity-icon{width:28px;height:28px;border-radius:50%;background:var(--navy-l);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px}
+    .activity-text{font-size:13px;color:var(--gray-800);flex:1}
+    .activity-meta{font-size:10px;color:var(--gray-400);margin-top:2px}
+
+    /* Override buttons */
+    .override-btn{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);padding:4px 10px;border-radius:var(--radius);font-size:11px;cursor:pointer;font-weight:600}
+    .override-btn:hover{background:rgba(255,255,255,.25)}
+
     @media(max-width:900px){.cm-grid{grid-template-columns:1fr}.agr-editor-grid{grid-template-columns:1fr}}
   </style>
 </head>
@@ -192,14 +220,28 @@ function renderClientList() {
   el.innerHTML = clients.map(c => {
     const cSigned = c.consultSigned ? '✓' : (c.consultReady ? '⏳' : '—');
     const sSigned = c.serviceSigned ? '✓' : (c.serviceReady ? '⏳' : '—');
+    const score = c.leadScore || 0;
+    const scoreCls = score >= 70 ? 'score-high' : score >= 45 ? 'score-med' : 'score-low';
+    const statusCss = {
+      'New':'status-new','Waiting for Client':'status-waiting','In Progress':'status-inprogress',
+      'Submitted':'status-submitted','Approved':'status-approved','Closed':'status-closed','Inactive':'status-inactive'
+    }[c.caseStatus||'New'] || 'status-new';
     return `<div class="client-list-item ${selectedFileId===c.fileId?'active':''}" onclick="selectClient('${c.fileId}')">
-      <div class="cli-name">${c.fullName || c.fileId}
-        <span class="cli-status">
-          <span class="badge ${c.consultSigned?'badge-green':c.consultReady?'badge-blue':'badge-gray'}" style="font-size:9px">C:${cSigned}</span>
-          <span class="badge ${c.serviceSigned?'badge-green':c.serviceReady?'badge-blue':'badge-gray'}" style="font-size:9px;margin-left:2px">S:${sSigned}</span>
-        </span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="score-badge ${scoreCls}" title="Lead score: ${score}">${score}</div>
+        <div style="flex:1;min-width:0">
+          <div class="cli-name" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+            ${c.fullName || c.fileId}
+            <span class="status-pill ${statusCss}">${c.caseStatus||'New'}</span>
+          </div>
+          <div class="cli-meta">${c.fileId} · ${c.appTypeLabel||c.appType||'—'}</div>
+          <div style="margin-top:3px">
+            <span class="badge ${c.consultSigned?'badge-green':c.consultReady?'badge-blue':'badge-gray'}" style="font-size:9px">Consult:${cSigned}</span>
+            <span class="badge ${c.serviceSigned?'badge-green':c.serviceReady?'badge-blue':'badge-gray'}" style="font-size:9px;margin-left:2px">Service:${sSigned}</span>
+            ${c.docsSubmitted ? '<span class="badge badge-blue" style="font-size:9px;margin-left:2px">Docs ✓</span>' : ''}
+          </div>
+        </div>
       </div>
-      <div class="cli-meta">${c.fileId} · ${c.appTypeLabel||c.appType||'—'}</div>
     </div>`;
   }).join('');
 }
@@ -220,9 +262,18 @@ function renderDetailPanel(data) {
         <div style="font-size:16px;font-weight:700;color:#fff">${data.fullName || data.fileId}</div>
         <div style="font-size:11px;color:rgba(255,255,255,.6)">${data.fileId} · ${data.appTypeLabel||''}</div>
       </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-sm" style="background:rgba(255,255,255,.15);color:#fff;border-color:rgba(255,255,255,.3)" onclick="pushToPortal()">📤 Push to Portal</button>
-        <button class="btn btn-sm" style="background:var(--gold);color:#fff;border-color:var(--gold)" onclick="saveAndRefresh()">💾 Save</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <select id="sf_caseStatus" onchange="saveCaseStatus()" style="background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.25);padding:4px 8px;border-radius:var(--radius);font-size:11px;font-weight:600;cursor:pointer">
+          <option value="New" ${data.caseStatus==='New'||!data.caseStatus?'selected':''} style="color:var(--gray-800)">New</option>
+          <option value="Waiting for Client" ${data.caseStatus==='Waiting for Client'?'selected':''} style="color:var(--gray-800)">Waiting for Client</option>
+          <option value="In Progress" ${data.caseStatus==='In Progress'?'selected':''} style="color:var(--gray-800)">In Progress</option>
+          <option value="Submitted" ${data.caseStatus==='Submitted'?'selected':''} style="color:var(--gray-800)">Submitted to IRCC</option>
+          <option value="Approved" ${data.caseStatus==='Approved'?'selected':''} style="color:var(--gray-800)">Approved</option>
+          <option value="Closed" ${data.caseStatus==='Closed'?'selected':''} style="color:var(--gray-800)">Closed</option>
+          <option value="Inactive" ${data.caseStatus==='Inactive'?'selected':''} style="color:var(--gray-800)">Inactive / On Hold</option>
+        </select>
+        <button class="override-btn" onclick="pushToPortal()">📤 Push to Portal</button>
+        <button class="override-btn" onclick="saveAndRefresh()">💾 Save</button>
       </div>
     </div>
 
@@ -247,18 +298,31 @@ function renderDetailPanel(data) {
     </div>
 
     <!-- TABS -->
-    <div class="detail-tabs">
-      <div class="dtab active" id="dtab-consult" onclick="switchTab('consult')">📋 Consultation Agreement</div>
+    <div class="detail-tabs" style="flex-wrap:wrap">
+      <div class="dtab active" id="dtab-consult" onclick="switchTab('consult')">📋 Consult Agreement</div>
       <div class="dtab" id="dtab-service" onclick="switchTab('service')">✍ Service Agreement</div>
       <div class="dtab" id="dtab-docs" onclick="switchTab('docs')">📁 Documents</div>
-      <div class="dtab" id="dtab-notes" onclick="switchTab('notes')">📝 Staff Notes</div>
+      <div class="dtab" id="dtab-notes" onclick="switchTab('notes')">📝 Notes</div>
+      <div class="dtab" id="dtab-activity" onclick="switchTab('activity')">🕐 Activity Log</div>
     </div>
 
     <!-- TAB: CONSULTATION AGREEMENT -->
     <div class="dtab-content active" id="dtab-content-consult">
-      <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap">
+      <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;align-items:center">
         <span class="badge ${data.consultSigned?'badge-green':'badge-orange'}">${data.consultSigned?'✓ Signed by client':'Awaiting client signature'}</span>
         ${data.consultReady?'<span class="badge badge-blue">Sent to client</span>':''}
+        ${data.leadScore ? `<span style="margin-left:auto;font-size:11px;color:var(--gray-600)">Lead score: <strong style="color:${data.leadScore>=70?'var(--green)':data.leadScore>=45?'var(--orange)':'var(--red)'}">${data.leadScore}/100</strong>${data.leadFlags?.length?' · Flags: '+data.leadFlags.join(', '):''}</span>` : ''}
+      </div>
+      ${data.familyMembers?.length ? `<div style="background:var(--navy-l);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px;font-size:12px;color:var(--navy)"><strong>Family application</strong> — ${data.familyMembers.length} additional member(s): ${data.familyMembers.map(m=>`${m.first||'?'} ${m.last||''} (${m.relationship||'dependent'})`).join(', ')}</div>` : ''}
+      <!-- Admin overrides -->
+      <div style="background:var(--red-bg);border:1px solid #f5c6cb;border-radius:var(--radius);padding:10px 14px;margin-bottom:14px;font-size:12px">
+        <strong style="color:var(--red)">Admin Overrides</strong> — use only if client signed outside the portal or to correct status manually.
+        <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+          <button class="btn btn-sm" style="background:var(--green);color:#fff;border-color:var(--green)" onclick="adminOverride('consultSigned', true)">✓ Mark Consult Signed</button>
+          <button class="btn btn-sm" style="background:var(--gray-600);color:#fff;border-color:var(--gray-600)" onclick="adminOverride('consultSigned', false)">✗ Reset Consult Status</button>
+          <button class="btn btn-sm" style="background:var(--green);color:#fff;border-color:var(--green)" onclick="adminOverride('serviceSigned', true)">✓ Mark Service Signed</button>
+          <button class="btn btn-sm" style="background:var(--gray-600);color:#fff;border-color:var(--gray-600)" onclick="adminOverride('serviceSigned', false)">✗ Reset Service Status</button>
+        </div>
       </div>
       <div class="agr-editor-grid">
         <div>
@@ -308,15 +372,28 @@ function renderDetailPanel(data) {
     <div class="dtab-content" id="dtab-content-notes">
       <div class="agr-field">
         <label>Internal Staff Notes (not visible to client)</label>
-        <textarea id="sf_staffNotes" style="min-height:200px">${data.staffNotes||''}</textarea>
+        <textarea id="sf_staffNotes" style="min-height:180px">${data.staffNotes||''}</textarea>
+      </div>
+      <div class="agr-field">
+        <label>Assigned To (staff member responsible)</label>
+        <input id="sf_assignedTo" value="${data.assignedTo||''}" placeholder="e.g. Amanuel — Lead Consultant">
       </div>
       <div class="agr-field">
         <label>Message to Client (will appear in their Messages tab)</label>
-        <textarea id="sf_clientMsg" placeholder="Type a message to send to the client..." style="min-height:100px"></textarea>
+        <textarea id="sf_clientMsg" placeholder="Type a message to send to the client..." style="min-height:80px"></textarea>
       </div>
       <div class="btn-group">
         <button class="btn btn-primary" onclick="saveAndPushMessage()">Save Notes &amp; Send Message to Client</button>
       </div>
+    </div>
+
+    <!-- TAB: ACTIVITY LOG -->
+    <div class="dtab-content" id="dtab-content-activity">
+      <div style="font-size:12px;color:var(--gray-600);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+        <span>Non-editable history. New entries append automatically.</span>
+        <button class="btn btn-sm" onclick="addManualActivity()">+ Log Manual Entry</button>
+      </div>
+      <div id="activityLogList">${buildActivityLog(data)}</div>
     </div>`;
 }
 
@@ -373,14 +450,16 @@ function buildDocReview(data) {
     sec.items.forEach((item,i) => {
       const key = sec.name+'_'+i;
       const status = docs[key] || 'pending';
-      html += `<div class="doc-review-row">
-        <div class="doc-review-name">${item.en} ${item.required?'<span style="color:var(--red);font-size:10px">*</span>':''}</div>
+      const comment = (docs[key+'_comment']||'');
+      html += `<div class="doc-review-row" style="flex-wrap:wrap;gap:6px">
+        <div class="doc-review-name" style="flex:1;min-width:160px">${item.en} ${item.required?'<span style="color:var(--red);font-size:10px">*</span>':''}</div>
         <select style="width:130px;font-size:11px;padding:3px 6px" onchange="updateDocStatus('${key}',this.value)">
           <option value="pending" ${status==='pending'?'selected':''}>⏳ Pending</option>
           <option value="received" ${status==='received'?'selected':''}>📥 Received</option>
           <option value="accepted" ${status==='accepted'?'selected':''}>✅ Accepted</option>
           <option value="reupload" ${status==='reupload'?'selected':''}>🔄 Re-upload</option>
         </select>
+        ${status==='reupload' ? `<input style="font-size:11px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;flex:1;min-width:120px" placeholder="Reason for re-upload..." value="${comment.replace(/"/g,'&quot;')}" onchange="updateDocComment('${key}',this.value)">` : ''}
       </div>`;
     });
   });
@@ -437,6 +516,7 @@ function saveAndRefresh() {
 function pushToPortal() {
   if (!selectedFileId) return;
   const data = collectFormData();
+  addActivityEntry(data, 'Staff pushed agreement data to client portal', 'Staff');
   saveClientData(selectedFileId, data);
   renderClientList();
   showToast('✓ Pushed to client portal — client will see updates on next login');
@@ -461,7 +541,77 @@ function updateDocStatus(key, val) {
   const data = loadClientData(selectedFileId);
   if (!data.uploadedDocs) data.uploadedDocs = {};
   data.uploadedDocs[key] = val;
+  addActivityEntry(data, `Document status updated: ${key} → ${val}`, 'Staff');
   saveClientData(selectedFileId, data);
+  // Re-render docs to show/hide comment field
+  const el = document.getElementById('docReviewList');
+  if (el) el.innerHTML = buildDocReview(data);
+}
+
+function updateDocComment(key, val) {
+  if (!selectedFileId) return;
+  const data = loadClientData(selectedFileId);
+  if (!data.uploadedDocs) data.uploadedDocs = {};
+  data.uploadedDocs[key + '_comment'] = val;
+  saveClientData(selectedFileId, data);
+}
+
+function saveCaseStatus() {
+  if (!selectedFileId) return;
+  const newStatus = document.getElementById('sf_caseStatus')?.value;
+  if (!newStatus) return;
+  const data = loadClientData(selectedFileId);
+  addActivityEntry(data, `Case status changed to: ${newStatus}`, 'Staff');
+  data.caseStatus = newStatus;
+  saveClientData(selectedFileId, data);
+  renderClientList();
+  showToast('✓ Status updated: ' + newStatus);
+}
+
+function adminOverride(field, value) {
+  if (!selectedFileId) return;
+  const data = loadClientData(selectedFileId);
+  data[field] = value;
+  const label = field === 'consultSigned' ? 'Consultation Agreement' : 'Service Agreement';
+  addActivityEntry(data, `Admin override: ${label} marked as ${value ? 'Signed' : 'Unsigned'}`, 'Staff (Admin Override)');
+  saveClientData(selectedFileId, data);
+  renderClientList();
+  showToast(`✓ Override applied: ${label} = ${value ? 'Signed' : 'Unsigned'}`);
+  // Refresh detail panel
+  renderDetailPanel(data);
+}
+
+function addActivityEntry(data, action, by) {
+  if (!data.activityLog) data.activityLog = [];
+  data.activityLog.push({ action, by: by || 'Staff', at: new Date().toISOString() });
+}
+
+function buildActivityLog(data) {
+  const log = data.activityLog || [];
+  if (!log.length) return '<div style="font-size:13px;color:var(--gray-400);padding:16px 0;text-align:center">No activity recorded yet.</div>';
+  return log.slice().reverse().map(e => {
+    const d = new Date(e.at);
+    const timeStr = d.toLocaleString('en-CA', { dateStyle:'medium', timeStyle:'short' });
+    return `<div class="activity-row">
+      <div class="activity-icon">🕐</div>
+      <div>
+        <div class="activity-text">${e.action}</div>
+        <div class="activity-meta">${e.by} · ${timeStr}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addManualActivity() {
+  if (!selectedFileId) return;
+  const action = prompt('Describe the activity to log (e.g. "Called client to remind about agreements"):');
+  if (!action || !action.trim()) return;
+  const data = loadClientData(selectedFileId);
+  addActivityEntry(data, action.trim(), 'Staff (Manual)');
+  saveClientData(selectedFileId, data);
+  const el = document.getElementById('activityLogList');
+  if (el) el.innerHTML = buildActivityLog(data);
+  showToast('✓ Activity logged');
 }
 
 // ── CREATE CLIENT ─────────────────────────────────────────────────
