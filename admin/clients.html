@@ -67,9 +67,12 @@
 
 <div class="topbar-simple">
   <div class="topbar-title">👥 Client Manager — Staff Portal</div>
-  <div style="display:flex;gap:16px">
+  <div style="display:flex;gap:16px;align-items:center">
+    <a href="../public/index.html" target="_blank" style="color:var(--gold);font-weight:600">🌐 Public Site</a>
     <a href="index.html">← Admin Panel</a>
     <a href="audit.html">🔍 Audit</a>
+    <button onclick="exportCSV()" style="background:var(--green);color:#fff;border:none;padding:6px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;cursor:pointer">📥 Export CSV</button>
+    <button onclick="exportPrintReport()" style="background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:6px 14px;border-radius:var(--radius);font-size:12px;font-weight:600;cursor:pointer">🖨 PDF Report</button>
   </div>
 </div>
 
@@ -522,6 +525,94 @@ function showToast(msg) {
   t.textContent = msg;
   t.style.opacity = '1';
   setTimeout(() => { t.style.opacity = '0'; }, 2500);
+}
+
+// ── EXPORT CSV ────────────────────────────────────────────────────
+function exportCSV() {
+  const clients = getAllClients();
+  if (!clients.length) { alert('No clients to export.'); return; }
+  const headers = [
+    'File ID','First Name','Last Name','Email','Phone','Date of Birth',
+    'Nationality','Application Type','Consult Agreement Signed',
+    'Service Agreement Signed','Docs Submitted','Date Created','Staff Notes'
+  ];
+  const rows = clients.map(c => [
+    c.fileId || '',
+    c.first  || (c.fullName||'').split(' ')[0] || '',
+    c.last   || (c.fullName||'').split(' ').slice(1).join(' ') || '',
+    c.email  || '',
+    c.phone  || '',
+    c.dob    || '',
+    c.country || '',
+    c.appTypeLabel || c.appType || '',
+    c.consultSigned ? 'Yes' : 'No',
+    c.serviceSigned ? 'Yes' : 'No',
+    c.docsSubmitted ? 'Yes' : 'No',
+    c.date   || '',
+    (c.staffNotes || '').replace(/\n/g,' ')
+  ]);
+  const csv = [headers, ...rows]
+    .map(r => r.map(v => `"${String(v).replace(/"/g,'""')}"`).join(','))
+    .join('\n');
+  const blob = new Blob(['\uFEFF' + csv, { type: 'text/csv;charset=utf-8;' }]);
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'vantage-clients-' + new Date().toISOString().slice(0,10) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('✓ CSV downloaded');
+}
+
+// ── EXPORT PDF REPORT ─────────────────────────────────────────────
+function exportPrintReport() {
+  const clients = getAllClients();
+  if (!clients.length) { alert('No clients to report.'); return; }
+  const now = new Date().toLocaleDateString('en-CA', { year:'numeric', month:'long', day:'numeric' });
+  let rows = clients.map(c => `
+    <tr>
+      <td>${c.fileId||''}</td>
+      <td>${c.fullName||''}</td>
+      <td>${c.email||''}</td>
+      <td>${c.appTypeLabel||c.appType||''}</td>
+      <td style="text-align:center;color:${c.consultSigned?'#1a7a4a':'#c0392b'}">${c.consultSigned?'✓ Yes':'✗ No'}</td>
+      <td style="text-align:center;color:${c.serviceSigned?'#1a7a4a':'#c0392b'}">${c.serviceSigned?'✓ Yes':'✗ No'}</td>
+      <td style="text-align:center;color:${c.docsSubmitted?'#1a7a4a':'#999'}">${c.docsSubmitted?'✓ Yes':'—'}</td>
+      <td>${c.date||''}</td>
+    </tr>`).join('');
+
+  const html = `<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Vantage Immigration — Client Report</title>
+<style>
+  body{font-family:Arial,sans-serif;margin:30px;color:#1B3A5C}
+  h1{font-size:20px;margin-bottom:2px}
+  .sub{font-size:12px;color:#888;margin-bottom:18px}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th{background:#1B3A5C;color:#fff;padding:8px 10px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
+  td{padding:7px 10px;border-bottom:1px solid #e0e0e0}
+  tr:nth-child(even) td{background:#f8f9fb}
+  .footer{margin-top:18px;font-size:10px;color:#aaa;border-top:1px solid #eee;padding-top:8px}
+  @media print{button{display:none}}
+</style></head><body>
+<h1>Vantage Immigration Services — Client Report</h1>
+<div class="sub">Generated: ${now} &nbsp;|&nbsp; Total clients: ${clients.length}</div>
+<table>
+  <thead><tr>
+    <th>File ID</th><th>Name</th><th>Email</th><th>Application</th>
+    <th>Consult Signed</th><th>Service Signed</th><th>Docs Submitted</th><th>Date</th>
+  </tr></thead>
+  <tbody>${rows}</tbody>
+</table>
+<div class="footer">Confidential — Vantage Immigration Services · RCIC Practice · Fort McMurray, Alberta · PIPEDA / PIPA compliant</div>
+<br><button onclick="window.print()" style="padding:8px 20px;background:#1B3A5C;color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:13px">🖨 Print / Save as PDF</button>
+</body></html>`;
+
+  const win = window.open('', '_blank');
+  win.document.write(html);
+  win.document.close();
 }
 </script>
 </body>
